@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,15 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('restaurant.home');
-});
+Route::get('/',[Homecontroller::class,'index']);  
 
 Route::get('/signup', function () {
 
     return view('restaurant.signup');
 
 })->name('signup');
+
+
+Route::get('/signin', function () {
+
+    return view('restaurant.signin');
+
+})->name('signin');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -8,6 +8,10 @@
     @include('restaurant.includes.TopBar')
 @endsection
 
+@section('navbar')
+    @include('restaurant.includes.Navbar')
+@endsection
+
 
 @section('body')
     <!-- ======= Hero Section ======= -->

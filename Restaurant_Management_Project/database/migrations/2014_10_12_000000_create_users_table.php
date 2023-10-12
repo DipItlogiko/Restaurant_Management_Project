@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('user_type')->default(0);/////// if users table user_type column value is 0 it's means that user is user but when it will be 1 that's means the user is Admin
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
