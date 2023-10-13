@@ -39,15 +39,7 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+       
     </form>
 </x-guest-layout> --}}
 
@@ -57,7 +49,7 @@
 @section('body')
 
  
-    <section class="vh-100 " style="background-image: url(assets/img/signUp.png)">
+    <section class="vh-90 " style="background-image: url(assets/img/background.png)">
         <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
@@ -68,12 +60,18 @@
     
                      <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2">Sign<span style="color: #ffb03b">Up</span></h2> 
     
-                    <form class="mx-1 mx-md-4">
+                     <form  method="POST" action="{{ route('register') }}" class=" mx-md-4">
+                        @csrf
     
                         <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="form3Example1c" class="form-control text-warning" />
+                            <span class="text-danger">
+                                @error('name')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            <input type="text" id="form3Example1c" name="name" value="{{ old('name') }}" class="form-control text-warning" required/>
                             <label class="form-label" for="form3Example1c">Your Name</label>
                         </div>
                         </div>
@@ -81,7 +79,12 @@
                         <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                            <input type="email" id="form3Example3c" class="form-control text-warning" />
+                            <span class="text-danger">
+                                @error('email')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            <input type="email" id="form3Example3c" name="email" value="{{ old('email') }}" class="form-control text-warning" required />
                             <label class="form-label" for="form3Example3c">Your Email</label>
                         </div>
                         </div>
@@ -89,7 +92,13 @@
                         <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="form3Example4c" class="form-control text-warning" />
+                            <span class="text-danger">
+                                @error('password')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            <input type="password" id="form3Example4c"  
+                            name="password" class="form-control text-warning" required/>
                             <label class="form-label" for="form3Example4c">Password</label>
                         </div>
                         </div>
@@ -97,8 +106,13 @@
                         <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="form3Example4cd" class="form-control text-warning" />
-                            <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                            <span class="text-danger">
+                                @error('password_confirmation')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            <input type="password" name="password_confirmation" required autocomplete="new-password" id="form3Example4cd" class="form-control text-warning" />
+                            <label class="form-label" for="form3Example4cd">Confirm password</label>
                         </div>
                         </div>
     
@@ -108,9 +122,14 @@
                             I agree all statements in <a href="#!">Terms of service</a>
                         </label>
                         </div>
+
+                       
+                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                            <a  href="{{ route('login') }}" class="text-mute">Already registered?</a>
+                        </div>
     
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                            <a href="#book-a-table" class="book-a-table-btn scrollto">Register</a>
+                            <button  type="submit" class="book-a-table-btn scrollto border-0">Register</button>
                         </div>
     
                     </form>
