@@ -79,6 +79,8 @@
   <script src="assets/js/main.js"></script>
 
   <!--Additional JS File(amader create kora js file gulo aikhane ashbe)-->
+  
+
   @yield('custom_js')  
 
 </body>

@@ -1,3 +1,7 @@
+@section('title')
+McDonald's-VerifyEmail
+@endsection
+
 @extends('restaurant.layouts.master')
 
 @section('body')
@@ -28,7 +32,7 @@
                             <div class="auto-close alert alert-warning d-flex align-items-center" role="alert">
                                 <svg class="bi flex-shrink-0 me-2 text-success" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                                 <div>
-                                  An example success alert with an icon
+                                    A new verification link has been sent successfully to the email.
                                 </div>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                               </div>

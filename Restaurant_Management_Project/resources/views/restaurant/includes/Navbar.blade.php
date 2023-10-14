@@ -16,25 +16,33 @@
         <li><a class="nav-link scrollto" href="#events">Events</a></li>
         <li><a class="nav-link scrollto" href="#chefs">Chefs</a></li>
         <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
-        <li class="dropdown"><a href="#"><span>SignUp/SignIn</span> <i class="bi bi-chevron-down"></i></a>
-          <ul>
+       
            <!--- <li><a href="{{-- route('signup')}}">SignUp</a></li>             
             <li><a href="{{ route('signin') --}}">SignIn</a></li>---->
             
             @if (Route::has('login'))
-            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+             
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">SignIn</a>
+                  <li class="dropdown"><a href="#"><span>{{ Auth::user()->name }}</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                      <a href="{{ route('dashboard') }}">Dashboard</a>      
+                     
+                    </ul>
+                 @else
+
+                <li class="dropdown"><a href="#"><span>SignUp/SignIn</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    <a href="{{ route('login') }}" >SignIn</a>
 
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">SignUp</a>
+                        <a href="{{ route('register') }}">SignUp</a>
                     @endif
+                  </ul>    
+                </li>  
                 @endauth
-            </div>
+ 
         @endif
-          </ul>
+          
         </li>
         <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
       </ul>
@@ -45,3 +53,5 @@
 
   </div>
 </header><!-- End Header -->
+
+

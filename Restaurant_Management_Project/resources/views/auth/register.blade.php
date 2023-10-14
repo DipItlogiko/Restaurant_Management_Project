@@ -1,48 +1,6 @@
-{{-- <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-       
-    </form>
-</x-guest-layout> --}}
-
+@section('title')
+McDonald's-Register
+@endsection
 
 @extends('restaurant.layouts.master')
 
@@ -60,7 +18,7 @@
     
                      <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2">Sign<span style="color: #ffb03b">Up</span></h2> 
     
-                     <form  method="POST" action="{{ route('register') }}" class=" mx-md-4">
+                     <form  method="POST" action="{{ route('register') }}" class=" mx-md-4" enctype="multipart/form-data">
                         @csrf
     
                         <div class="d-flex flex-row align-items-center mb-4">
@@ -87,6 +45,20 @@
                             <input type="email" id="form3Example3c" name="email" value="{{ old('email') }}" class="form-control text-warning" required />
                             <label class="form-label" for="form3Example3c">Your Email</label>
                         </div>
+                        </div>
+
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <span class="text-danger">
+                                    @error('image')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="file" id="form3Example3c" name="image"  class="form-control text-warning"/>
+                                <label for="image" class="form-label" for="form3Example3c">Image</label>
+                            </div>
                         </div>
     
                         <div class="d-flex flex-row align-items-center mb-4">

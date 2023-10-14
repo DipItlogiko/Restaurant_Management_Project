@@ -830,3 +830,13 @@
   </main><!-- End #main -->
   
 @endsection
+
+
+@section('custom_js')
+<script>
+  // JavaScript to handle the form submission when the link is clicked(i have use this script for my Navbar.blade.php)
+  document.getElementById("submitLink").addEventListener("click", function() {
+      document.getElementById("myForm").submit();
+  });
+</script>
+@endsection

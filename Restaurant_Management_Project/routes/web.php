@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RedirectUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,24 +18,16 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/',[Homecontroller::class,'index']);  
 
-Route::get('/signup', function () {
 
-    return view('restaurant.signup');
+Route::get('/redirectUsers',[RedirectUsersController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-})->name('signup');
-
-
-Route::get('/signin', function () {
-
-    return view('restaurant.signin');
-
-})->name('signin');
+ 
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

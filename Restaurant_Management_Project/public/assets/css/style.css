@@ -3187,3 +3187,7 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+
+.custom-design{
+  border: 5px #dd1b1b;
+}
