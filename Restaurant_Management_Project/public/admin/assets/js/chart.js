@@ -5,9 +5,9 @@ $(function() {
    */
   'use strict';
   var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+    labels: ["2018", "2019", "2020", "2021", "2022", "2023"],
     datasets: [{
-      label: '# of Votes',
+      label: '# of Sales',
       data: [10, 19, 3, 5, 2, 3],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',

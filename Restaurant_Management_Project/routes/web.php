@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RedirectUsersController;
+ 
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,10 @@ use App\Http\Controllers\RedirectUsersController;
 
 Route::get('/',[Homecontroller::class,'index']);  
 
-
-Route::get('/redirectUsers',[RedirectUsersController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+////======= Authentication ar pore amader oi authenticated user ta ai route aa aashe hit korbe karon amara amader app/providers/RouteServiceProvider ar moddhe ai route take define kore diyechi==========////
+Route::get('/redirectUsers',[RedirectUsersController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');  ///// verified hoccche amader akta middleware ai middleware ar kaj hocche amader user ar email ta varify ki na ta check kore jodi user ar email varify thake tahole oi user ai route aa dhukte parbe jodi user ar email varify na thake tahole take aage email varify korte hobe tar pore she ai route aa dhukte parbe
 
  
-
 
 
 // Route::get('/dashboard', function () {
@@ -30,9 +30,16 @@ Route::get('/redirectUsers',[RedirectUsersController::class,'index'])->middlewar
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); 
+    Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
+    Route::get('/adminPassword', [ProfileController::class, 'adminPasswordEdit'])->name('password.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');   
+
+    
 });
+
+
+ 
 
 require __DIR__.'/auth.php';

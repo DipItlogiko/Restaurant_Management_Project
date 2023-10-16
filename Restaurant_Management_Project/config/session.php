@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 120),
+    'lifetime' => env('SESSION_LIFETIME', 120), ///// akhane 120 mane 120 minutes amader session ar lifetime hocche 120 minutes mane 2 hours 2 hour pore amader session ar sob data remove hoye jabe.....
 
     'expire_on_close' => false,
 

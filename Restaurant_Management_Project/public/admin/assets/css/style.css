@@ -20843,3 +20843,27 @@ button[type="submit"] {
   color: #000; /* Change to your desired text color */
   /* Add any other styles you want for your button */
 }
+
+.brand-customize{
+  font-family: "Satisfy", sans-serif;
+  text-decoration: none;
+}
+
+.brand-customize:hover{  
+  
+  color: #ffc56e;
+    
+}
+
+.text-customize{
+  font-family: "Satisfy", sans-serif;
+  font-size: 1.5em;
+}
+
+.profile-edit{
+  font-family: "Satisfy", sans-serif;
+  font-size: 2em;
+}
+ 
+
+ 
