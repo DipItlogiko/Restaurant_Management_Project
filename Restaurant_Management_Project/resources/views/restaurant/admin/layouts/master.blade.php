@@ -300,7 +300,7 @@
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">Advanced settings</p>
+                  <p class="p-3 mb-0 text-center"><a href="{{ route('admin.advance.settings') }}" class="text-light" style="text-decoration: none;"> Advanced settings </a></p>
                 </div>
               </li>
             </ul>

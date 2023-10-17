@@ -15,7 +15,8 @@ class PasswordController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $validated = $request->validateWithBag('updatePassword', [
+        $validated = $request->validateWithBag('updatePassword', [ /////// akhane amra form ar input field gulo validate korar jonno validation bag use korechi jar nam diyechi updatePassword ai updatePassword ar moddhe amader validation error gulo store hobe...amra chaile simple vabeoooo amader validation ta korte partam jemon  $validated = $request->validate(['current_password' => ['required', 'current_password'],'password' => ['required', Password::defaults(), 'confirmed'],])
+            
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);

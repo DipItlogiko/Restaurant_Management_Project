@@ -3,10 +3,6 @@
 
 
 @section('body')
-  
-
-    
-
 
 
 <section style="background-color: #191c24">
@@ -43,7 +39,7 @@
                         @endif
                    <!--======= END FLASH MESSAGE =========-->
 
-                 <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2 profile-edit" style="color: #ffb03b" >Update Password</h2> 
+                 <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2 profile-edit" style="color: #ffb03b" >Change Password</h2> 
                  <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
@@ -67,18 +63,14 @@
                         <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                            <span class="text-danger">
-                                @if ($errors->updatePassword->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->updatePassword->all() as $error)
-                                                 <li>{{ $error }}</li>
-                                            @endforeach
-                                       </ul>
-                                 </div>
-                              @endif
+                            <span class="text-danger">                    
+                                        
+                                @foreach ($errors->updatePassword->get('current_password') as $error) {{--amra ai validation error take ai vabe show koriyechi karon amra amader ai form ar input field ar value gulo validate korechi app/Http/Controllers/Auth/passwordController.php ar moddhe oi khane amara validation korar jonno akta bag use korechi jar nam ami oikhane diyechi updatePassword ai vag ar moddhe amader sob  validation error gulo ache and ai bag theke ami amader ai current_password field ar validation error take show koriyechi---}}
+                                       {{ $error }}
+                                @endforeach                       
+                               
                             </span>
-                            <input type="password" id="current_password" name="current_password" class="form-control text-warning" autocomplete="current-password" />
+                            <input type="password" id="current_password" name="current_password" class="form-control text-warning" autocomplete="current-password"  required/>
                             <label class="form-label" for="current_password">Current Password</label>
                             
                         </div>
@@ -88,11 +80,11 @@
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                             <span class="text-danger">
-                                @error('password')
-                                    {{ $message }}
-                                @enderror
+                                @foreach ($errors->updatePassword->get('password') as $error) 
+                                       {{ $error }}
+                                @endforeach
                             </span>
-                            <input type="password" name="password" id="form3Example4c" class="form-control text-warning" autocomplete="new-password"/>
+                            <input type="password" name="password" id="form3Example4c" class="form-control text-warning" autocomplete="new-password" required/>
                             <label class="form-label" for="form3Example4c">New Password</label>
                         </div>
                         </div>
@@ -103,7 +95,7 @@
                             <div class="form-outline flex-fill mb-0">
                                 <span class="text-danger">
                                     @error('password_confirmation')
-                                        {{ $message }}
+                                      {{ $message }}
                                     @enderror
                                 </span>
                                 <input type="password" name="password_confirmation" id="form3Example4c" class="form-control text-warning" autocomplete="new-password"/>

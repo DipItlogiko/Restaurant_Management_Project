@@ -76,6 +76,13 @@ class ProfileController extends Controller
         return view('restaurant.admin.profile.update-password',['authUser' => $authUser]);
     }
 
+
+    public function adminAdvanceSettings()
+    {
+        $authUser = Auth::user();
+        return view('restaurant.admin.profile.advance-setting',['authUser' => $authUser]);
+    }
+
     /**
      * Delete the user's account.
      */
