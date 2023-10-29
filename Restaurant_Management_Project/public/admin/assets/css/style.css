@@ -20860,10 +20860,33 @@ button[type="submit"] {
   font-size: 1.5em;
 }
 
+.font{
+  font-family: "Satisfy", sans-serif;
+}
+
 .profile-edit{
   font-family: "Satisfy", sans-serif;
   font-size: 2em;
 }
- 
+
+
+
+.custom-button {
+  background: #ffb03b;
+  color: #fff;
+  border-radius: 50px;
+  margin: 0 0 0 20px;
+  padding: 10px 25px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.custom-button:hover {
+  background: #ffa012;
+  color: #fff;
+} 
 
  

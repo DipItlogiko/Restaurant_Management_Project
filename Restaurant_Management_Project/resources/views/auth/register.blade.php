@@ -1,8 +1,8 @@
+@extends('restaurant.layouts.master')
+
 @section('title')
 McDonald's-Register
 @endsection
-
-@extends('restaurant.layouts.master')
 
 @section('body')
 

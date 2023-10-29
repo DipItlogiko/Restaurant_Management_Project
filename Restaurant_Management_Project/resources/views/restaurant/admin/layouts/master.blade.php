@@ -134,11 +134,11 @@
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
 
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.show.users') }}">
                     <i class=" mdi mdi-account-multiple-outline text-info p-1"></i>
                       Show Users </a></li>
 
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.create.user') }}">
                     <i class=" mdi mdi-account-plus text-success p-1"></i>
                     Create User </a></li>
 

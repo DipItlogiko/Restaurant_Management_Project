@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RedirectUsersController;
+use App\Http\Controllers\AdminUsersController;
  
 
 /*
@@ -38,8 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
     Route::get('/adminPassword', [ProfileController::class, 'adminPasswordEdit'])->name('password.edit');
     Route::get('/adminAdvanceSettings', [ProfileController::class, 'adminAdvanceSettings'])->name('admin.advance.settings');
-     
-   
+    Route::get('/adminShowUsers', [AdminUsersController::class, 'showUsers'])->name('admin.show.users');
+    Route::get('/user{id}', [AdminUsersController::class , 'showUser']); ///// this {id} is comes from resource/views/restaurant/admin/show-users.blade.php
+    Route::get('/adminCreateUser', [AdminUsersController::class, 'createUser'])->name('admin.create.user');    
 
     
 });
