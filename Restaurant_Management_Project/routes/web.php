@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminShowUsers', [AdminUsersController::class, 'showUsers'])->name('admin.show.users');
     Route::get('/user{id}', [AdminUsersController::class , 'showUser']); ///// this {id} is comes from resource/views/restaurant/admin/show-users.blade.php
     Route::get('/adminCreateUser', [AdminUsersController::class, 'createUser'])->name('admin.create.user');    
+    Route::post('/adminStoreUser', [AdminUsersController::class, 'storeUser'])->name('admin.store.user');    
+    Route::get('/adminDeleteUsers', [AdminUsersController::class, 'usersDelete'])->name('admin.delete.user');
+    Route::get('/adminDeleteUser{id}', [AdminUsersController::class, 'Delete']);
 
     
 });

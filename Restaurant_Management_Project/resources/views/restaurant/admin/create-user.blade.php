@@ -4,11 +4,7 @@
     Create User
 @endsection
 
-@section('body')
-    
-   
-     
-        
+@section('body')        
         <section class="vh-99">
             <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -31,12 +27,14 @@
                             </svg>
                                 
                                 <!--(aleart)-->
-                                <div class="auto-close alert alert-warning d-flex align-items-center" role="alert">
+                                <div class="auto-close alert alert-success d-flex align-items-center" role="alert">
                                     <svg class="bi flex-shrink-0 me-2 text-success" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                                     <div>
                                         {{ session('status') }}
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    
+                                    <button type="button" class="btn-close" style="margin-left: auto"  data-bs-dismiss="alert" aria-label="Close"></button>
+                                    
                                 </div>
                             @endif
                           
@@ -44,7 +42,7 @@
         
                          <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2 text-light font">Create<span style="color: #ffb03b">User</span></h2> 
         
-                         <form  method="POST" action="{{ route('register') }}" class=" mx-md-4" enctype="multipart/form-data">
+                         <form  method="POST" action="{{ route('admin.store.user') }}" class=" mx-md-4" enctype="multipart/form-data">
                             @csrf
         
                             <div class="d-flex flex-row align-items-center mb-4">
@@ -171,3 +169,54 @@
      
 
 @endsection
+
+ 
+    
+@section('custom_js')
+
+<script>
+
+    // Get all elements with class "auto-close"
+    const autoCloseElements = document.querySelectorAll(".auto-close");
+
+    // Define a function to handle the fading and sliding animation
+    function fadeAndSlide(element) {
+    const fadeDuration = 500;
+    const slideDuration = 500;
+ 
+    // Step 1: Fade out the element
+    let opacity = 1;
+    const fadeInterval = setInterval(function () {
+        if (opacity > 0) {
+        opacity -= 0.1;
+        element.style.opacity = opacity;
+        } else {
+        clearInterval(fadeInterval);
+     // Step 2: Slide up the element
+     let height = element.offsetHeight;
+     const slideInterval = setInterval(function () {
+         if (height > 0) {
+         height -= 10;
+         element.style.height = height + "px";
+         } else {
+         clearInterval(slideInterval);
+         // Step 3: Remove the element from the DOM
+         element.parentNode.removeChild(element);
+         }
+     }, slideDuration / 10);
+     }
+ }, fadeDuration / 10);
+ }
+
+ // Set a timeout to execute the animation after 5000 milliseconds (5 seconds)
+ setTimeout(function () {
+ autoCloseElements.forEach(function (element) {
+     fadeAndSlide(element);
+ });
+ }, 5000);
+
+</script>
+ 
+@endsection   
+
+ 

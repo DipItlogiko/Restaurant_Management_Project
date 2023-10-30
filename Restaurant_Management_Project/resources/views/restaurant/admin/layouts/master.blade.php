@@ -141,12 +141,9 @@
                 <li class="nav-item"> <a class="nav-link" href="{{ route('admin.create.user') }}">
                     <i class=" mdi mdi-account-plus text-success p-1"></i>
                     Create User </a></li>
+                
 
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html">
-                    <i class=" mdi mdi-account-edit text-warning p-1"></i>
-                     Update User </a></li>
-
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.delete.user') }}">
                     <i class=" mdi mdi-account-off text-danger p-1"></i>
                      Delete User </a></li>
 

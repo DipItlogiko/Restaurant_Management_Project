@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('account_created_by');
+            $table->string('account_creator_role')->default(0);
         });
     }
 

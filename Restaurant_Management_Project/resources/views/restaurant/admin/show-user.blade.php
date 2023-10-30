@@ -21,25 +21,33 @@ show-user
                         </div>
                      </div>
                      @if ($user->user_type == '1')
-                     <p class="text-center mb-2 mx-1 mx-md-4 mt-1 text-muted font" style="font-size: 1.2rem">Admin of McDonald's Restaurant</p>
+                      <p class="text-center mb-2 mx-1 mx-md-4 mt-1 text-muted font" style="font-size: 1.2rem">Admin of McDonald's Restaurant</p>
                      @else
-                     <p class="text-center mb-2 mx-1 mx-md-4 mt-1 text-muted font" style="font-size: 1.2rem">User of McDonald's Restaurant</p>
+                      <p class="text-center mb-2 mx-1 mx-md-4 mt-1 text-muted font" style="font-size: 1.2rem">User of McDonald's Restaurant</p>
                      @endif 
 
                      <h4 class="text-bold text-center pt-2 font">Name : <span class="text-muted font">{{ $user->name }}</span></h4>
 
                      @if ($user->user_type == '1')
-                     <h4 class="text-bold text-center font">UserType : <span class="text-muted">Admin</span></h4>
+                      <h4 class="text-bold text-center font">UserType : <span class="text-muted">Admin</span></h4>
                      @else
-                     <h4 class="text-bold text-center font">UserType : <span class="text-muted">User</span></h4>
+                      <h4 class="text-bold text-center font">UserType : <span class="text-muted">User</span></h4>
                      @endif 
 
                      <h4 class="text-bold text-center font">Email : <span class="text-muted">{{ $user->email }}</span></h4>
+                      
+                     @if ($user->account_creator_role == 1)                       
+                      <h4 class="text-bold text-center font">AccountCreatedBy : <span class="text-muted">{{ $user->account_created_by }}</span></h4>
+                      <h4 class="text-bold text-center font">AccountCreatorRole : <span class="text-muted">Admin</span></h4>
+                     @else
+                     <h4 class="text-bold text-center font">AccountCreatedBy : <span class="text-muted">User</span></h4>
+                     @endif  
+                      
 
                      @if ($user->email_verified_at == '')
-                     <h4 class="text-bold text-center font">EmailVarifiedAt : <span class="text-muted">Not Verified</span></h4>
+                      <h4 class="text-bold text-center font">EmailVarifiedAt : <span class="text-muted">Not Verified</span></h4>
                      @else
-                     <h4 class="text-bold text-center font">EmailVarifiedAt : <span class="text-muted">{{ $user->email_verified_at }}</span></h4>
+                      <h4 class="text-bold text-center font">EmailVarifiedAt : <span class="text-muted">{{ $user->email_verified_at }}</span></h4>
                      @endif 
 
                      <h4 class="text-bold text-center font">CreatedAccountAt : <span class="text-muted">{{ $user->created_at }}</span></h4>
