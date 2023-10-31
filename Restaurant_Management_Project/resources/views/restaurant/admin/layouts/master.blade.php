@@ -99,11 +99,11 @@
           </li>
           
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="{{ route('food.menu') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-food"></i>
               </span>
-              <span class="menu-title">Foods</span>
+              <span class="menu-title">FoodsMenu</span>
             </a>
           </li>
           <li class="nav-item menu-items">
@@ -147,7 +147,7 @@
                     <i class=" mdi mdi-account-off text-danger p-1"></i>
                      Delete User </a></li>
 
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.users.trush') }}">
                     <i class=" mdi mdi-delete text-secondary p-1"></i>
                      Trush </a></li>
               </ul>

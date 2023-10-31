@@ -121,7 +121,7 @@
 
                 <div class="modal-footer">
                     <button id="cancelButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger"> Delete </button>
+                    <button type="submit" class="btn btn-danger bg-danger"> Delete </button>
                 </div>
             </form>
         </div>

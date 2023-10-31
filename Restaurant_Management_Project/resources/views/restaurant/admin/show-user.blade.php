@@ -35,6 +35,9 @@ show-user
                      @endif 
 
                      <h4 class="text-bold text-center font">Email : <span class="text-muted">{{ $user->email }}</span></h4>
+                     <h4 class="text-bold text-center font">Phon No : <span class="text-muted">{{ $user->number }}</span></h4>
+                     <h4 class="text-bold text-center font">Address : <span class="text-muted">{{ $user->address }}</span></h4>
+                     
                       
                      @if ($user->account_creator_role == 1)                       
                       <h4 class="text-bold text-center font">AccountCreatedBy : <span class="text-muted">{{ $user->account_created_by }}</span></h4>

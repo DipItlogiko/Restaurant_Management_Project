@@ -33,7 +33,7 @@ return [
 
     'lifetime' => env('SESSION_LIFETIME', 120), ///// akhane 120 mane 120 minutes amader session ar lifetime hocche 120 minutes mane 2 hours 2 hour pore amader session ar sob data remove hoye jabe.....
 
-    'expire_on_close' => false,
+    'expire_on_close' => false, //// akhane expaire on close mane bojhachhe jokhon amader browser ta close hoye jabe tokhon ee amader session ar data ta remove hoye jabe jodi amra ai khake true kore dei tahole ...jokhon amra kono bank ar website develop korbo tokhon amra ai option ta true kore debo
 
     /*
     |--------------------------------------------------------------------------

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RedirectUsersController;
 use App\Http\Controllers\AdminUsersController;
+use App\Http\Controllers\FoodController;
  
 
 /*
@@ -34,8 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
+    
+    
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
     Route::get('/adminPassword', [ProfileController::class, 'adminPasswordEdit'])->name('password.edit');
     Route::get('/adminAdvanceSettings', [ProfileController::class, 'adminAdvanceSettings'])->name('admin.advance.settings');
@@ -44,7 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminCreateUser', [AdminUsersController::class, 'createUser'])->name('admin.create.user');    
     Route::post('/adminStoreUser', [AdminUsersController::class, 'storeUser'])->name('admin.store.user');    
     Route::get('/adminDeleteUsers', [AdminUsersController::class, 'usersDelete'])->name('admin.delete.user');
-    Route::get('/adminDeleteUser{id}', [AdminUsersController::class, 'Delete']);
+    Route::get('/adminDeleteUser{id}', [AdminUsersController::class, 'delete']); //// this {id} is comes from resource/views/restaurant/admin/users-delete.blade.php
+    Route::get('/adminUsersTrush', [AdminUsersController::class, 'usersTrush'])->name('admin.users.trush');  
+    Route::get('/restoreUser{id}', [AdminUsersController::class, 'usersRestore']); ////// this {id} is comes from resource/views/restaurant/admin/show-users-trush.blade.php
+    Route::get('/permanentDeleteUser{id}', [AdminUsersController::class, 'usersDeletePermanently']); ////// this {id} is comes from resource/views/restaurant/admin/show-users-trush.blade.php
+    Route::get('/foodMenu', [FoodController::class, 'foodMenu'])->name('food.menu');
 
     
 });

@@ -34,7 +34,7 @@ class AdminUsersController extends Controller
         return view('restaurant.admin.create-user' , ['authUser' => $authUser]);
     }
 
-   ///==== Admin Store Users ====////
+   ///==== Admin Store Users / Store Users By Admin  ====////
     public function storeUser(Request $request)
     {
          
@@ -45,6 +45,8 @@ class AdminUsersController extends Controller
             'image' => ['required','image','mimes:jpg,jpeg,png'], ///// maximum image size ta ami akhane difine kore diyechi 1024 mame 1mb amara jani 1mb =1024 kb
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'user_role' => ['required', 'integer'],
+            'address' => ['required', 'string',],
+            'number' => ['required', 'string','min:11'],
                 
         ]);
 
@@ -60,6 +62,8 @@ class AdminUsersController extends Controller
             'image' => $imageName,
             'password' => Hash::make($request->password),
             'user_type' => $request->user_role,
+            'address' => $request->address,
+            'number' => $request->number,
             'account_created_by' => Auth::user()->name,
             'account_creator_role' => Auth::user()->user_type,
             
@@ -84,7 +88,7 @@ class AdminUsersController extends Controller
     }
 
     ///=== After clicking on Delete button  Admin will be able to delete speceific user  ===///
-    public function Delete($id)
+    public function delete($id)
 
     {
         $user = User::find($id); 
@@ -98,6 +102,47 @@ class AdminUsersController extends Controller
             $user->delete();
             return redirect()->route('admin.delete.user')->with('status', 'User deleted successfully!!!');
         }    
+    }
+    
+    ///=== Admin will be able to see all deleted users list with restore and permatently delete button ===///
+    public function usersTrush()
+    {
+        $authUser = Auth::user();
+        $users = User::onlyTrashed()->cursor(); /// amader User Model ta database ar jei table take represent kore jemon akhane amader User Model ta database ar users table take represent korche ..akhane lazy collection ar cursor() method ta use kora koron hocche amader ai users table ar moddhe jodi lakh lakh deleted user ar data thake tahole oi lakh lakh data amader akbare load hobe jar fole amader laravel applicaion ar memory storage space ar limit cross hoye jabe and overfolw hobe jabe jar fole amader laravel application ta crass korbe..amader laravel application ar memory storage space aaa jeno akbare sob data load na hoy tar jonno amra get() ba all() method ar poriborte cursor() method ta use korechi..ai cursor() method ta amader database ar table theke sob deleted datake akbare load korbe na prothome akta datake anbe jeita hobe currnet data and pore jokhon aabar oonno kono datake anbe tokhon oi datata hobe current data and age jeita current data chilo oitake oo release kore debe..lazy collection ar cursor() method ai vabe kaj kore..akhane ami User Model ar sathe onlyTrashed() method take call korechi ai onlyTrashed() method ta amader users table ar moddhe jei user gulo shudhu delete hoyeche oi user der information gulo shudhu anbe...jodi amai onlyTrashed() method ar poriborte withTrashed() method use kortam amader User Model ar sathe tahobe amader users table theke deleted user der data oooo ashto aabar jei user gulo delete hoy ni oi user der data ooo ashto.
+        return view('restaurant.admin.show-users-trush', ['authUser' => $authUser , 'users' => $users]);
+    }
+
+    ///==== Admin will be able to restore soft deleted users ====///
+    public function usersRestore($id)
+    {
+       $user = User::onlyTrashed()->find($id); //// akhane amader User Model theke mane User model ta database ar jei table take represent korche jemon ai khane amader User model ta users table thake represent korche..oi users table ba User Model ar sathe ami onlyTrashed() method ta use korechi tar por amra jei id ta pacchi oi id  take find korechi amader users table theke amader users table ar moddhe deleted user der data theke shudhu amar amader id diye find korbo users table theke tai amra User Model ar sathe onlyTrushed() method ta use korechi.. 
+    
+
+       if ($user->user_type == '1'){
+            $user->restore();
+        return redirect()->back()->with('status' , 'Admin Restore Successfully!!!');
+       
+       }else{
+        $user->restore();
+        return redirect()->back()->with('status' , 'User Restore Successfully!!!');
+       }
+       
+    }
+    
+    ///==== Admin will be able to delete users permanently =====///
+    public function usersDeletePermanently($id)
+    {
+        $user = User::onlyTrashed()->find($id); //// akhane amader User Model theke mane User model ta database ar jei table take represent korche jemon ai khane amader User model ta users table thake represent korche..oi users table ba User Model ar sathe ami onlyTrashed() method ta use korechi tar por amra jei id ta pacchi oi id  take find korechi amader users table theke amader users table ar moddhe deleted user der data theke shudhu amar amader id diye find korbo users table theke tai amra User Model ar sathe onlyTrushed() method ta use korechi.. 
+    
+
+       if ($user->user_type == '1'){
+            $user->forceDelete();
+        return redirect()->back()->with('status' , 'Admin Deleted Successfully!!!');
+       
+       }else{
+        $user->forceDelete();
+        return redirect()->back()->with('status' , 'User Deteled Successfully!!!');
+       }
     }
 }
  

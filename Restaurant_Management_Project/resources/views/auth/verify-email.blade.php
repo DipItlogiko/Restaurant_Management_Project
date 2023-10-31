@@ -1,8 +1,10 @@
+@extends('restaurant.layouts.master')
+
 @section('title')
 McDonald's-VerifyEmail
 @endsection
 
-@extends('restaurant.layouts.master')
+
 
 @section('body')
 

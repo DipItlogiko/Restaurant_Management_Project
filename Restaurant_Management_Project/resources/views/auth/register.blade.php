@@ -60,6 +60,32 @@ McDonald's-Register
                                 <label for="image" class="form-label" for="form3Example3c">Image</label>
                             </div>
                         </div>
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <span class="text-danger">
+                                    @error('address')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="text" id="form3Example3c" name="address" value="{{ old('address') }}" class="form-control text-warning" required/>
+                                <label for="address" class="form-label" for="form3Example3c">Address</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <span class="text-danger">
+                                    @error('number')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="text" id="form3Example3c" name="number" value="{{ old('number') }}"  class="form-control text-warning" required/>
+                                <label for="number" class="form-label" for="form3Example3c">Phon Number</label>
+                            </div>
+                        </div>
     
                         <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
