@@ -1,6 +1,8 @@
 @extends('restaurant.admin.layouts.master')
 
-
+@section('title')
+    change-password
+@endsection
 
 @section('body')
 

@@ -96,16 +96,33 @@
               </span>
               <span class="menu-title">Dashboard</span>
             </a>
-          </li>
-          
+          </li>          
+           
+
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('food.menu') }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#tab-to-open-drop-down" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
-                <i class="mdi mdi-food"></i>
+                <i class="mdi mdi-food text-warning"></i>
               </span>
               <span class="menu-title">FoodsMenu</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="tab-to-open-drop-down">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.create.food') }}">
+                    <i class=" mdi mdi-border-color text-info p-1"></i>
+                     Create Food  </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.show.foods') }}">
+                    <i class=" mdi mdi-food-fork-drink text-success p-1"></i>
+                    Show Foods </a></li>
+                 
+              </ul>
+            </div>
           </li>
+
+
           <li class="nav-item menu-items">
             <a class="nav-link" href="pages/tables/basic-table.html">
               <span class="menu-icon">

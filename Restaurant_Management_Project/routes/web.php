@@ -49,7 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminUsersTrush', [AdminUsersController::class, 'usersTrush'])->name('admin.users.trush');  
     Route::get('/restoreUser{id}', [AdminUsersController::class, 'usersRestore']); ////// this {id} is comes from resource/views/restaurant/admin/show-users-trush.blade.php
     Route::get('/permanentDeleteUser{id}', [AdminUsersController::class, 'usersDeletePermanently']); ////// this {id} is comes from resource/views/restaurant/admin/show-users-trush.blade.php
-    Route::get('/foodMenu', [FoodController::class, 'foodMenu'])->name('food.menu');
+    Route::get('/createFood', [FoodController::class, 'createFood'])->name('admin.create.food');
+    Route::post('/foodStore', [FoodController::class, 'foodStore'])->name('admin.food.store');
+    Route::get('/showFoods', [FoodController::class, 'showFoods'])->name('admin.show.foods');
 
     
 });

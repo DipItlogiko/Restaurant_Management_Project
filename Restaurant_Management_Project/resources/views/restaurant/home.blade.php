@@ -203,7 +203,7 @@
   </section><!-- End Why choose Us Section -->
 
     <!-- ======= Menu Section ======= -->
-     @include('restaurant.includes.FoodManue')
+    @include('restaurant.includes.FoodMenu')
     <!--======== End Menu Section ==== -->
 
    <!-- ======= Specials Section ======= -->
