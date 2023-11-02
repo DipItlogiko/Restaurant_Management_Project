@@ -20,7 +20,7 @@ class RedirectUsersController extends Controller
 
         else
         {
-            return view('dashboard');
+            return view('restaurant.user.dashboard',['authUser'=>$authUser]);
         }
         
     }

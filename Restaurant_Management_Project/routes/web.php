@@ -24,19 +24,14 @@ Route::get('/',[Homecontroller::class,'index']);
 ////======= Authentication ar pore amader oi authenticated user ta ai route aa aashe hit korbe karon amara amader app/providers/RouteServiceProvider ar moddhe ai route take define kore diyechi==========////
 Route::get('/redirectUsers',[RedirectUsersController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');  ///// verified hoccche amader akta middleware ai middleware ar kaj hocche amader user ar email ta varify ki na ta check kore jodi user ar email varify thake tahole oi user ai route aa dhukte parbe jodi user ar email varify na thake tahole take aage email varify korte hobe tar pore she ai route aa dhukte parbe
 
- 
-
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); 
+    ////====================================== User ================================////
+    Route::get('/profileEdit', [ProfileController::class, 'edit'])->name('profile.edit'); 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    
+    ////====================================== Admin ================================////    
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
     Route::get('/adminPassword', [ProfileController::class, 'adminPasswordEdit'])->name('password.edit');
     Route::get('/adminAdvanceSettings', [ProfileController::class, 'adminAdvanceSettings'])->name('admin.advance.settings');
@@ -51,9 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/permanentDeleteUser{id}', [AdminUsersController::class, 'usersDeletePermanently']); ////// this {id} is comes from resource/views/restaurant/admin/show-users-trush.blade.php
     Route::get('/createFood', [FoodController::class, 'createFood'])->name('admin.create.food');
     Route::post('/foodStore', [FoodController::class, 'foodStore'])->name('admin.food.store');
-    Route::get('/showFoods', [FoodController::class, 'showFoods'])->name('admin.show.foods');
-
-    
+    Route::get('/showFoods', [FoodController::class, 'showFoods'])->name('admin.show.foods'); 
+    Route::get('/foodEdit{id}', [FoodController::class, 'foodEdit'])->name('admin.food.edit'); ///// this {id} is comes from resource/views/restaurant/admin/show-foods.blade.php
+    Route::patch('/updatedFoodStore{id}', [FoodController::class, 'updatedFoodStore'])->name('admin.updated.food.store'); ///// this {id} is comes from resource/views/restaurant/admin/food-edit.blade.php
+    Route::get('/deleteFood{id}', [FoodController::class, 'deleteFood']); ///// this {id} is comes from resource/views/restaurant/admin/show-foods.blade.php
 });
 
 

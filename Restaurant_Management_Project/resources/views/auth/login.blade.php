@@ -63,16 +63,23 @@ McDonald's-SignIn
                             <button type="submit" class="book-a-table-btn scrollto border-0">SignIn</button>
                         </div>
     
-                    </form>
-    
+                    </form>    
+                    
+                    <div class="d-flex justify-content-center text-muted">
+                                         
+                        <span class="text-muted">Don't have an Account?<a href="{{ route('register') }}" class="font">SignUp</a></span>  
+                         
                     </div>
+    
+                  </div>
+
                     <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
     
-                    <img src="assets/img/signIn.jpg"
-                        class="img-fluid" alt="Sample image">
-                         
-    
+                        <img src="assets/img/signIn.jpg"
+                            class="img-fluid" alt="Sample image">
+                      
                     </div>
+                    
                 </div>
                 </div>
             </div>

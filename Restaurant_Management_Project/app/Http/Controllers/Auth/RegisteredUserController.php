@@ -32,12 +32,12 @@ class RegisteredUserController extends Controller
     {        
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'name' => ['required', 'regex:/^[A-Za-z\s]+$/' , 'max:50'],
+            'email' => ['required', 'string', 'email',  'unique:'.User::class],
             'image' => ['required','image','mimes:jpg,jpeg,png'], ///// maximum image size ta ami akhane difine kore diyechi 1024 mame 1mb amara jani 1mb =1024 kb
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['required', 'string'],
-            'number' => ['required', 'string','min:11'],
+            'number' => ['required', 'regex:/^[0-9]+$/','min:11'],
                             
         ]);
 

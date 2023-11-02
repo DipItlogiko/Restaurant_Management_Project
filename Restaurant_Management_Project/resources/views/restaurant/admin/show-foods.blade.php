@@ -7,7 +7,7 @@
 @section('body')
 <div class="container">
 
-    <h2 class="text-left fw-bold h1 mb-2 mx-1 mx-md-4 mt-2  profile-edit" style="font-size: 2.7rem; color: #ffb03b">Users<span class="text-light">Trush</span></h2>
+    <h2 class="text-left fw-bold h1 mb-2 mx-1 mx-md-4 mt-2  profile-edit" style="font-size: 2.7rem; color: #ffb03b">All<span class="text-light">Foods</span></h2>
 
          <!--==== Flash Message ====-->
 
@@ -39,59 +39,38 @@
   
   <table class="table">
     <thead>
-      <tr>
-         
+      <tr>         
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Image</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Name</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Email</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">UserType</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">EmailVarifiedAt</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">CreatedAccountAt</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">DeletedAccountAt</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Action</th>
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Food Name</th>
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Food Type</th>
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Price</th>
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Description</th>         
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Created_at</th>         
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Updated_at</th>         
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Action</th>         
       </tr>
     </thead>
     <tbody>
         
-        @foreach ($users as $user)
+        @foreach ($Foods as $food) <!--Array [] ar value print korar jonno amra foreach ba forelse loop use kori...ai 2tar moddhe patthokkoo hocche jodi amra forelse loop use kori tahobe amra amader Array [] ar value print korar sathe sathe jodi amader Array [] ta emty thake tahole amra akta message set kore dite pari..kintu jodi amra foreach loop use kori tahole amader Array [] ta jodi emty ooo thake tahole amra kono message show korate parbo na kintu jodi amra forelse loop use kori tahole ai kajta korte parbo.. r ai foreach and forelse loop 2tai use hoy Array [] ar value print korar jonno------>
         
         <tr>          
             
               <td>
-                <img  src="Users_images/{{ $user->image }}"  class="rounded-circle" width="40" height="40" /> <!--akhane Users_images/ ta hocche amader akta directory jei directory ta amara public directory ar moddhe create korechi amader Users ar picture gulo rakhar jonno------->
+                <img  src="Food_images/{{ $food->image }}"  class="rounded-circle" width="40" height="40" /> <!--akhane Food_images/ ta hocche amader akta directory jei directory ta amara public directory ar moddhe create korechi amader Foods ar picture gulo rakhar jonno------->
               </td>
 
-              <td>{{ $user->name }}</td>
-              <td>{{ $user->email }}</td>
+              <td>{{ $food->title }}</td>
+              <td>{{ $food->food_type }}</td>               
+              <td>{{ $food->price }}$</td>
+              <td>{{ $food->description }}</td> 
+              <td>{{ $food->created_at }}</td> 
+              <td>{{ $food->updated_at }}</td> 
 
-
-              @if ($user->user_type == '1')
-                  <td>Admin</td>
-
-               @else
-                  <td>User</td>
-
-              @endif  
-
-
-
-
-              @if ($user->email_verified_at == '') <!--akhane ami set kore diyechi jodi amader user ar email_verified_at column ta emty ba faka thake tahole Not Varified dekhabe and jodi amader user ar email_varified_at column ta te kono data thake tahole else aa chole jabe and user ar oi email_varified_at Column ar data ta dekhabe--->
-                    <td>Not Varified</td>
-                
-                @else  
-                   <td>{{ $user->email_verified_at }}</td>  
-
-              @endif     
-
-
-              
-              <td>{{ $user->created_at }}</td>
-              <td>{{ $user->deleted_at }}</td>               
               
               <td>        
-                <a href="/restoreUser{{$user->id}}" class="btn btn-success">Restore</a><!--akhane jokhon kew amader application ar Restore button a click korbe tokhon oi record ar id ta amra aikhane akta url create kore pass korediyechi /restoreUser{{--$user->id --}} jei row ar ba record ar Restore button a click kora hobe oi record ar id ta amader ai url ar maddhome pass hoye jabe route ar moddehe check routes/web.php ------->
-                <button class="btn btn-danger delete-account-button" data-user-id="{{ $user->id }}">Delete</button><!--akhane jokhon kew amader application ar Delete button a click korbe tokhon oi record ar id ta amra aikhane akta url create kore pass korediyechi /permanentDeleteUser{{--$user->id --}} jei row ar ba record ar Delete button a click kora hobe oi record ar id ta amader ai url ar maddhome pass hoye jabe route ar moddehe check routes/web.php ------->
+                <a href="{{ route('admin.food.edit', $food->id) }}" class="btn btn-info">Edit</a><!--akhane jokhon kew amader application ar Edit button a click korbe tokhon oi record ar id ta amra aikhane amader name route ar moddhe pass kore diyechi route('admin.food.edit', $food->id) ai vabe, amra chaile name route create na kore sorasori amader route ar url ar moddhe amader ai food id ta pass kore dite pari /foodEdit{{--$food->id --}} jei row ar ba record ar Edit button a click kora hobe oi record ar id ta amader ai url ar maddhome pass hoye jabe route ar moddehe ------->
+                <button class="btn btn-danger delete-account-button" data-food-id="{{ $food->id }}" >Delete</button><!--akhane jokhon kew amader application ar Delete button a click korbe tokhon oi record ar id ta amra aikhane akta url create kore pass korediyechi /permanentDeleteUser{{--$user->id --}} jei row ar ba record ar Delete button a click kora hobe oi record ar id ta amader ai url ar maddhome pass hoye jabe route ar moddehe check routes/web.php ------->
                 
               </td>
           </tr>
@@ -111,10 +90,10 @@
             <h5 class="modal-title text-warning font" style="font-size: 1.7rem" id="confirmUserDeletionModalLabel ">Confirm Deletion</h5>            
             </div>
             <div class="modal-body">
-               <span class="text-danger">Are you sure you want to delete this user?</span>
+               <span class="text-danger">Are you sure you want to delete this Food from your Food Menu?</span>
 
                 <div class="text-muted mt-4">
-                    Once this account is deleted, all of it's resources and data will be permanently deleted. Please press on Delete button to confirm you would like to permanently delete this account.
+                    Once this Food is deleted, all of it's resources and data will be permanently deleted. Please press on Delete button to confirm you would like to permanently delete this Food from your Food Menu.
                 </div>
             </div>
             
@@ -141,9 +120,9 @@
     <script>
         $(document).ready(function() {
             $('.delete-account-button').on('click', function() {
-                var userId = $(this).data('user-id');
+                var foodId = $(this).data('food-id');
                 var modal = $('#confirmUserDeletionModal');
-                modal.find('a.btn-danger').attr('href', '/permanentDeleteUser' + userId); ///// jokhon kew amar delete confirmation model ar moddhe jei delete button ache oi button aaa click korbe tokhon amader oi user ar id ta akhan theke pass hoye jabe amader route/web.php file ar moddhe /adminDeleteUser{id}
+                modal.find('a.btn-danger').attr('href', '/deleteFood' + foodId); ///// jokhon kew amar delete confirmation model ar moddhe jei delete button ache oi button aaa click korbe tokhon amader oi user ar id ta akhan theke pass hoye jabe amader route/web.php file ar moddhe /adminDeleteUser{id}
                 modal.modal('show');
             });
 

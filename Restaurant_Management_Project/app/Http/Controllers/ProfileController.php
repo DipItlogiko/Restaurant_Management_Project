@@ -13,13 +13,13 @@ use App\Models\User;
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Display the User profile form.
      */
     public function edit(): View
     {
         $user = Auth::user();
 
-        return view('profile.edit', ['user' => $user]);
+        return view('restaurant.user.profile.edit', ['authUser' => $user]);
     }
 
     /**
@@ -34,7 +34,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user's profile information.
+     * Update the Admin and User profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -59,10 +59,10 @@ class ProfileController extends Controller
         $request->user()->save(); ///// akhane amader $request->user() mane authenticated users ar data ta save hoye jabe
 
        if($request->user()->user_type == '1'){
-          return Redirect::route('admin.edit')->with('status', 'Admin profile-updated successfully');
+          return Redirect::route('admin.edit')->with('status', 'Profile updated successfully');
        }
 
-       return Redirect::route('profile.edit')->with('status', 'profile-updated');
+       return Redirect::route('profile.edit')->with('status', 'Profile-updated successfully');
         
     }
 
