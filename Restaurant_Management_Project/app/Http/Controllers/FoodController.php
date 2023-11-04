@@ -26,7 +26,7 @@ class FoodController extends Controller
             'image' => ['required', 'image' ,'mimes:jpg,jpeg,png'],
             'food_type' => ['required', 'string'],
             'price' => ['required', 'numeric','min:2'],
-            'description' => ['required', 'regex:/^[A-Za-z\s]+$/' ,'max:200'],
+            'description' => ['required', 'regex:/^[A-Za-z\s\.,\-]+$/' ,'max:200'],
         ]);     
         
         //// Upload image
@@ -82,7 +82,7 @@ class FoodController extends Controller
             'image' => ['image' ,'mimes:jpg,jpeg,png'], /////jokhon ami amader kono food ke update korbo tokhon amader image field ar validation ar moddhe 'required' validation rule ta likhbo na karon admin chaile food ar image change na kore onno kichu change kore food take update korte pare tai..jodi amra ai field ar moddhe 'required' validation rule ta add kori tahole admin image field ar moddhe image set na kora porjonto food updata form submit korte parbe na.
             'food_type' => ['required', 'string'],
             'price' => ['required', 'numeric','min:2'],
-            'description' => ['required', 'regex:/^[A-Za-z\s]+$/' ,'max:200'],
+            'description' => ['required', 'regex:/^[A-Za-z\s\.,\-]+$/' ,'max:200'],
         ]);
         
         //--save form data into the database table--// 

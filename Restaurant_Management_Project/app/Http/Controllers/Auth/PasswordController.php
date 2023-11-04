@@ -29,6 +29,10 @@ class PasswordController extends Controller
 
            return redirect()->route('password.edit')->with('status', 'Password Updated Successfully!!! ');
 
+        }else{
+            return redirect()->route('user.password.edit')->with('status', 'Password Updated Successfully!!! ');
         }
+
+        
     }
 }

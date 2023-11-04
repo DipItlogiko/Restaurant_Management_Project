@@ -890,33 +890,18 @@ section {
   position: relative;
 }
 
-.menu .menu-content::after {
-  content: "......................................................................" "...................................................................." "....................................................................";
-  position: absolute;
-  left: 20px;
-  right: 0;
-  top: -4px;
-  z-index: 1;
-  color: #dad8d4;
+.card-title {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1rem;
+  color: #FF9B28; 
+ 
 }
+ 
+  
 
-.menu .menu-content a {
-  padding-right: 10px;
-  background: #fff;
-  position: relative;
-  z-index: 3;
-  font-weight: 700;
-  color: #ff9b08;
-}
+ 
 
-.menu .menu-content span {
-  background: #fff;
-  position: relative;
-  z-index: 3;
-  padding: 0 10px;
-  font-weight: 600;
-}
+ 
 
 .menu .menu-ingredients {
   font-style: italic;
@@ -3191,3 +3176,14 @@ section {
 .custom-design{
   border: 5px #dd1b1b;
 }
+
+/*--------------------------------------------------------------
+# Food Menu
+--------------------------------------------------------------*/
+.card-img-top{
+  border-radius: 25px;
+  padding: 10px;
+}
+
+ 
+ 

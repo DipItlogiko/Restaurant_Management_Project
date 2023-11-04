@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RedirectUsersController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\OrderController;
  
 
 /*
@@ -28,9 +29,13 @@ Route::get('/redirectUsers',[RedirectUsersController::class,'index'])->middlewar
 Route::middleware('auth')->group(function () {
     ////====================================== User ================================////
     Route::get('/profileEdit', [ProfileController::class, 'edit'])->name('profile.edit'); 
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+    Route::patch('/profileUpdate', [ProfileController::class, 'update'])->name('profile.update'); ///ai route ta amader User and Admin 2 jon ee use korte parbe
+    Route::get('/resetPassword', [ProfileController::class, 'userPasswordEdit'])->name('user.password.edit'); 
+    Route::get('/deleteAccount', [ProfileController::class, 'userAdvanceSettings'])->name('user.advance.settings');   
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); ///ai route ta amader User and Admin 2 jon ee use korte parbe
+    Route::get('/foodCart', [OrderController::class, 'foodCart'])->name('food.cart');
+
+
     ////====================================== Admin ================================////    
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
     Route::get('/adminPassword', [ProfileController::class, 'adminPasswordEdit'])->name('password.edit');

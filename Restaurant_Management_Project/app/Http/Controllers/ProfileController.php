@@ -23,9 +23,27 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display the User password edit form.
+     */
+    public function userPasswordEdit(): View
+    {
+        $authUser = Auth::user();
+        return view('restaurant.user.profile.update-password', ['authUser' => $authUser]);
+    }
+
+    /**
+     * Display the User Account delete page.
+     */
+    public function userAdvanceSettings(): View
+    {
+        $authUser = Auth::user();
+        return view('restaurant.user.profile.advance-setting', ['authUser' => $authUser]);
+    }    
+
+    /**
      * Display the Admin profile form.
      */
-    public function adminEdit()
+    public function adminEdit():view
     {
          
         $authUser = Auth::user();

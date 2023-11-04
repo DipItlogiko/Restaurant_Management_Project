@@ -20,7 +20,7 @@ McDonald's-VerifyEmail
                          
                         <!--======= FLASH MESSAGE =========-->
 
-                        @if (session('status') == 'verification-link-sent')
+                        @if (session('status'))
 
                         <!----(i have used bootstrap5 aleart to show our FLASH MESSAGE)---->
                         <!-----(tickmark icon)----->
@@ -66,7 +66,7 @@ McDonald's-VerifyEmail
                         @csrf
 
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">   
-                            <button type="submit" class="book-a-table-btn scrollto border-0">
+                            <button type="submit" class="btn btn-dark border-0">
                                 Log Out
                             </button>
 

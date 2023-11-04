@@ -62,7 +62,7 @@
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
+                <a href="{{ route('user.password.edit') }}" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-onepassword  text-info"></i>
@@ -73,7 +73,7 @@
                   </div>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
+                <a href="{{ route('user.advance.settings') }}" class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-dark rounded-circle">
                       <i class="mdi mdi-delete text-danger"></i>
@@ -89,10 +89,20 @@
           <li class="nav-item nav-category">
             <span class="nav-link">Navigation</span>
           </li>
+
           <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ url('/') }}">
               <span class="menu-icon">
-                <i class="mdi mdi-speedometer"></i>
+                <i class="mdi mdi-home"></i>
+              </span>
+              <span class="menu-title">Home</span>
+            </a>
+          </li> 
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('dashboard') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-speedometer text-secondary"></i>
               </span>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -256,7 +266,7 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item preview-item">
+                  <a href="{{ route('profile.edit') }}" class="dropdown-item preview-item">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
@@ -283,7 +293,7 @@
                     </div>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center"><a href="#" class="text-light" style="text-decoration: none;"> Advanced settings </a></p>
+                  <p class="p-3 mb-0 text-center"><a href="{{ route('user.advance.settings') }}" class="text-light" style="text-decoration: none;"> Advanced settings </a></p>
                 </div>
               </li>
             </ul>
