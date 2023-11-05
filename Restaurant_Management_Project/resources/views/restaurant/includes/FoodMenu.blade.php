@@ -31,7 +31,7 @@
               </div>
               <div class="mb-5 d-flex justify-content-around">
                   <h3 style="color:#5f5950">$ {{ $food->price }}</h3>
-                  <a href="{{ route('food.cart') }}" class="book-a-table-btn">Buy Now</a>
+                  <a href="{{ route('food.cart',$food->id) }}" class="book-a-table-btn">Buy Now</a> <!--jokhon kew amader application ar moddhe Buy Now button a click korbe tokhon amader route/web.php ar moddhe food.cart name route ar moddhe jabe tar sathe $food->id take oo niye jabe-------->
               </div>
           </div>                  
         </div>

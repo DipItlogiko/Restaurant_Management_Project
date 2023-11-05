@@ -16,7 +16,7 @@ use App\Http\Controllers\OrderController;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| be assigned to the "web" middleware group. 
 |
 */
 
@@ -33,7 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/resetPassword', [ProfileController::class, 'userPasswordEdit'])->name('user.password.edit'); 
     Route::get('/deleteAccount', [ProfileController::class, 'userAdvanceSettings'])->name('user.advance.settings');   
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); ///ai route ta amader User and Admin 2 jon ee use korte parbe
-    Route::get('/foodCart', [OrderController::class, 'foodCart'])->name('food.cart');
+    Route::get('/foodCart{id}', [OrderController::class, 'foodCart'])->name('food.cart'); /// this {id} is comes from restaurant/includes/FoodMenu.blade.php
+    Route::post('/foodCartStore{id}',[OrderController::class, 'foodCartStore'])->name('store.cart'); /// this {id} is comes from restaurant/user/food-cart.blade.php.
+    Route::get('/showCart', [OrderController::class, 'showCart'])->name('show.cart');
+    Route::get('/deleteCart{id}', [OrderController::class, 'deleteCart']); /// this {id} is comes from resources/restaurant/user/show-cart.blade.php
 
 
     ////====================================== Admin ================================////    

@@ -208,53 +208,26 @@
                   <p class="p-3 mb-0 text-center">4 new messages</p>
                 </div>
               </li>
-              <li class="nav-item dropdown border-left">
-                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-                  <i class="mdi mdi-bell"></i>
-                  <span class="count bg-danger"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                  <h6 class="p-3 mb-0">Notifications</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-calendar text-success"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Event today</p>
-                      <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-settings text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Settings</p>
-                      <p class="text-muted ellipsis mb-0"> Update dashboard </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-link-variant text-warning"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Launch Admin</p>
-                      <p class="text-muted ellipsis mb-0"> New admin wow! </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">See all notifications</p>
-                </div>
-              </li>
+        
+                @if ( $count > "0")  <!--akhane ami if ar moddhe moddhe bole diyechi jodi $count ar value 0 ar theke boro hoy tahole amader nicher code ta execute hobe jei code tuku ami amader if ar moddhe likhe diyechi mane amader cart icon ar opore green light dekhabe and amader ai $count variable ta ashche RedirectUsersController.php ar index() method theke---->
+                  <li class="nav-item dropdown">
+                  <a class="nav-link count-indicator" href="{{ route('show.cart') }}">
+                      <i class="mdi mdi-cart text-light"><span class="font text-success" style="font-size: 18px;">{{ $count }}</span></i>
+                      <span class="count bg-success"></span>
+                  </a>                                    
+                  </li>
+            
+               @else <!--$count ar value jodi 0 ar theke boro na hoy tahole ai code ta execute hobe mane amader cart icon ar opore red light dekhabe--->
+                  <li class="nav-item dropdown">
+                  <a class="nav-link count-indicator" id="notificationDropdown" href="{{ route('show.cart') }}" data-bs-toggle="dropdown">
+                      <i class="mdi mdi-cart text-light"><span class="font text-danger" style="font-size: 18px;">{{ $count }}</span></i>
+                      <span class="count bg-danger"></span>
+                  </a>                                    
+                  </li>
+            
+               @endif  
+              
+
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown">
                   <div class="navbar-profile">
