@@ -60,21 +60,28 @@ class OrderController extends Controller
     public function showCart()
     {
         $authUser = Auth::user();
-
         $userId = Auth::id(); //// akhane ami authenticated user ar id ta peye jabo Auth::id() ar maddhome....Authenticated user mane hocche jei user signUp and signIn kore amader application ar moddhe enter koreche oi user ke bojhai..
         $count = Cart::where('user_id',$userId)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
         
-        $specificUserCarts = Cart::where('user_id',$userId)->join('food', 'carts.food_id', '=', 'food.id')->get(); //// aakhane ami amar Cart Model mane Cart model ta amader database ar jei table take represent kore jemon akhane amader Cart Model ta database ar carts table take represent kore oi carts table ar moddhe theke prothome amra check korechi oi table ar user_id nameeee jei field ta ache oi field ar moddhe amader Authenticated user ar id diye check korechi je ai authenticated user koita cart koreche and jar pore amra ai 'carts' table ar sathe join korechi amader 'food' table ke and ai join ta hobe amader carts.food_id ar opore mane carts table ar moddhe jei food_id column ta ache oi id oonujayi food.id mane food table ar id column ar jei id gulo match korbe oi data gulo sob niye ashbe amader food table theke...
+        $specificUserCarts = Cart::where('user_id',$userId)->join('food', 'carts.food_id', '=', 'food.id')->get(['carts.id', 'food.title', 'food.price', 'carts.quantity', 'food.image']); //// aakhane ami amar Cart Model mane Cart model ta amader database ar jei table take represent kore jemon akhane amader Cart Model ta database ar carts table take represent kore oi carts table ar moddhe theke prothome amra check korechi oi table ar user_id nameeee jei field ta ache oi field ar moddhe amader Authenticated user ar id diye check korechi je ai authenticated user koita cart koreche and jar pore amra ai 'carts' table ar sathe join korechi amader 'food' table ke and ai join ta hobe amader carts.food_id ar opore mane carts table ar moddhe jei food_id column ta ache oi id oonujayi food.id mane food table ar id column ar jei id gulo match korbe oi data gulo sob niye ashbe amader food table theke...and amader carts table ar sathe food table join hoye jawar pore ami oi data gulo theke 'carts.id' carts table ar id take  and 'food.title' food table ar title take and 'food.price' food table ar price take  and 'carts.quantity' carts table ar quantity take and 'food.image' food table theke image take get korechi mane ai data gulo shudhu anechi sob data ar moddhe theke..
          
         $sumOfQuantity = $specificUserCarts->sum('quantity');
-        $sumOfPrice = $specificUserCarts->sum('price');
-        $sumOfItems = $specificUserCarts->count('title');
-
+        $sumOfPrice = 0; // Initialize the total price variable
+        foreach ($specificUserCarts as $cartItem) {
+            $sumOfPrice += $cartItem->price * $cartItem->quantity;   ///// $sumOfPrice = $sumOfPrice + $cartItem->price * $cartItem->quantity; aitake amra $sumOfPrice += $cartItem->price * $cartItem->quantity; aivave likhechi short curt aaa...
+        }
+        $sumOfItems = $specificUserCarts->count('title');         
+        
         return view('restaurant.user.show-cart' , ['authUser' => $authUser, 'count' => $count , 'data' => $specificUserCarts , 'sumOfQuantity' => $sumOfQuantity , 'sumOfPrice' => $sumOfPrice, 'sumOfItems' => $sumOfItems]);
     }
 
+    ///====== User will be able to remove their carts from carts ======///
     public function deleteCart($id)
     {
-        dd($id);
+        $specificCart = Cart::find($id);
+
+        $specificCart->delete();
+
+        return redirect()->route('show.cart')->with('status', 'Food Removed Successfully From Carts');
     }
 }

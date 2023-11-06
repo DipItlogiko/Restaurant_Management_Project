@@ -87,7 +87,7 @@
 
               
               <td>{{ $user->created_at }}</td>
-              <td>{{ $user->updated_at }}</td>               
+              <td>{{ $user->updated_at }}</td>           
               
         
 

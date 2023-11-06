@@ -219,7 +219,7 @@
             
                @else <!--$count ar value jodi 0 ar theke boro na hoy tahole ai code ta execute hobe mane amader cart icon ar opore red light dekhabe--->
                   <li class="nav-item dropdown">
-                  <a class="nav-link count-indicator" id="notificationDropdown" href="{{ route('show.cart') }}" data-bs-toggle="dropdown">
+                  <a class="nav-link count-indicator"  href="{{ route('show.cart') }}">
                       <i class="mdi mdi-cart text-light"><span class="font text-danger" style="font-size: 18px;">{{ $count }}</span></i>
                       <span class="count bg-danger"></span>
                   </a>                                    
