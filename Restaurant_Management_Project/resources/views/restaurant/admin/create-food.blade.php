@@ -42,7 +42,7 @@
 
                  <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2 text-light font">Create<span style="color: #ffb03b">Food</span></h2> 
 
-                 <form  method="POST" action="{{ route('admin.food.store') }}" class=" mx-md-4" enctype="multipart/form-data">
+                <form  method="POST" action="{{ route('admin.food.store') }}" class=" mx-md-4" enctype="multipart/form-data">
                     @csrf
 
                     <div class="d-flex flex-row align-items-center mb-4">

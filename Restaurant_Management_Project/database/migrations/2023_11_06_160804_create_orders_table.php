@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name');
             $table->string('food_name');
+            $table->string('food_image');
             $table->string('price');
             $table->string('quantity');
             $table->string('payment');
-            $table->string('address');
+            $table->string('order_status')->default('processing'); //// here i have difiended the default value 'processing' of order_status column
+            $table->string('user_id');
+            $table->string('user_address');
             $table->string('number');
             $table->timestamps();
         });

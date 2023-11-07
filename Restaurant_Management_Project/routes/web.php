@@ -37,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/foodCartStore{id}',[OrderController::class, 'foodCartStore'])->name('store.cart'); /// this {id} is comes from restaurant/user/food-cart.blade.php.
     Route::get('/showCart', [OrderController::class, 'showCart'])->name('show.cart');
     Route::get('/deleteCart{id}', [OrderController::class, 'deleteCart']); /// this {id} is comes from resources/restaurant/user/show-cart.blade.php
-
+    Route::post('/orderStore', [OrderController::class, 'orderStore'])->name('order.store');
+    Route::get('/orderHistory', [OrderController::class, 'orderHistory'])->name('order.history');
 
     ////====================================== Admin ================================////    
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/foodEdit{id}', [FoodController::class, 'foodEdit'])->name('admin.food.edit'); ///// this {id} is comes from resource/views/restaurant/admin/show-foods.blade.php
     Route::patch('/updatedFoodStore{id}', [FoodController::class, 'updatedFoodStore'])->name('admin.updated.food.store'); ///// this {id} is comes from resource/views/restaurant/admin/food-edit.blade.php
     Route::get('/deleteFood{id}', [FoodController::class, 'deleteFood']); ///// this {id} is comes from resource/views/restaurant/admin/show-foods.blade.php
+    Route::get('/allOrders', [OrderController::class, 'allOrders'])->name('admin.show.orders'); 
 });
 
 
