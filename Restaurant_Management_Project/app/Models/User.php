@@ -49,4 +49,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getCreatedAtAttribute($value) ////// akhane amra accessore use korechi 
+    {
+       return date("d-M-Y h:i A", strtotime($value));  
+    }
 }

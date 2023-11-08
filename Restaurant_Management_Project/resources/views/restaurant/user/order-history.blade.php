@@ -41,7 +41,7 @@
     <div class="row">
         <div class="col-lg-12 col-sm-12">
             <div class="card mb-3 border-0">
-                <div class="table-responsive mt-4">
+                <div class="table-responsive mt-4" style="width: 100%">
 
                     <table class="table">
                     <thead>
@@ -54,10 +54,8 @@
                         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Total Price</th>                          
                         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Payment</th>
                         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Status</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">C.Name</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Address</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Number</th>
                         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Ordered At</th>                         
+                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Delivered At</th>                         
                         </tr>
                     </thead>
                     <tbody>
@@ -71,12 +69,25 @@
                             <td>${{ $data->price }}</td>                                        
                             <td>{{ $data->quantity }}</td>                                        
                             <td>${{ $data->price  *  $data->quantity }}</td>                                        
-                            <td>{{ $data->payment}}</td>                                        
-                            <td>{{ $data->order_status}}</td>                                        
-                            <td>{{ $data->name}}</td>                                        
-                            <td>{{ $data->user_address}}</td>                                        
-                            <td>{{ $data->number}}</td>                                        
-                            <td>{{  $data->created_at  }}</td>                                        
+                            <td>{{ $data->payment}}</td> 
+                            
+                            @if($data->order_status == 'processing')
+                              <td>Your Order Is Under Processing</td> 
+                            @elseif($data->order_status == 'placed') 
+                              <td>Your Food is Delivered</td>
+                            @else
+                               <td>Your Food Is On The Way</td>   
+                            @endif 
+
+                            <td>{{ $data->created_at }}</td>   
+                            
+                            @if($data->order_status == 'placed')
+                              <td>{{ $data->updated_at }}</td>
+                            @else
+                              <td> - </td>  
+                            @endif  
+                              
+                                                                    
                                                                    
                         </tr>
 

@@ -20889,4 +20889,100 @@ button[type="submit"] {
   color: #fff;
 } 
 
- 
+/* Search container */
+.search-container {
+  display: flex;
+  justify-content: flex-end; /* To place the search bar on the right side */
+}
+
+/*===== SearchBar =====*/
+.input-box {
+  position: relative;
+  background: #191c24;   
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+}
+
+.input-box i,
+.input-box .button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-box i {
+  left: 10px;
+  font-size: 20px;
+  color: #FFC107;
+}
+
+.input-box input {
+  width: 66%;
+  outline: none;
+  font-size: 18px;
+  font-weight: normal;
+  border: none;
+  padding: 20px 5px 20px 45px;
+  background-color: transparent;
+}
+
+.input-box .button {
+  right: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #191c24;
+}
+
+.input-box .button:active {
+  transform: translateY(-50%) scale(0.98);
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+  .input-box i {
+    left: 5px;
+    font-size: 18px;
+  }
+
+  .input-box input {
+    padding: 20px 5px 20px 35px;
+  }
+
+  .input-box .button {
+    right: 5px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .input-box {
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .input-box {
+    max-width: 100%;
+  }
+
+  .input-box i {
+    left: 3px;
+    font-size: 16px;
+  }
+
+  .input-box input {
+    padding: 5px 5px 5px 30px;
+  }
+
+  .input-box .button {
+    right: 3px;
+    font-size: 12px;
+  }
+}
+
+

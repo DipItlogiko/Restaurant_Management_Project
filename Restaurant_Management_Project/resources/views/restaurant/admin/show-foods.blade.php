@@ -5,7 +5,7 @@
 @endsection
 
 @section('body')
-<div class="container">
+<div class="p-4">
 
     <h2 class="text-left fw-bold h1 mb-2 mx-1 mx-md-4 mt-2  profile-edit" style="font-size: 2.7rem; color: #ffb03b">All<span class="text-light">Foods</span></h2>
 
@@ -44,7 +44,7 @@
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Food Name</th>
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Food Type</th>
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Price</th>
-        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Description</th>         
+        <th scope="col" class="profile-edit" style="font-size: 1.3rem;">Description</th>         
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Created_at</th>         
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Updated_at</th>         
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Action</th>         

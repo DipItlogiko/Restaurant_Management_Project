@@ -7,6 +7,7 @@ use App\Http\Controllers\RedirectUsersController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SearchController;
  
 
 /*
@@ -60,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/updatedFoodStore{id}', [FoodController::class, 'updatedFoodStore'])->name('admin.updated.food.store'); ///// this {id} is comes from resource/views/restaurant/admin/food-edit.blade.php
     Route::get('/deleteFood{id}', [FoodController::class, 'deleteFood']); ///// this {id} is comes from resource/views/restaurant/admin/show-foods.blade.php
     Route::get('/allOrders', [OrderController::class, 'allOrders'])->name('admin.show.orders'); 
+    Route::get('/search', [SearchController::class, 'search'])->name('search'); 
+    Route::get('/editOrder{id}', [OrderController::class, 'editOrder'])->name('admin.edit.orders');
 });
 
 

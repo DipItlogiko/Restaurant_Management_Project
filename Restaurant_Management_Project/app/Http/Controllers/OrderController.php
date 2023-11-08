@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Food;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -15,6 +16,7 @@ class OrderController extends Controller
     {
         $authUser = Auth::user();
         $specificFood = Food::find($id);
+        $orderCount = Order::where('user_id', $authUser->id)->count();    ////// akhane ami Order Model ta database ar jei table take represent kore jemon aikhane amader Order Model ta amader database ar orders table take represent kore and ami orders table ar theke check korechi where diye mane orders table ar jeikhane user_id name column ache oi column theke check korbe amader Authenticated user ar id koto bar ache oi orders table ar user_id column ar moddhe and joto bar thakbe ta count kore amader $orderCount ar moddhe store kore debe
         
 
         $user_id = Auth::id(); //// akhane ami authenticated user ar id ta peye jabo Auth::id() ar maddhome....Authenticated user mane hocche jei user signUp and signIn kore amader application ar moddhe enter koreche oi user ke bojhai..
@@ -23,7 +25,7 @@ class OrderController extends Controller
         if ($authUser->user_type == '0'){ //// jodi amader Authenticated user ar user_type jodi 0 hoy mane jei user ta siguUp and logIn kore amader application ar moddhe ashbe oi user ar user_type ta jodi 0 hoy tahole shudhu oi user ta amader ai if ar moddhe ja bola ache ta korte parbe
 
             if(Auth::id()){ ///// akhane ami if ar moddhe Auth::id() diye bole diyechi je jodi Auth:id() pai mane kono Authenticated user ar id pai mane je user signUp ba signIn kore amader application ar moddhe ashbe oi user ar id ta jodi pai taholei oi Authenticated user ke amader cart page ar moddhe  jete parbe...mane authentication chara kew amader cart page ar moddhe jete parbe na..
-                return view('restaurant.user.food-cart',['authUser' => $authUser , 'specificFood' => $specificFood , 'count' => $count]);
+                return view('restaurant.user.food-cart',['authUser' => $authUser , 'specificFood' => $specificFood , 'count' => $count , 'orderCount' => $orderCount]);
             }else{  ///// jodi kono user Authenticated na thake mane signUp ba signIn kore na ashe tahole amader oi user take aikhane login page dekhabe
                 return redirect()->route('login');
             }
@@ -122,9 +124,9 @@ class OrderController extends Controller
 
     ///===== Admin will be able to see all orders information with Edit and Delete buttons =====///
     public function allOrders()
-    {
+    { 
         $authUser = Auth::user();
-        $ordersTable = Order::join('users', 'orders.user_id' , '=' , 'users.id' )->cursor();  ////akhane amader Order Model ta database ar jei table take represent kore oitable theke sob data fatch korechi lazy collection ar cursor() method ar maddhome.. get() ba all() method diye ooo data fatch kora jai database ar table theke kintu jodi ami get() ba all() method diye data fatch kori tahole amader oi database ar table theke sob  datake akbare fatch kore amader laravel application memory storage space ar moddhe lod kore dei jodi amader oi database ar table ar moddhe lakh lakh data thake tahole oi data gulo amader laravel application ar moddhe akbare load hole amader laravel application ta crass korbe and akta error dekhabe je amader laravel ar memory storage space overlod hoye geche...tai amra lazy collection ar cursor() method ta use korbo aita amader database ar table theke sob data ke akbare amader laravel application ar moddhe load korbe na.
+        $ordersTable = User::join('orders', 'users.id' , '=' , 'orders.user_id' )->cursor();  ////akhane amader User Model ta database ar jei table take represent kore oitable theke sob data fatch korechi lazy collection ar cursor() method ar maddhome.. get() ba all() method diye ooo data fatch kora jai database ar table theke kintu jodi ami get() ba all() method diye data fatch kori tahole amader oi database ar table theke sob  datake akbare fatch kore amader laravel application memory storage space ar moddhe lod kore dei jodi amader oi database ar table ar moddhe lakh lakh data thake tahole oi data gulo amader laravel application ar moddhe akbare load hole amader laravel application ta crass korbe and akta error dekhabe je amader laravel ar memory storage space overlod hoye geche...tai amra lazy collection ar cursor() method ta use korbo aita amader database ar table theke sob data ke akbare amader laravel application ar moddhe load korbe na. ta chara aikhane amai amader User Model ar sathe mane users table ar sathe amader orders table take join kore diyechi and ai join ta hobe amader 'users.id' mane users table ar id jekhane '=' soman hobe 'orders.user_id' orders table ar user_id ar sathe oikhane amader ai 2ta table join hoye jabe and jehutu join() ar moddhe amader 'orders' table ta ache tai akhane orders table ta power ta beshi thakbe jemon dhoren amader users table ar mooddhe created_at name akta column ache and orders table ar moddhe oooo created_at name akta column ache jokhon ami amader ai $ordersTable variable ar value ta foreach ar maddome print korbo amader blade.php file ar moddhe tokhon jodi ami created_at likhi tahole amra dekhbo amader orders table ar created_at column ar moddhe theke data ta ashche users table theke ashbe na karon join ar moddhe 'orders' table ar nam ache tai ai orders table ta power beshi pabe
         $totalOrder = $ordersTable->count('id');
         $TotalOrderInProcess = $ordersTable->where('order_status', '=', 'processing')->count();
         $TotalOrderPlaced = $ordersTable->where('order_status', '=', 'placed')->count();
@@ -132,6 +134,19 @@ class OrderController extends Controller
 
         return view('restaurant.admin.show-all-orders',['authUser' => $authUser , 'ordersTable' => $ordersTable , 'totalOrder' => $totalOrder , 'TotalOrderInProcess' => $TotalOrderInProcess , 'TotalOrderPlaced' => $TotalOrderPlaced , 'OrderOnTheWay' => $OrderOnTheWay]);  
     }
+
+
+    ///===== Admin will be able to see edit page of user orders information and order status  ====///
+    public function editOrder($id)
+    { 
+        $authUser = Auth::user();  
+        $specificOrder = Order::find($id);
+         
+                 
+        return view('restaurant.admin.edit-orders',['authUser' => $authUser , 'specificOrder' => $specificOrder]);  
+    }  
+
+
 
     ///===== User Will be able to see his own orders history =====///
     public function orderHistory()
