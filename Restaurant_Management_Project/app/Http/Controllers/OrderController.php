@@ -98,7 +98,7 @@ class OrderController extends Controller
             //amader ai $request ar moddhe r oo oonek input field ar data ashche kintu ami oi data guloke aikhane validate kori ni karon amader oi data gulo aage thekei validate kora ache..               
             'payment_method' => ['required','string'],
             'address' => ['required','string'],
-            'number' => ['required', 'regex:/^[0-9]+$/' ,'min:11'],
+            'number' => ['required', 'regex:/^[0-9]+$/' ,'min:11','max:11'],
 
         ]);
 
@@ -145,6 +145,34 @@ class OrderController extends Controller
                  
         return view('restaurant.admin.edit-orders',['authUser' => $authUser , 'specificOrder' => $specificOrder]);  
     }  
+
+    ///===== Admin will be able to update order information and order status and save the data into the database table ====///
+    public function updateOrder(Request $request , $id)
+    {
+       //--form data validation--// 
+       $request->validate([
+        'orderstatus' => ['required','string'],
+       ]);
+       
+       //--updated order information store into the database table--//
+       $specificOrder = Order::find($id);
+
+       $specificOrder->order_status = $request->orderstatus;
+
+       $specificOrder->save();
+        
+       return redirect()->route('admin.show.orders')->with('status','Order status updated successfully');
+    }
+
+    ///===== Admin will be able to delete orders =====///
+    public function deleteOrder($id)
+    {
+       $specificOrder = Order::find($id);
+
+       $specificOrder->delete();
+
+       return redirect()->route('admin.show.orders')->with('status','Order deleted successfully from your orders record');
+    }
 
 
 

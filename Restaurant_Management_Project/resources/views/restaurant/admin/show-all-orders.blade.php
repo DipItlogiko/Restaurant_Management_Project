@@ -30,18 +30,6 @@
     @else
     
             <h1 class="mb-2 fw-bolder text-warning font">Customer's Order</h1>   
-            <!--===== Search bar start =====-->    
-            <div class="search-container">
-                <div class="input-box rounded-pill">
-                    <i class="mdi mdi-magnify"></i>
-                    <form action="{{ route('search') }}" method="get"> <!--search ar jonno amra get method ee use kori--->
-                        <input type="text" class="text-warning" name="search" placeholder="Search here..." />
-                        <button class="button border-0"><a type="submit" class="btn btn-outline-warning rounded-pill">Search</a></button>
-                    </form>
-                    
-                </div>
-            </div>  
-            <!--===== Search bar End =====-->  
 
             <!--==== Flash Message ====-->
 
@@ -68,6 +56,19 @@
             @endif
 
             <!--==== End Flash Message ====-->
+            
+            <!--===== Search bar start =====-->    
+            <div class="search-container">
+                <div class="input-box rounded-pill">
+                    <i class="mdi mdi-magnify"></i>
+                    <form action="{{ route('search') }}" method="get"> <!--search ar jonno amra get method ee use kori--->
+                        <input type="text" class="text-warning" name="search" placeholder="Search here..." />
+                        <button class="button border-0"><a type="submit" class="btn btn-outline-warning rounded-pill">Search</a></button>
+                    </form>
+                    
+                </div>
+            </div>  
+            <!--===== Search bar End =====-->              
             
 
             <div class="row">
@@ -112,7 +113,7 @@
                                     <td>{{ $data->created_at  }}</td>                                        
                                     <td>
                                         <a href="{{ route('admin.edit.orders', $data->id) }}" class="btn btn-info">Edit</a>
-                                        <a href="#" class="btn btn-danger">Delete</a>
+                                        <button class="btn btn-danger delete-order-button" data-order-id="{{ $data->id }}">Delete</button>
                                     </td>                                        
                                 </tr>
 
@@ -145,30 +146,30 @@
             </div>
 
 
-            <!--======= Remove Confirmation Pop Up Modal ========-->
+            <!--======= Delete Confirmation Pop Up Modal ========-->
 
-            <div class="modal" id="confirmUserDeletionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal" id="confirmOrderDeletionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title text-warning font" style="font-size: 1.7rem" id="confirmUserDeletionModalLabel ">Remove Confirmation</h5>            
+                        <h5 class="modal-title text-warning font" style="font-size: 1.7rem" id="confirmUserDeletionModalLabel ">Delete Confirmation</h5>            
                         </div>
                         <div class="modal-body">
-                        <span class="text-danger">Are you sure you want to remove this food from your cart?</span>
+                        <span class="text-danger">Are you sure you want to Delete this order from your orders record?</span>
 
                             <div class="text-muted mt-4">
-                                Once this food is removed, all of it's resources and data will be permanently removed. Please press on Remove button to confirm you would like to permanently remove this food from your cart. 
+                                Once this order is Deleted, all of it's resources and data will be permanently delete. Please press on Delete button to confirm you would like to permanently Delete this order from your order records. 
                             </div>
                         </div>
                         
                         <div class="modal-footer">
                         <button id="cancelButton" type="button" class="btn btn-outline-light rounded-pill" data-dismiss="modal">Cancel</button>
-                        <a  class="btn btn-outline-danger rounded-pill">Remove</a>
+                        <a  class="btn btn-outline-danger rounded-pill">Delete</a>
                         </div>
                     </div>
                     </div>
                 </div>    
-                <!--====== END Remove Confirmation Pop Up Modal ======--> 
+                <!--====== END Delete Confirmation Pop Up Modal ======--> 
     
     @endif      
 </div> 
@@ -176,5 +177,65 @@
 
 
 @section('custom_js')
+
+<!--===== This script is for Delete confirmation Pop Up Modal =====-->
+<script>
+    $(document).ready(function() {
+        $('.delete-order-button').on('click', function() {
+            var orderId = $(this).data('order-id');
+            var modal = $('#confirmOrderDeletionModal');
+            modal.find('a.btn-outline-danger').attr('href', '/deleteOrder' + orderId); ///// jokhon kew amar delete confirmation model ar moddhe jei delete button ache oi button aaa click korbe tokhon amader oi user ar id ta akhan theke pass hoye jabe amader route/web.php file ar moddhe /deleteOrder{id}
+            modal.modal('show');
+        });
+
+        $('#cancelButton').on('click', function() {
+            $('#confirmOrderDeletionModal').modal('hide');
+        });
+    });
+</script>
+  <!--======= This script is for Aleart auto close ======-->
+    <script>
+
+        // Get all elements with class "auto-close"
+        const autoCloseElements = document.querySelectorAll(".auto-close");
     
+        // Define a function to handle the fading and sliding animation
+        function fadeAndSlide(element) {
+        const fadeDuration = 500;
+        const slideDuration = 500;
+     
+        // Step 1: Fade out the element
+        let opacity = 1;
+        const fadeInterval = setInterval(function () {
+            if (opacity > 0) {
+            opacity -= 0.1;
+            element.style.opacity = opacity;
+            } else {
+            clearInterval(fadeInterval);
+         // Step 2: Slide up the element
+         let height = element.offsetHeight;
+         const slideInterval = setInterval(function () {
+             if (height > 0) {
+             height -= 10;
+             element.style.height = height + "px";
+             } else {
+             clearInterval(slideInterval);
+             // Step 3: Remove the element from the DOM
+             element.parentNode.removeChild(element);
+             }
+         }, slideDuration / 10);
+         }
+     }, fadeDuration / 10);
+     }
+    
+     // Set a timeout to execute the animation after 5000 milliseconds (5 seconds)
+     setTimeout(function () {
+     autoCloseElements.forEach(function (element) {
+         fadeAndSlide(element);
+     });
+     }, 5000);
+    
+    </script>
+
+   
 @endsection

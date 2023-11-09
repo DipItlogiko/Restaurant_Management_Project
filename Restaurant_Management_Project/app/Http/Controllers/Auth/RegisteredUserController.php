@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
             'image' => ['required','image','mimes:jpg,jpeg,png'], ///// maximum image size ta ami akhane difine kore diyechi 1024 mame 1mb amara jani 1mb =1024 kb
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['required', 'string'],
-            'number' => ['required', 'regex:/^[0-9]+$/','min:11'],
+            'number' => ['required', 'regex:/^[0-9]+$/','min:11','max:11'],
                             
         ]);
 

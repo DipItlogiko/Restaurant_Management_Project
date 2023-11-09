@@ -141,14 +141,39 @@
               <span class="menu-title">Chefs</span>
             </a>
           </li>
+
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" data-bs-toggle="collapse" href="#table" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
-                <i class="mdi mdi-table-edit"></i>
+                <i class="mdi mdi-chair-school"></i>
               </span>
-              <span class="menu-title">Reservation</span>
+              <span class="menu-title">Table</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="table">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.create.tables') }}">
+                    <i class=" mdi mdi-transcribe text-info p-1"></i>
+                    Create </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.show.all.tables') }}">
+                    <i class="mdi mdi-eye text-success p-1"></i>
+                    Show </a></li>
+                
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.make.reservation') }}">
+                    <i class="mdi mdi-calendar-clock text-warning p-1"></i>
+                    Make Reservation </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="#">
+                    <i class="mdi mdi-timetable text-primary p-1"></i>
+                    Reserved </a></li>
+              </ul>
+            </div>
           </li>
+
+         
           
           <li class="nav-item menu-items">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">

@@ -38,7 +38,7 @@ class AdminUsersController extends Controller
     public function storeUser(Request $request)
     {
          
-             
+        //--form data validation--//     
         $request->validate([
             'name' => ['required', 'regex:/^[A-Za-z\s]+$/' , 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
@@ -46,7 +46,7 @@ class AdminUsersController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'user_role' => ['required', 'integer'],
             'address' => ['required', 'string',],
-            'number' => ['required', 'regex:/^[0-9]+$/' ,'min:11'],
+            'number' => ['required', 'regex:/^[0-9]+$/' ,'min:11','max:11'],
                 
         ]);
 

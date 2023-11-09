@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TablesController;
  
 
 /*
@@ -46,23 +47,33 @@ Route::middleware('auth')->group(function () {
     Route::get('/adminPassword', [ProfileController::class, 'adminPasswordEdit'])->name('password.edit');
     Route::get('/adminAdvanceSettings', [ProfileController::class, 'adminAdvanceSettings'])->name('admin.advance.settings');
     Route::get('/adminShowUsers', [AdminUsersController::class, 'showUsers'])->name('admin.show.users');
-    Route::get('/user{id}', [AdminUsersController::class , 'showUser']); ///// this {id} is comes from resource/views/restaurant/admin/show-users.blade.php
+    Route::get('/user{id}', [AdminUsersController::class , 'showUser']); ///// this {id} is comes from resources/views/restaurant/admin/show-users.blade.php
     Route::get('/adminCreateUser', [AdminUsersController::class, 'createUser'])->name('admin.create.user');    
     Route::post('/adminStoreUser', [AdminUsersController::class, 'storeUser'])->name('admin.store.user');    
     Route::get('/adminDeleteUsers', [AdminUsersController::class, 'usersDelete'])->name('admin.delete.user');
-    Route::get('/adminDeleteUser{id}', [AdminUsersController::class, 'delete']); //// this {id} is comes from resource/views/restaurant/admin/users-delete.blade.php
+    Route::get('/adminDeleteUser{id}', [AdminUsersController::class, 'delete']); //// this {id} is comes from resources/views/restaurant/admin/users-delete.blade.php
     Route::get('/adminUsersTrush', [AdminUsersController::class, 'usersTrush'])->name('admin.users.trush');  
-    Route::get('/restoreUser{id}', [AdminUsersController::class, 'usersRestore']); ////// this {id} is comes from resource/views/restaurant/admin/show-users-trush.blade.php
-    Route::get('/permanentDeleteUser{id}', [AdminUsersController::class, 'usersDeletePermanently']); ////// this {id} is comes from resource/views/restaurant/admin/show-users-trush.blade.php
+    Route::get('/restoreUser{id}', [AdminUsersController::class, 'usersRestore']); ////// this {id} is comes from resources/views/restaurant/admin/show-users-trush.blade.php
+    Route::get('/permanentDeleteUser{id}', [AdminUsersController::class, 'usersDeletePermanently']); ////// this {id} is comes from resources/views/restaurant/admin/show-users-trush.blade.php
     Route::get('/createFood', [FoodController::class, 'createFood'])->name('admin.create.food');
     Route::post('/foodStore', [FoodController::class, 'foodStore'])->name('admin.food.store');
     Route::get('/showFoods', [FoodController::class, 'showFoods'])->name('admin.show.foods'); 
-    Route::get('/foodEdit{id}', [FoodController::class, 'foodEdit'])->name('admin.food.edit'); ///// this {id} is comes from resource/views/restaurant/admin/show-foods.blade.php
-    Route::patch('/updatedFoodStore{id}', [FoodController::class, 'updatedFoodStore'])->name('admin.updated.food.store'); ///// this {id} is comes from resource/views/restaurant/admin/food-edit.blade.php
-    Route::get('/deleteFood{id}', [FoodController::class, 'deleteFood']); ///// this {id} is comes from resource/views/restaurant/admin/show-foods.blade.php
+    Route::get('/foodEdit{id}', [FoodController::class, 'foodEdit'])->name('admin.food.edit'); ///// this {id} is comes from resources/views/restaurant/admin/show-foods.blade.php
+    Route::patch('/updatedFoodStore{id}', [FoodController::class, 'updatedFoodStore'])->name('admin.updated.food.store'); ///// this {id} is comes from resources/views/restaurant/admin/food-edit.blade.php
+    Route::get('/deleteFood{id}', [FoodController::class, 'deleteFood']); ///// this {id} is comes from resources/views/restaurant/admin/show-foods.blade.php
     Route::get('/allOrders', [OrderController::class, 'allOrders'])->name('admin.show.orders'); 
     Route::get('/search', [SearchController::class, 'search'])->name('search'); 
-    Route::get('/editOrder{id}', [OrderController::class, 'editOrder'])->name('admin.edit.orders');
+    Route::get('/editOrder{id}', [OrderController::class, 'editOrder'])->name('admin.edit.orders');  ////this {id} is comes from resources/views/restaurant/admin/edit-orders.blade.php
+    Route::patch('updateOrder{id}',[OrderController::class,'updateOrder'])->name('admin.update.order'); //// this {id} is comes from resources/views/restaurant/admin/edit-orders.blade.php
+    Route::get('/deleteOrder{id}', [OrderController::class, 'deleteOrder']); /// this {id} is comes from resources/views/restaurant/admin/show-all-orders.blade.php
+    Route::get('/createTable', [TablesController::class, 'createTable'])->name('admin.create.tables');
+    Route::post('/storeTable', [TablesController::class, 'storeTable'])->name('admin.store.table');
+    Route::get('/showTables', [TablesController::class, 'showTables'])->name('admin.show.all.tables');
+    Route::get('/editTable{id}', [TablesController::class, 'editTable'])->name('admin.edit.tables.info'); /// this {id} is comes from resources/views/restaurant/admin/table/all-tables.blade.php
+    Route::patch('/updatedTable{id}', [TablesController::class,'updateTable'])->name('admin.updated.table.info.store'); /// this {id} is comes from resources/views/restaurant/admin/table/edit-table
+    Route::get('/deleteTable{id}' , [TablesController::class, 'deleteTable']); /// this {id} is comes from resources/views/restaurant/admin/table/all-tables.blade.php
+    Route::get('/tableReservations', [TablesController::class, 'tableReservation'])->name('admin.make.reservation');
+
 });
 
 
