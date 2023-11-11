@@ -166,7 +166,7 @@
                     <i class="mdi mdi-calendar-clock text-warning p-1"></i>
                     Make Reservation </a></li>
 
-                <li class="nav-item"> <a class="nav-link" href="#">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('admin.show.all.reserved.table') }}">
                     <i class="mdi mdi-timetable text-primary p-1"></i>
                     Reserved </a></li>
               </ul>

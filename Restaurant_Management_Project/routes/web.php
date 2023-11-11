@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/deleteCart{id}', [OrderController::class, 'deleteCart']); /// this {id} is comes from resources/restaurant/user/show-cart.blade.php
     Route::post('/orderStore', [OrderController::class, 'orderStore'])->name('order.store');
     Route::get('/orderHistory', [OrderController::class, 'orderHistory'])->name('order.history');
+    Route::post('/bookTable' , [TablesController::class, 'bookTable'])->name('book.table');
+    Route::get('/tableReservationsHistory', [TablesController::class, 'tableReservations'])->name('table.reservations');
+
 
     ////====================================== Admin ================================////    
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
@@ -73,7 +76,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/updatedTable{id}', [TablesController::class,'updateTable'])->name('admin.updated.table.info.store'); /// this {id} is comes from resources/views/restaurant/admin/table/edit-table
     Route::get('/deleteTable{id}' , [TablesController::class, 'deleteTable']); /// this {id} is comes from resources/views/restaurant/admin/table/all-tables.blade.php
     Route::get('/tableReservations', [TablesController::class, 'tableReservation'])->name('admin.make.reservation');
-
+    Route::post('/storeTableReservations', [TablesController::class, 'storeTableReservation'])->name('admin.store.table.reservation');
+    Route::get('/allReservedTables', [TablesController::class,'showAllReservedTable'])->name('admin.show.all.reserved.table');
+    Route::get('/freeReservedTable{id}', [TablesController::class , 'freeReservedTable'])->name('booked.table.free');  //// this {id} is comes from resources/views/restaurant/admin/table/all-reserved-table.blade.php
+    Route::get('/deleteReservation{id}', [TablesController::class, 'deleteReservation']);     //// this {id} is comes from resources/views/restaurant/admin/table/all-reserved-table.blade.php
 });
 
 

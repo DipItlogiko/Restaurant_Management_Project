@@ -133,11 +133,11 @@
           @endif
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('table.reservations') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-table-edit"></i>
               </span>
-              <span class="menu-title">Reservation</span>
+              <span class="menu-title">Reservations</span>
             </a>
           </li>          
            

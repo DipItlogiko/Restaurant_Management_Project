@@ -41,7 +41,7 @@
 
                  <h2 class="text-center fw-bold h1 my-2 mx-1 mx-md-4  pb-3 text-light font">Table<span style="color: #ffb03b">Reservation</span></h2> 
 
-                 <form  method="POST" action="{{ route('admin.store.user') }}" class=" mx-md-4" enctype="multipart/form-data">
+                 <form  method="POST" action="{{ route('admin.store.table.reservation') }}" class=" mx-md-4" enctype="multipart/form-data">
                     @csrf
 
                     <div class="d-flex flex-row align-items-center mb-4">
@@ -89,12 +89,25 @@
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                             <span class="text-danger">
-                                @error('time')
+                                @error('timeFrom')
                                     {{ $message }}
                                 @enderror
                             </span>
-                            <input type="time" id="form3Example3c" name="time" value="{{ old('time') }}" class="form-control text-warning" required />
-                            <label class="form-label text-light" for="form3Example3c">Time</label>
+                            <input type="time" id="form3Example3c" name="timeFrom" value="{{ old('timeFrom') }}" class="form-control text-warning" required />
+                            <label class="form-label text-light" for="form3Example3c">Time(from)</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                            <span class="text-danger">
+                                @error('timeTo')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            <input type="time" id="form3Example3c" name="timeTo" value="{{ old('timeTo') }}" class="form-control text-warning" required />
+                            <label class="form-label text-light" for="form3Example3c">Time(to)</label>
                         </div>
                     </div>
 
@@ -116,13 +129,13 @@
                         <i class="fas fa-list fa-lg me-3 fa-fw "></i>
                         <div class="form-outline flex-fill mb-0">
                             <span class="text-danger">
-                                @error('avaliableTable')
+                                @error('tableName')
                                     {{ $message }}
                                 @enderror
                             </span>
 
                             
-                            <select id="form3Example3c" name="avaliableTable" class="form-select text-warning form-control" required>  
+                            <select id="form3Example3c" name="tableName" class="form-select text-warning form-control" required>  
                                 <option value="">select table...</option>  
 
                                 @foreach($tables as $data)                                                                       
@@ -130,7 +143,7 @@
                                 @endforeach                                       
                             </select>
                             
-                            <label for="avaliableTable" class="form-label text-light" for="form3Example3c">Available Table</label>
+                            <label for="tableName" class="form-label text-light" for="form3Example3c">Available Table</label>
                         </div>
                     </div>  
                     
@@ -174,4 +187,50 @@
  
 
 </div>
+@endsection
+
+@section('custom_js')
+    <!--======== This script is for Aleart auto close ========= -->
+    <script>
+
+        // Get all elements with class "auto-close"
+        const autoCloseElements = document.querySelectorAll(".auto-close");
+    
+        // Define a function to handle the fading and sliding animation
+        function fadeAndSlide(element) {
+        const fadeDuration = 500;
+        const slideDuration = 500;
+     
+        // Step 1: Fade out the element
+        let opacity = 1;
+        const fadeInterval = setInterval(function () {
+            if (opacity > 0) {
+            opacity -= 0.1;
+            element.style.opacity = opacity;
+            } else {
+            clearInterval(fadeInterval);
+         // Step 2: Slide up the element
+         let height = element.offsetHeight;
+         const slideInterval = setInterval(function () {
+             if (height > 0) {
+             height -= 10;
+             element.style.height = height + "px";
+             } else {
+             clearInterval(slideInterval);
+             // Step 3: Remove the element from the DOM
+             element.parentNode.removeChild(element);
+             }
+         }, slideDuration / 10);
+         }
+     }, fadeDuration / 10);
+     }
+    
+     // Set a timeout to execute the animation after 5000 milliseconds (5 seconds)
+     setTimeout(function () {
+     autoCloseElements.forEach(function (element) {
+         fadeAndSlide(element);
+     });
+     }, 5000);
+    
+    </script>
 @endsection
