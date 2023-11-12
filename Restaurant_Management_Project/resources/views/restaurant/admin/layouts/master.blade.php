@@ -134,13 +134,29 @@
 
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/tables/basic-table.html">
+            <a class="nav-link" data-bs-toggle="collapse" href="#chefs" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-chef-hat"></i>
               </span>
               <span class="menu-title">Chefs</span>
+              <i class="menu-arrow"></i>
             </a>
-          </li>
+            <div class="collapse" id="chefs">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('add.chefs') }}">
+                    <i class="mdi mdi-account-plus text-info p-1"></i>
+                    Add </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('show.all.chefs') }}">
+                    <i class="mdi mdi-eye text-success p-1"></i>
+                    Show </a></li>
+
+              </ul>
+            </div>
+          </li>         
+
+ 
 
           <li class="nav-item menu-items">
             <a class="nav-link" data-bs-toggle="collapse" href="#table" aria-expanded="false" aria-controls="auth">

@@ -9,6 +9,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TablesController;
+use App\Http\Controllers\ChefController;
  
 
 /*
@@ -80,6 +81,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/allReservedTables', [TablesController::class,'showAllReservedTable'])->name('admin.show.all.reserved.table');
     Route::get('/freeReservedTable{id}', [TablesController::class , 'freeReservedTable'])->name('booked.table.free');  //// this {id} is comes from resources/views/restaurant/admin/table/all-reserved-table.blade.php
     Route::get('/deleteReservation{id}', [TablesController::class, 'deleteReservation']);     //// this {id} is comes from resources/views/restaurant/admin/table/all-reserved-table.blade.php
+    Route::get('/searchTable', [SearchController::class, 'searchBookedTable'])->name('booked.table.search');
+    Route::get('/tableSearch', [SearchController::class, 'tableSearch'])->name('table.search');
+    Route::get('/addChef', [ChefController::class, 'addChef'])->name('add.chefs');
+    Route::post('/storeChef', [ChefController::class, 'storeChef'])->name('store.chef');
+    Route::get('/allChefs', [ChefController::class, 'allChefs'])->name('show.all.chefs'); 
 });
 
 

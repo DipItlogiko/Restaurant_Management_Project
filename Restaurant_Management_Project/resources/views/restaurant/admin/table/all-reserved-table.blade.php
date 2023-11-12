@@ -17,7 +17,7 @@
                     <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
-                        <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go Back</a>
+                        <a href="{{ route('admin.show.all.reserved.table') }}" class="btn btn-outline-warning">Go Back</a>
                         <p class="card-text"><small class="text-muted">McDonald's</small></p>
                     </div>
                 </div>  
@@ -61,8 +61,8 @@
             <div class="search-container">
                 <div class="input-box rounded-pill">
                     <i class="mdi mdi-magnify"></i>
-                    <form action="{{ route('search') }}" method="get"> <!--search ar jonno amra get method ee use kori--->
-                        <input type="text" class="text-warning" name="search" placeholder="Search here..." />
+                    <form action="{{ route('booked.table.search') }}" method="get"> <!--search ar jonno amra get method ee use kori--->
+                        <input type="text" class="text-warning" name="search" placeholder="Search here..." required/>
                         <button class="button border-0"><a type="submit" class="btn btn-outline-warning rounded-pill">Search</a></button>
                     </form>
                     

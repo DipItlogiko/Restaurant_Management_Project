@@ -62,7 +62,7 @@
                 <div class="input-box rounded-pill">
                     <i class="mdi mdi-magnify"></i>
                     <form action="{{ route('search') }}" method="get"> <!--search ar jonno amra get method ee use kori--->
-                        <input type="text" class="text-warning" name="search" placeholder="Search here..." />
+                        <input type="text" class="text-warning" name="search" placeholder="Search here..." required/>
                         <button class="button border-0"><a type="submit" class="btn btn-outline-warning rounded-pill">Search</a></button>
                     </form>
                     
