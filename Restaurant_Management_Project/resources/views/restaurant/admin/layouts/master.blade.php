@@ -231,6 +231,30 @@
               <span class="menu-title">Orders</span>
             </a>
           </li>
+
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-bs-toggle="collapse" href="#worker" aria-expanded="false" aria-controls="auth">
+              <span class="menu-icon">
+                <i class="mdi mdi-worker"></i>
+              </span>
+              <span class="menu-title">Workers</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="worker">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('add.worker') }}">
+                    <i class="mdi mdi-account-plus text-success p-1"></i>
+                    Add </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('show.workers') }}">
+                    <i class="mdi mdi-eye text-primary p-1"></i>
+                    Show </a></li>
+
+              </ul>
+            </div>
+          </li>  
            
         </ul>
       </nav>

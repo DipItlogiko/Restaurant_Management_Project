@@ -1,12 +1,12 @@
-@extends('restaurant.admin.layouts.master');
+@extends('restaurant.admin.layouts.master')
 
 @section('title')
-    create-chef
+    add-worker
 @endsection
 
 @section('body')
-<section class="vh-99">
-    <div class="container h-100">
+ 
+    <div class="container">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-12 col-xl-11">
         <div class="card text-black border-0" >
@@ -40,9 +40,9 @@
                   
                   <!--==== End Flash Message ====-->
 
-                 <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2 text-light font">Add<span style="color: #ffb03b">Chef</span></h2> 
+                 <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2 text-light font">Add<span style="color: #ffb03b">Worker</span></h2> 
 
-                <form action="{{ route('store.chef') }}"  method="post" class=" mx-md-4" enctype="multipart/form-data">
+                <form action="{{ route('store.worker') }}"  method="post" class=" mx-md-4" enctype="multipart/form-data">
                     @csrf
 
                     <div class="d-flex flex-row align-items-center mb-4">
@@ -79,12 +79,12 @@
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                             <span class="text-danger">
-                                @error('position')
+                                @error('worker_type')
                                     {{ $message }}
                                 @enderror
                             </span>
-                            <input type="text" id="form3Example3c" name="position" value="{{ old('position') }}" class="form-control text-warning" required/>
-                            <label for="position" class="form-label text-light" for="form3Example3c">Position</label>
+                            <input type="text" id="form3Example3c" name="worker_type" value="{{ old('worker_type') }}" class="form-control text-warning" required/>
+                            <label for="worker_type" class="form-label text-light" for="form3Example3c">Worker Type</label>
                         </div>
                     </div>
 
@@ -105,12 +105,12 @@
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                             <span class="text-danger">
-                                @error('twitter')
+                                @error('email')
                                     {{ $message }}
                                 @enderror
                             </span>
-                            <input type="text" id="form3Example3c" name="twitter" value="{{ old('twitter') }}" class="form-control text-warning" required/>
-                            <label for="twitter" class="form-label text-light" for="form3Example3c">Twitter</label>
+                            <input type="email" id="form3Example3c" name="email" value="{{ old('email') }}" class="form-control text-warning" required/>
+                            <label for="email" class="form-label text-light" for="form3Example3c">Email</label>
                         </div>
                     </div>
 
@@ -118,41 +118,14 @@
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                             <span class="text-danger">
-                                @error('fb')
+                                @error('address')
                                     {{ $message }}
                                 @enderror
                             </span>
-                            <input type="text" id="form3Example3c" name="fb" value="{{ old('fb') }}" class="form-control text-warning" required/>
-                            <label for="fb" class="form-label text-light" for="form3Example3c">FaceBook</label>
+                            <input type="text" id="form3Example3c" name="address" value="{{ old('address') }}" class="form-control text-warning" required/>
+                            <label for="address" class="form-label text-light" for="form3Example3c">Address</label>
                         </div>
-                    </div>
-
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <span class="text-danger">
-                                @error('instagraam') 
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                            <input type="text" id="form3Example3c" name="instagraam" value="{{ old('instagraam') }}" class="form-control text-warning" required/>
-                            <label for="instagraam" class="form-label text-light" for="form3Example3c">Instagraam</label>
-                        </div>
-                    </div>
-
-
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <span class="text-danger">
-                                @error('linkedin')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                            <input type="text" id="form3Example3c" name="linkedin" value="{{ old('linkedin') }}" class="form-control text-warning" required/>
-                            <label for="linkedin" class="form-label text-light" for="form3Example3c">LinkedIn</label>
-                        </div>
-                    </div>                
+                    </div>                                     
                     
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
@@ -164,7 +137,7 @@
                 </div>
                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                <img src="admin/images/chef.png"
+                <img src="admin/images/worker.png"
                     class="img-fluid" alt="Sample image">
 
                      
@@ -176,12 +149,8 @@
         </div>
     </div>
      
-</section>
-
-</div>
+ 
 @endsection
-
-
 
 @section('custom_js')
     <!--======= This script is for Aleart auto close ======-->

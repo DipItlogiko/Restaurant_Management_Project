@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\File;
+use Illuminate\Validation\Rule;
 use App\Models\Chef;
 
 class ChefController extends Controller
@@ -22,8 +24,17 @@ class ChefController extends Controller
         //--form data validation--//
         $request->validate([
             'name' => ['required' , 'regex:/^[A-Za-z\s]+$/'],
-            'image' => ['required','image','mimes:jpg,jpeg,png'],
+            'image' => ['required',
+                File::image()
+                ->types(['png', 'jpg', 'jpeg'])                 
+                ->max(2 * 1024)
+                ->dimensions(
+                    Rule::dimensions()
+                        ->maxWidth(640)
+                        ->maxHeight(640)
+                )], //// akhane max:1024 diye bolechi amader image ta maximum 1 mb hobe amra jai 1024 kb = 1mb
             'position' => ['required' ,'regex:/^[A-Za-z\s]+$/'],
+            'number' => ['required','regex:/^[0-9]+$/','min:11','max:11'],
             'twitter' => ['string','nullable'],
             'fb' => ['string','nullable'],
             'instagraam' => ['string','nullable'],
@@ -42,6 +53,7 @@ class ChefController extends Controller
         $chefs->name = $request->name;
         $chefs->position = $request->position;
         $chefs->image = $imageName;
+        $chefs->number = $request->number;
         $chefs->twitter = $request->twitter;
         $chefs->facebook = $request->fb;
         $chefs->instagraam = $request->instagraam;
@@ -56,6 +68,79 @@ class ChefController extends Controller
     public function allChefs()
     {
         $authUser = Auth::user();
-        return view('restaurant.admin.chef.all-chefs' ,['authUser' => $authUser]);
+        $chefs = Chef::cursor();
+        return view('restaurant.admin.chef.all-chefs' ,['authUser' => $authUser , 'chefs' => $chefs]);
+    }
+
+
+    ///======= Admin will be able to edit specific chef information =======///
+    public function editChef($id)
+    {
+        $chef = Chef::find($id);
+        $authUser = Auth::user();
+
+        return view('restaurant.admin.chef.edit-chef',['chef' => $chef , 'authUser' => $authUser]);
+
+    }
+
+    ///======= Admin will be able to store updated chefs information into the database table =======///
+    public function updateChef(Request $request , $id)
+    {
+        //--form data validation--//
+       $request->validate([
+        'name' => ['required' , 'regex:/^[A-Za-z\s]+$/'],
+            'image' => [
+                File::image()
+                ->types(['png', 'jpg', 'jpeg'])                 
+                ->max(2 * 1024)
+                ->dimensions(
+                    Rule::dimensions()
+                        ->maxWidth(640)
+                        ->maxHeight(640)
+                )], //// akhane max:1024 diye bolechi amader image ta maximum 1 mb hobe amra jai 1024 kb = 1mb
+            'position' => ['required' ,'regex:/^[A-Za-z\s]+$/'],
+            'number' => ['required','regex:/^[0-9]+$/','min:11','max:11'],
+            'twitter' => ['string','nullable'],
+            'fb' => ['string','nullable'],
+            'instagram' => ['string','nullable'],
+            'linkedin' => ['string','nullable'],
+       ]);
+
+       //--store form data into the database table--//
+       $specificChef = Chef::find($id);
+
+
+        $specificChef->name = $request->name;
+        $specificChef->position = $request->position;
+        $specificChef->number = $request->number;
+        $specificChef->twitter = $request->twitter;
+        $specificChef->facebook = $request->fb;
+        $specificChef->instagraam = $request->instagram;
+        $specificChef->linkedin = $request->linkedin;
+
+        if(isset($request->image)){ //// jodi amader form ar image input field ta kew fillup kore tokhon ai code tuku execute hobe.image input field aa jodi kono image kew set na kore tahole ai code ta execute hobe na.  
+             
+            $imageName = time().'.'.$request->image->extension(); ////akhane amader notun image ar akta file name create kora hoyeche
+
+            $request->image->move(public_path('Chefs_images'), $imageName);  /////amader ai image file take public ar moddhe Products directory ar moddhe move kora hoyeche oi file ar nam  aaaaaaaaaa
+            $specificChef->image = $imageName; ////// tar pore amader database ar oi id ar image field ar moddhe amader ai image name take save kora hoyeche
+       }
+
+
+       $specificChef->save();
+
+       return redirect()->route('show.all.chefs')->with('status', 'Chef Information Updated Successfully!!!');
+       
+    }
+
+
+    ///======= Admin will be able to permanently delete a  specific chef from the database table =======///
+    public function deleteChef($id)
+    {
+        $specificChef = Chef::find($id);
+
+        $specificChef->delete();
+
+        return redirect()->route('show.all.chefs')->with('status' , 'Chef Deleted Successfully!!!');
     }
 }

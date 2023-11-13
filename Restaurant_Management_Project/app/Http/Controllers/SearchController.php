@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\TableReservation;
 use App\Models\Table;
+use App\Models\Chef;
 
 class SearchController extends Controller
 {
@@ -83,5 +84,29 @@ class SearchController extends Controller
 
         return view('restaurant.admin.table.all-tables', ['tables' => $tables , 'authUser' => $authUser]);
     }
+
+    ///======== Admin will be able to search specific chef by information from chefs records ========///
+    public function chefSearch(Request $request)
+    {
+        //--form data validation--//
+        $request->validate([
+            'search' => ['required'],
+        ]);
+
+        $authUser = Auth::user();
+
+        //--search queary--//
+        $chefs = Chef::where('name' , 'Like' , '%'.$request->search.'%')  ///// akane amader Chef Model ta amader database ar chefs table take represent kore and oi table theke ami where diye ami bolechi oi table ar moddhe 'name' nam aa jei column ta ache oi column ar moddhe theke $request ar moddhe theke je search name key ta ashche oi key ar value ta diye ami amder database ar oi table ar name column theke find korchi whild card ar maddhom and ai whild card ta amra (SQL shekhar somoy shikhechi) 'Like' hocche amader whild card ar syntax and tar pore '%'.$request->search.'%' ar mane hocche amader $request theke je search name aa key ta ashbe oi key ar valu ta diye amader name column ar moddhe find korbe and ar aage ba pore ja khushi thakte pare ai ta amra '%' aage and pore likhe tai bujhiyechi 
+        ->orWhere('position' , 'Like' , '%'.$request->search.'%')
+        ->orWhere('twitter' , 'Like' , '%'.$request->search.'%')
+        ->orWhere('facebook' , 'Like' , '%'.$request->search.'%')
+        ->orWhere('instagraam' , 'Like' , '%'.$request->search.'%')
+        ->orWhere('linkedin' , 'Like' , '%'.$request->search.'%')
+        ->cursor();
+
+
+        return view('restaurant.admin.chef.all-chefs', ['authUser' => $authUser,'chefs' => $chefs]);
+    }
+
     
 }

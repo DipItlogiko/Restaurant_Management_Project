@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TablesController;
 use App\Http\Controllers\ChefController;
+use App\Http\Controllers\WorkerController;
  
 
 /*
@@ -86,6 +87,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/addChef', [ChefController::class, 'addChef'])->name('add.chefs');
     Route::post('/storeChef', [ChefController::class, 'storeChef'])->name('store.chef');
     Route::get('/allChefs', [ChefController::class, 'allChefs'])->name('show.all.chefs'); 
+    Route::get('/editChef{id}', [ChefController::class, 'editChef'])->name('admin.edit.chef'); /// this id is comes from resources/views/admin/chef/all-chefs.blade.php 
+    Route::patch('/updateChef{id}', [ChefController::class, 'updateChef'])->name('admin.chef.update'); //// this {id} is comes from resources/views/admin/chef/edit-chef.blade.php and amra patch method ta use kori kono data ke update korar jonno mane jokhon amra kono data ke update korbo tokhon ai patch() method ta use korbo patch() method ta use korle laravel autometically bujhe jai amader ai data take update korte hobe...
+    Route::get('/deleteChef{id}', [ChefController::class, 'deleteChef']); //// this {id} is comes from resources/views/admin/chef/all-chefs.blade.php
+    Route::get('/chefSearch', [SearchController::class, 'chefSearch'])->name('chef.search');
+    Route::get('/addWorker', [WorkerController::class, 'addWorker'])->name('add.worker');
+    Route::post('/storeWorker', [WorkerController::class, 'storeWorker'])->name('store.worker');
+    Route::get('/showWorkers', [WorkerController::class, 'showWorkers'])->name('show.workers');
+    Route::get('/editWorker{id}', [WorkerController::class, 'editWorker'])->name('worker.edit'); //// this {id} is comes from resources/views/admin/worker/all-workers.blade.php
+    Route::patch('/updateWorker{id}', [WorkerController::class, 'updateWorker'])->name('worker.update');
+    Route::get('/deleteWorker{id}', [WorkerController::class, 'deleteWorker']); //// this {id} is comes from resources/views/admin/worker/all-workers.blade.php
+
 });
 
 
