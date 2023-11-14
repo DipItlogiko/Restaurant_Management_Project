@@ -11,6 +11,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TablesController;
 use App\Http\Controllers\ChefController;
 use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\DailyExpenseController;
+use App\Http\Controllers\MonthlyExpenseController;
  
 
 /*
@@ -97,6 +99,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/editWorker{id}', [WorkerController::class, 'editWorker'])->name('worker.edit'); //// this {id} is comes from resources/views/admin/worker/all-workers.blade.php
     Route::patch('/updateWorker{id}', [WorkerController::class, 'updateWorker'])->name('worker.update');
     Route::get('/deleteWorker{id}', [WorkerController::class, 'deleteWorker']); //// this {id} is comes from resources/views/admin/worker/all-workers.blade.php
+    Route::get('/searchWorker', [SearchController::class, 'searchWorker'])->name('search.worker'); 
+    Route::get('/dailyExpense', [DailyExpenseController::class, 'dailyExpense'])->name('daily.expense');
+    Route::post('/storeExpense', [DailyExpenseController::class, 'storeExpense'])->name('store.expense');
+    Route::get('/expensesList', [DailyExpenseController::class,'expensesList'])->name('expenses.list');
+    Route::get('/searchExpense', [SearchController::class, 'searchExpense'])->name('expense.search');
+    Route::get('/editExpense{id}', [DailyExpenseController::class, 'editExpense'])->name('admin.edit.expense');  /// this {id} is comes from resources/views/admin/expense/expenses-list.blade.php 
+    Route::patch('/updateExpense{id}', [DailyExpenseController::class, 'updateExpense'])->name('update.expense');  /// this {id} is comes from resources/views/admin/expense/edit-expense.blade.php 
+    Route::get('/deleteExpense{id}', [DailyExpenseController::class, 'deleteExpense']);  /// this {id} is comes from resources/views/admin/expense/expenses-list.blade.php 
+    Route::get('/monthlyExpense', [MonthlyExpenseController::class,'index'])->name('monthly.expense');
+    Route::post('/monthlyPDF', [MonthlyExpenseController::class,'monthlyPDF'])->name('monthly.pdf'); 
 
 });
 

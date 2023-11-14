@@ -255,6 +255,34 @@
               </ul>
             </div>
           </li>  
+
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-bs-toggle="collapse" href="#Expense" aria-expanded="false" aria-controls="auth">
+              <span class="menu-icon">
+                <i class="mdi mdi-cash-multiple"></i>
+              </span>
+              <span class="menu-title">Expenses</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="Expense">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('daily.expense') }}">
+                    <i class="mdi mdi-pen text-success p-1"></i>
+                    Add </a></li> 
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('expenses.list') }}">
+                    <i class="mdi mdi-view-list text-primary p-1"></i>
+                    List </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('monthly.expense') }}">
+                  <i class="mdi mdi-calendar-text text-info p-1"></i>
+                  Monthly Expense </a></li>
+
+              </ul>
+            </div>
+          </li>
            
         </ul>
       </nav>

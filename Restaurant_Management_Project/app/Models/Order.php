@@ -12,11 +12,11 @@ class Order extends Model
     //// akhane amra amader Order Model ta database ar jei table take represent kore oi table theke created_at column ar value take table theke aaane akhane modify korechi accessor ar maddhome...amra accessor ar maddhome database ar table theke kono column ar value aakhan theke modify kore tar por amader application ar moddhe oi value ta dekhate pari 
     public function getCreatedAtAttribute($value) /// akhane get likhechi karon ami accessor use korchi tai and CreatedAt hocche amader orders table ar column ar nam created_at aikhane column ar nam ar prothom letter boro hater likhte hoy tar pore Attribute likhte hobe and ai $value ai variable ar moddhe amader orders table created_at column ar moddhe theke je datagulo ashbe oi datagulo aikhane mane $value ai variable ar moddhe store hoye jabe
     {
-       return date("d-M-Y h:i A", strtotime($value)); ///// jehetu amader $value ai variable ar moddhe jei datata ashbe oi datata string aaakare ashbe tai amra strtotime() function ar maddhome $value variable ar value take timestramp a convart kore niyechi and difine kore diyechi amader created_at column  ar value ta "d-M-Y" ai format aa dekhabe
+       return date("d-m-Y h:i A", strtotime($value)); ///// jehetu amader $value ai variable ar moddhe jei datata ashbe oi datata string aaakare ashbe tai amra strtotime() function ar maddhome $value variable ar value take timestramp a convart kore niyechi and difine kore diyechi amader created_at column  ar value ta "d-M-Y" ai format aa dekhabe
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return date("d-M-Y h:i A", strtotime($value)); /// 'h' mane hocche Hours and 'i' hocche minutes and 'A' amader AM and PM ta handel korbe and amader ai time ta jeno thik thak vabe dekhai amader desh ar time oonujayi tar jonno ami amader laravel application ar config/app.php ar moddhe giye timezone ta Asia/Dhaka kore diyechi....
+        return date("d-m-Y h:i A", strtotime($value)); /// 'h' mane hocche Hours and 'i' hocche minutes and 'A' amader AM and PM ta handel korbe and amader ai time ta jeno thik thak vabe dekhai amader desh ar time oonujayi tar jonno ami amader laravel application ar config/app.php ar moddhe giye timezone ta Asia/Dhaka kore diyechi....
     }
 }

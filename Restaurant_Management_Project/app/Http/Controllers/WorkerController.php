@@ -113,4 +113,14 @@ class WorkerController extends Controller
 
     }
 
+    ///========== Admin will be able to delete a specific worker from the database table =========///
+    public function deleteWorker($id)
+    {
+        $specificWorker = Worker::find($id);
+
+        $specificWorker->delete();
+
+        return redirect()->route('show.workers')->with('status', 'Worker Name ' .$specificWorker->name. ' Deleted Successfully!!!');
+    }
+
 }

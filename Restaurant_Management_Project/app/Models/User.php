@@ -52,6 +52,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getCreatedAtAttribute($value) ////// akhane amra accessore use korechi 
     {
-       return date("d-M-Y h:i A", strtotime($value));  
+       return date("d-m-Y h:i A", strtotime($value));  ////// d-m-Y akhane 'd' mane hocche day and 'm' mane hocche mash jehetu ami aikhane choto hater m use korechi tai amader mash ar  nam ta number aa dekhabe jemon jodi march hoy tahole 3 dekhabe jodi ami boro hater 'M' ditam tahole amader mash ar nam dekha to jemon jodi mash ar nam march hoto tahole amader March dekhato letter aaa
+    }
+
+    public function getUpdatedAtAttribute($value) ////// akhane amra accessore use korechi 
+    {
+       return date("d-m-Y h:i A", strtotime($value));  ////// d-m-Y akhane 'd' mane hocche day and 'm' mane hocche mash jehetu ami aikhane choto hater m use korechi tai amader mash ar  nam ta number aa dekhabe jemon jodi march hoy tahole 3 dekhabe jodi ami boro hater 'M' ditam tahole amader mash ar nam dekha to jemon jodi mash ar nam march hoto tahole amader March dekhato letter aaa
+    }
+
+    public function getEmailVerifiedAtAttribute($value) ////// akhane amra accessore use korechi 
+    {
+       return date("d-m-Y h:i A", strtotime($value));  ////// d-m-Y akhane 'd' mane hocche day and 'm' mane hocche mash jehetu ami aikhane choto hater m use korechi tai amader mash ar  nam ta number aa dekhabe jemon jodi march hoy tahole 3 dekhabe jodi ami boro hater 'M' ditam tahole amader mash ar nam dekha to jemon jodi mash ar nam march hoto tahole amader March dekhato letter aaa
     }
 }
