@@ -1,0 +1,27 @@
+{
+    "roboto": {
+        "normal": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/roboto_normal_7bc701b343c10631f60048716b96e4f7",
+        "bold": "roboto_bold_8db5cb5d0586c1e891426d13097b1d04"
+    },
+    "comic neue": {
+        "300_italic": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/comic_neue_300_italic_514251a70d9d20860cd07ae1424c6aa0",
+        "italic": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/comic_neue_italic_a076f3b4c8272a0a35e7d72f070f83d2",
+        "bold_italic": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/comic_neue_bold_italic_2980be2091a113454613a13485d1b472",
+        "300": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/comic_neue_300_6b984b899e7800b5e8cbe9d76b0ec0a5",
+        "normal": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/comic_neue_normal_cce1069af8c4809eb5cac2cddfe24236",
+        "bold": "comic_neue_bold_c19ad2673afd0588a205ac0e118c06c8"
+    },
+    "poppins": {
+        "300_italic": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/poppins_300_italic_56b93a487d8c28777146ffd1eef895fd",
+        "italic": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/poppins_italic_46da975c18aa560b0bd3b88b138916e9",
+        "600_italic": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/poppins_600_italic_5bc21aa56d8039e2f3d1b8f790f9558d",
+        "bold_italic": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/poppins_bold_italic_1918f692c841b01acf827608eecc4cdd",
+        "300": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/poppins_300_999a4088f0da952988730996a4bec1d8",
+        "normal": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/poppins_normal_ee697d7869cb745ccf3ccccc013145ad",
+        "600": "\/home\/dip-ghosh\/Documents\/Restaurant_Management_Project\/Restaurant_Management_Project\/storage\/fonts\/poppins_600_9623fbc18c38938c2057a9aae8390a42",
+        "bold": "poppins_bold_8fe618268f56b4b8f1e70e87a9e99fc0"
+    },
+    "satisfy": {
+        "normal": "satisfy_normal_7fd3d4cbc72184ea0a21fb07b673afe2"
+    }
+}

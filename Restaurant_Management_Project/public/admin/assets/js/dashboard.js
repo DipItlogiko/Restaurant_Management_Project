@@ -62,10 +62,12 @@
       });
     }
     if ($("#transaction-history").length) {
+      var data = {!! json_encode($totalPrice->toArray()) !!};
+      console.log(data);
       var areaData = {
-        labels: ["Paypal", "Stripe","Cash"],
+        labels: ["CashOnDelivery","None"],
         datasets: [{
-            data: [55, 25, 20],
+            data: [55,25],
             backgroundColor: [
               "#111111","#00d25b","#ffab00"
             ]
@@ -76,7 +78,7 @@
         responsive: true,
         maintainAspectRatio: true,
         segmentShowStroke: false,
-        cutoutPercentage: 70,
+        cutoutPercentage: 79,
         elements: {
           arc: {
               borderWidth: 0
@@ -96,7 +98,7 @@
               ctx = chart.chart.ctx;
       
           ctx.restore();
-          var fontSize = 1;
+          var fontSize = 1.2;
           ctx.font = fontSize + "rem sans-serif";
           ctx.textAlign = 'left';
           ctx.textBaseline = "middle";
@@ -109,7 +111,7 @@
           ctx.fillText(text, textX, textY);
 
           ctx.restore();
-          var fontSize = 0.75;
+          var fontSize = 1.2;
           ctx.font = fontSize + "rem sans-serif";
           ctx.textAlign = 'left';
           ctx.textBaseline = "middle";
