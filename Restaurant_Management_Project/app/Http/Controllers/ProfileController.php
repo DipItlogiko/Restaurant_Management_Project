@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Cart;
 
 class ProfileController extends Controller
 {
@@ -17,9 +19,11 @@ class ProfileController extends Controller
      */
     public function edit(): View
     {
-        $user = Auth::user();
+        $authUser = Auth::user();
+        $count = Cart::where('user_id',$authUser->id)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
+        $orderCount = Order::where('user_id', $authUser->id)->count();
 
-        return view('restaurant.user.profile.edit', ['authUser' => $user]);
+        return view('restaurant.user.profile.edit', ['authUser' => $authUser, 'orderCount' => $orderCount , 'count' => $count]);
     }
 
     /**
@@ -28,7 +32,10 @@ class ProfileController extends Controller
     public function userPasswordEdit(): View
     {
         $authUser = Auth::user();
-        return view('restaurant.user.profile.update-password', ['authUser' => $authUser]);
+        $count = Cart::where('user_id',$authUser->id)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
+        $orderCount = Order::where('user_id', $authUser->id)->count();
+
+        return view('restaurant.user.profile.update-password', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count]);
     }
 
     /**
@@ -37,7 +44,10 @@ class ProfileController extends Controller
     public function userAdvanceSettings(): View
     {
         $authUser = Auth::user();
-        return view('restaurant.user.profile.advance-setting', ['authUser' => $authUser]);
+        $count = Cart::where('user_id',$authUser->id)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
+        $orderCount = Order::where('user_id', $authUser->id)->count();
+
+        return view('restaurant.user.profile.advance-setting', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count]);
     }    
 
     /**

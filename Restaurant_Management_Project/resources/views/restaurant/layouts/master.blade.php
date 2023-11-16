@@ -30,8 +30,10 @@
 </head>
 
 <body>
-
-   @yield('flash_message')
+   <div class="row d-block">
+    @yield('flash_message')
+   </div>
+   
    
    @yield('top_bar')
 

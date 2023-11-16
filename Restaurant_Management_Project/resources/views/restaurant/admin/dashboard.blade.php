@@ -9,16 +9,43 @@
 @section('body')
 
 <div class="content-wrapper" >
+
   <div class="row">
-     
+      <!--==== Flash Message ====-->
+
+      @if (session('status'))
+
+      <!----(i have used bootstrap5 aleart to show our FLASH MESSAGE)---->
+      <!-----(tickmark icon)----->
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+          <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </symbol>                           
+      </svg>
+          
+          <!--(aleart)-->
+          <div class="auto-close alert alert-success d-flex align-items-center" role="alert" class="mx-auto">
+              <svg class="bi flex-shrink-0 me-2 text-success" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+              <div>
+                  {{ session('status') }}
+              </div>
+              
+              <button type="button" class="btn-close" style="margin-left: auto"  data-bs-dismiss="alert" aria-label="Close"></button>
+              
+          </div>
+      @endif
+
+    <!--==== End Flash Message ====-->
   </div>
+
+
   <div class="row">
     <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <div class="row">
             <div class="col-9">
-              <div class="d-flex align-items-center  text-center">
+              <div class="d-flex align-items-center  text-center">                
                          
                  <i class="mdi mdi-account-group-outline p-2" style="font-size: 5em; color:#ffb03b"></i>
                 
@@ -109,23 +136,24 @@
     </div>
   </div>
   <div class="row">
+    <!--========== transaction-history Canvas ============--->
     <div class="col-md-4 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title text-customize">Transaction Summary</h4>
-          <canvas id="transaction-history" class="mt-5 " height='10px' width='10px'></canvas>         
+          <canvas id="transaction-history" class="mt-5 " height='10px' width='10px'></canvas>   <!--Canvas hocche amader html ar akta tag jar maddhome amra amader application ar moddhe graphic ar kaj korte pari canvas tag ta use kore ai canvas ar akta id dite hobe and ai id dhore amader js mane javascript file ar moddhe degine korte hobe amra ai canvas tar degien ta amader ai file ar niche korechi script tag ar moddhe----->      
         </div>
       </div>
     </div>
-    <div class="col-md-8 grid-margin stretch-card">
-       
+
+    <!--========== Sales Chart Canvas ============--->
+    <div class="col-md-8 grid-margin stretch-card">       
       <div class="card">
         <div class="card-body">
           <h4 class="card-title text-customize">Sales Chart</h4>
-          <canvas id="barChart" style="height:230px"></canvas>
+          <canvas id="barChart" style="height:230px"></canvas>    <!--Canvas hocche amader html ar akta tag jar maddhome amra amader application ar moddhe graphic ar kaj korte pari canvas tag ta use kore ai canvas ar akta id dite hobe and ai id dhore amader js mane javascript file ar moddhe degine korte hobe amra ai canvas tar degien ta amader ai page ar niche korechi script tag ar moddhe----->
         </div>
       </div>
-
     </div>
   </div>
    
@@ -139,8 +167,7 @@
               <thead>
                 <tr>
                    
-                  <th> Customer Name </th>
-                  <th> Order No </th>
+                  <th> Customer Name </th>                   
                   <th> Food Cost </th>
                   <th> Food Name </th>
                   <th> Payment Mode </th>
@@ -149,71 +176,28 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                   
-                  <td>
-                    <img src="admin/assets/images/faces/face1.jpg" alt="image" />
-                    <span class="ps-2">Henry Klein</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> potato </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td>Approved</td>
-                </tr>
-                <tr>
-                   
-                  <td>
-                    <img src="admin/assets/images/faces/face2.jpg" alt="image" />
-                    <span class="ps-2">Estella Bryan</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> shup </td>
-                  <td> Cash on delivered </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> Pending </td>
-                </tr>
-                <tr>
-                   
-                  <td>
-                    <img src="admin/assets/images/faces/face5.jpg" alt="image" />
-                    <span class="ps-2">Lucy Abbott</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> french fry </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> Rejected </td>
-                </tr>
-                <tr>
-                   
-                  <td>
-                    <img src="admin/assets/images/faces/face3.jpg" alt="image" />
-                    <span class="ps-2">Peter Gill</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> barbeque </td>
-                  <td> Online Payment </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> Approved </td>
-                </tr>
-                <tr>
-                   
-                  <td>
-                    <img src="admin/assets/images/faces/face4.jpg" alt="image" />
-                    <span class="ps-2">Sallie Reyes</span>
-                  </td>
-                  <td> 02312 </td>
-                  <td> $14,500 </td>
-                  <td> french fry </td>
-                  <td> Credit card </td>
-                  <td> 04 Dec 2019 </td>
-                  <td> Approved </td>
-                </tr>
+                @foreach($orders as $order)
+                  <tr>
+                    
+                      <td>
+                        <img src="Users_images/{{$order->image}}" alt="image" />
+                        <span class="ps-2">{{ $order->name }}</span>
+                      </td>                     
+                      <td> ${{ $order->price * $order->quantity }} </td>
+                      <td> {{ $order->food_name }} </td>
+                      <td> {{ $order->payment }} </td>
+                      <td> {{ $order->created_at }} </td>
+
+                      @if($order->order_status == 'placed')
+                        <td>Paid</td>
+                      @elseif($order->order_status == 'on the way')
+                        <td>Processing</td> 
+                      @else
+                        <td>Pending</td>
+                      @endif   
+                  
+                  </tr>  
+                @endforeach              
               </tbody>
             </table>
           </div>
@@ -295,41 +279,36 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title text-customize">To do list</h4>
-          <div class="add-items d-flex">
-            <input type="text" class="form-control todo-list-input text-light" placeholder="enter task..">
-            <button class="add btn btn-primary todo-list-add-btn">Add</button>
-          </div>
+          <form action="{{ route('add.task') }}" method="POST">
+            @csrf
+
+              <span class="text-danger">
+                @error('task')
+                    {{ $message }}
+                @enderror
+              </span>  
+              <div class="d-flex">                
+                <input type="text" name="task" class="form-control text-light" placeholder="enter task..">                 
+                <button type="submit" class=" btn btn-primary bg-primary">Add</button>
+              </div>
+          </form>
+         
           <div class="list-wrapper">
             <ul class="d-flex flex-column-reverse text-white todo-list todo-list-custom">
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Create invoice </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Meeting with Alita </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
+              
+              @foreach($tasks as $task)
+              
+                <li>
+                  <div class="form-check form-check-primary">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox"> {{ $task->description }} </label>
+                  </div>
+                  <a href="{{ route('delete.task',$task->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete task permanently" class="remove"><i class="mdi mdi-close-box"></i></a>
+                </li>  
                
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Plan weekend outing </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
-              <li>
-                <div class="form-check form-check-primary">
-                  <label class="form-check-label">
-                    <input class="checkbox" type="checkbox"> Pick up kids from school </label>
-                </div>
-                <i class="remove mdi mdi-close-box"></i>
-              </li>
+              @endforeach
+                  
+              
             </ul>
           </div>
         </div>
@@ -380,42 +359,14 @@
 
       bar.text.style.fontSize = '1.5rem';
       bar.animate(0.4);  // Number from 0.0 to 1.0
-    }
-    if($('#audience-map').length) {
-      $('#audience-map').vectorMap({
-        map: 'world_mill_en',
-        backgroundColor: 'transparent',
-        panOnDrag: true,
-        focusOn: {
-          x: 0.5,
-          y: 0.5,
-          scale: 1,
-          animate: true
-        },
-        series: {
-          regions: [{
-            scale: ['#3d3c3c', '#f2f2f2'],
-            normalizeFunction: 'polynomial',
-            values: {
-
-              "BZ": 75.00,
-              "US": 56.25,
-              "AU": 15.45,
-              "GB": 25.00,
-              "RO": 10.25,
-              "GE": 33.25
-            }
-          }]
-        }
-      });
-    }
+    } 
     if ($("#transaction-history").length) {
-      var receivedCash = {{ $receivedCash }};
+      var receivedCash = {{ $receivedCash }}; ///// amader RedirectUsersController.php theke amader ai variable gulo string aakara ashche tai amra ai variable guloke json_encode() ar moddhe rap kore dei ni jodi amader ai variable tar moddhe kono array ashto tahole amra amader ai variable take json_encode() ar moddhe rap kore ditam  
       var pendingCash = {{ $pendingCash }};
       var processingCash = {{ $processingCash }};
       
       var areaData = {
-        labels: ["CashReceived","CashPanding","CashProcessing"],
+        labels: ["CashReceived($)","CashPanding($)","CashProcessing($)"],
         datasets: [{
             data: [receivedCash,pendingCash,processingCash],
             backgroundColor: [
@@ -482,124 +433,444 @@
         options: areaOptions,
         plugins: transactionhistoryChartPlugins
       });
-    }
-    if ($("#transaction-history-arabic").length) {
-      var areaData = {
-        labels: ["Paypal", "Stripe","Cash"],
-        datasets: [{
-            data: [55, 25, 20],
-            backgroundColor: [
-              "#111111","#00d25b","#ffab00"
-            ]
-          }
-        ]
-      };
-      var areaOptions = {
-        responsive: true,
-        maintainAspectRatio: true,
-        segmentShowStroke: false,
-        cutoutPercentage: 70,
-        elements: {
-          arc: {
-              borderWidth: 0
-          }
-        },      
-        legend: {
-          display: false
-        },
-        tooltips: {
-          enabled: true
-        }
-      }
-      var transactionhistoryChartPlugins = {
-        beforeDraw: function(chart) {
-          var width = chart.chart.width,
-              height = chart.chart.height,
-              ctx = chart.chart.ctx;
-      
-          ctx.restore();
-          var fontSize = 1;
-          ctx.font = fontSize + "rem sans-serif";
-          ctx.textAlign = 'left';
-          ctx.textBaseline = "middle";
-          ctx.fillStyle = "#ffffff";
-      
-          var text = "$1200", 
-              textX = Math.round((width - ctx.measureText(text).width) / 2),
-              textY = height / 2.4;
-      
-          ctx.fillText(text, textX, textY);
-
-          ctx.restore();
-          var fontSize = 0.75;
-          ctx.font = fontSize + "rem sans-serif";
-          ctx.textAlign = 'left';
-          ctx.textBaseline = "middle";
-          ctx.fillStyle = "#6c7293";
-
-          var texts = "مجموع", 
-              textsX = Math.round((width - ctx.measureText(text).width) / 1.93),
-              textsY = height / 1.7;
-      
-          ctx.fillText(texts, textsX, textsY);
-          ctx.save();
-        }
-      }
-      var transactionhistoryChartCanvas = $("#transaction-history-arabic").get(0).getContext("2d");
-      var transactionhistoryChart = new Chart(transactionhistoryChartCanvas, {
-        type: 'doughnut',
-        data: areaData,
-        options: areaOptions,
-        plugins: transactionhistoryChartPlugins
-      });
-    }
-    if ($('#owl-carousel-basic').length) {
-      $('#owl-carousel-basic').owlCarousel({
-        loop: true,
-        margin: 10,
-        dots: false,
-        nav: true,
-        autoplay: true,
-        autoplayTimeout: 4500,
-        navText: ["<i class='mdi mdi-chevron-left'></i>", "<i class='mdi mdi-chevron-right'></i>"],
-        responsive: {
-          0: {
-            items: 1
-          },
-          600: {
-            items: 1
-          },
-          1000: {
-            items: 1
-          }
-        }
-      });
-    }
-    var isrtl = $("body").hasClass("rtl");
-    if ($('#owl-carousel-rtl').length) {
-      $('#owl-carousel-rtl').owlCarousel({
-        loop: true,
-        margin: 10,
-        dots: false,
-        nav: true,
-        rtl: isrtl,
-        autoplay: true,
-        autoplayTimeout: 4500,
-        navText: ["<i class='mdi mdi-chevron-right'></i>", "<i class='mdi mdi-chevron-left'></i>"],
-        responsive: {
-          0: {
-            items: 1
-          },
-          600: {
-            items: 1
-          },
-          1000: {
-            items: 1
-          }
-        }
-      });
-    }
+    }          
     });
 })(jQuery);
+</script>
+
+
+
+<!--============= This script is for Sales Chart Canvas ==========--> 
+<script>
+
+$(function() {
+  /* ChartJS
+   * -------
+   * Data and config for chartjs
+   */
+  'use strict';
+  var data = {
+    labels: {{ json_encode($years) }},  ////akhane amder $years variable ar moddhe theke jei koita year ar nam pabe oi koita year ar nam ee amader sales chart ar niche show korbe.....and amader RedirectUsersController.php ar moddhe theke jehetu ai variable ta ashche and ai variable ar value hishebe amra akta array pacchi and oi PHP array take amra json object a convart kore niyechi amader variable take json_encode() ar moddhe rap kore...aita amader oi PHP array take json object aa convart kore nebe...json object niye javascript sohoje kaj korte pare..and aita amader script injection attacks theke rokkha kore  
+    datasets: [{
+      label: '# of Sales($)',
+      data:  {{ json_encode($yearlySales) }}, ////akhane amder $yearlySales variable ar moddhe theke protita specific year ar sale ar taker poriman ta ashbe....and amader RedirectUsersController.php ar moddhe theke jehetu ai variable ta ashche and ai variable ar value hishebe amra akta array pacchi and oi PHP array take amra json object a convart kore niyechi amader variable take json_encode() ar moddhe rap kore...aita amader oi PHP array take json object aa convart kore nebe...json object niye javascript sohoje kaj korte pare..and aita amader script injection attacks theke rokkha kore  
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      fill: false
+    }]
+  };
+  var multiLineData = {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [{
+        label: 'Dataset 1',
+        data: [12, 19, 3, 5, 2, 3],
+        borderColor: [
+          '#587ce4'
+        ],
+        borderWidth: 2,
+        fill: false
+      },
+      {
+        label: 'Dataset 2',
+        data: [5, 23, 7, 12, 42, 23],
+        borderColor: [
+          '#ede190'
+        ],
+        borderWidth: 2,
+        fill: false
+      },
+      {
+        label: 'Dataset 3',
+        data: [15, 10, 21, 32, 12, 33],
+        borderColor: [
+          '#f44252'
+        ],
+        borderWidth: 2,
+        fill: false
+      }
+    ]
+  };
+  var options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,   ///// aikhane beginAtZero:true, diye ami bole diyechi amader YAxes ar man ta akdom 0 theke shuru hobe..
+          max: {{ $maximumSellingAmount }},   // akhane ami max: diye bole diyechi amader YAxes ar number ta max $maximumSellingAmount ai variable ar value ta ja hobe toto porjonto hobe
+          stepSize: 20,  //// akhane stepSize diye ami bole diyechi amader YAxes ar number ta koi ghor por por hobe
+        },
+        gridLines: {
+          color: "rgba(204, 204, 204,0.1)"
+        }
+      }],
+      xAxes: [{
+        gridLines: {
+          color: "rgba(204, 204, 204,0.1)"
+        }
+      }]
+    },
+    legend: {
+      display: false
+    },
+    elements: {
+      point: {
+        radius: 0
+      }
+    }
+  };
+
+  
+  var doughnutPieData = {
+    datasets: [{
+      data: [30, 40, 30],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(75, 192, 192, 0.5)',
+        'rgba(153, 102, 255, 0.5)',
+        'rgba(255, 159, 64, 0.5)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+      'Pink',
+      'Blue',
+      'Yellow',
+    ]
+  };
+  var doughnutPieOptions = {
+    responsive: true,
+    animation: {
+      animateScale: true,
+      animateRotate: true
+    }
+  };
+  var areaData = {
+    labels: ["2013", "2014", "2015", "2016", "2017"],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      fill: true, // 3: no fill
+    }]
+  };
+
+  var areaOptions = {
+    plugins: {
+      filler: {
+        propagate: true
+      }
+    },
+    scales: {
+      yAxes: [{
+        gridLines: {
+          color: "rgba(204, 204, 204,0.1)"
+        }
+      }],
+      xAxes: [{
+        gridLines: {
+          color: "rgba(204, 204, 204,0.1)"
+        }
+      }]
+    }
+  }
+
+  var multiAreaData = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: [{
+        label: 'Facebook',
+        data: [8, 11, 13, 15, 12, 13, 16, 15, 13, 19, 11, 14],
+        borderColor: ['rgba(255, 99, 132, 0.5)'],
+        backgroundColor: ['rgba(255, 99, 132, 0.5)'],
+        borderWidth: 1,
+        fill: true
+      },
+      {
+        label: 'Twitter',
+        data: [7, 17, 12, 16, 14, 18, 16, 12, 15, 11, 13, 9],
+        borderColor: ['rgba(54, 162, 235, 0.5)'],
+        backgroundColor: ['rgba(54, 162, 235, 0.5)'],
+        borderWidth: 1,
+        fill: true
+      },
+      {
+        label: 'Linkedin',
+        data: [6, 14, 16, 20, 12, 18, 15, 12, 17, 19, 15, 11],
+        borderColor: ['rgba(255, 206, 86, 0.5)'],
+        backgroundColor: ['rgba(255, 206, 86, 0.5)'],
+        borderWidth: 1,
+        fill: true
+      }
+    ]
+  };
+
+  var multiAreaOptions = {
+    plugins: {
+      filler: {
+        propagate: true
+      }
+    },
+    elements: {
+      point: {
+        radius: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: false
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          display: false
+        }
+      }]
+    }
+  }
+
+  var scatterChartData = {
+    datasets: [{
+        label: 'First Dataset',
+        data: [{
+            x: -10,
+            y: 0
+          },
+          {
+            x: 0,
+            y: 3
+          },
+          {
+            x: -25,
+            y: 5
+          },
+          {
+            x: 40,
+            y: 5
+          }
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: 'Second Dataset',
+        data: [{
+            x: 10,
+            y: 5
+          },
+          {
+            x: 20,
+            y: -30
+          },
+          {
+            x: -25,
+            y: 15
+          },
+          {
+            x: -10,
+            y: 5
+          }
+        ],
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.2)',
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+        ],
+        borderWidth: 1
+      }
+    ]
+  }
+
+  var scatterChartOptions = {
+    scales: {
+      xAxes: [{
+        type: 'linear',
+        position: 'bottom',
+        gridLines: {
+          color: "rgba(204, 204, 204,0.1)"
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          color: "rgba(204, 204, 204,0.1)"
+        }
+      }]
+    }
+  }
+  // Get context with jQuery - using jQuery's .get() method.
+  if ($("#barChart").length) {
+    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar',
+      data: data,
+      options: options
+    });
+  }
+
+  if ($("#lineChart").length) {
+    var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
+    var lineChart = new Chart(lineChartCanvas, {
+      type: 'line',
+      data: data,
+      options: options
+    });
+  }
+
+  if ($("#linechart-multi").length) {
+    var multiLineCanvas = $("#linechart-multi").get(0).getContext("2d");
+    var lineChart = new Chart(multiLineCanvas, {
+      type: 'line',
+      data: multiLineData,
+      options: options
+    });
+  }
+
+  if ($("#areachart-multi").length) {
+    var multiAreaCanvas = $("#areachart-multi").get(0).getContext("2d");
+    var multiAreaChart = new Chart(multiAreaCanvas, {
+      type: 'line',
+      data: multiAreaData,
+      options: multiAreaOptions
+    });
+  }
+
+  if ($("#doughnutChart").length) {
+    var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+    var doughnutChart = new Chart(doughnutChartCanvas, {
+      type: 'doughnut',
+      data: doughnutPieData,
+      options: doughnutPieOptions
+    });
+  }
+
+  if ($("#pieChart").length) {
+    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+    var pieChart = new Chart(pieChartCanvas, {
+      type: 'pie',
+      data: doughnutPieData,
+      options: doughnutPieOptions
+    });
+  }
+
+  if ($("#areaChart").length) {
+    var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
+    var areaChart = new Chart(areaChartCanvas, {
+      type: 'line',
+      data: areaData,
+      options: areaOptions
+    });
+  }
+
+  if ($("#scatterChart").length) {
+    var scatterChartCanvas = $("#scatterChart").get(0).getContext("2d");
+    var scatterChart = new Chart(scatterChartCanvas, {
+      type: 'scatter',
+      data: scatterChartData,
+      options: scatterChartOptions
+    });
+  }
+
+  if ($("#browserTrafficChart").length) {
+    var doughnutChartCanvas = $("#browserTrafficChart").get(0).getContext("2d");
+    var doughnutChart = new Chart(doughnutChartCanvas, {
+      type: 'doughnut',
+      data: browserTrafficData,
+      options: doughnutPieOptions
+    });
+  }
+});
+
+</script>
+
+
+<!--======= This script is for Aleart auto close ======-->
+<script>
+
+  // Get all elements with class "auto-close"
+  const autoCloseElements = document.querySelectorAll(".auto-close");
+
+  // Define a function to handle the fading and sliding animation
+  function fadeAndSlide(element) {
+  const fadeDuration = 500;
+  const slideDuration = 500;
+
+  // Step 1: Fade out the element
+  let opacity = 1;
+  const fadeInterval = setInterval(function () {
+      if (opacity > 0) {
+      opacity -= 0.1;
+      element.style.opacity = opacity;
+      } else {
+      clearInterval(fadeInterval);
+   // Step 2: Slide up the element
+   let height = element.offsetHeight;
+   const slideInterval = setInterval(function () {
+       if (height > 0) {
+       height -= 10;
+       element.style.height = height + "px";
+       } else {
+       clearInterval(slideInterval);
+       // Step 3: Remove the element from the DOM
+       element.parentNode.removeChild(element);
+       }
+   }, slideDuration / 10);
+   }
+}, fadeDuration / 10);
+}
+
+// Set a timeout to execute the animation after 5000 milliseconds (5 seconds)
+setTimeout(function () {
+autoCloseElements.forEach(function (element) {
+   fadeAndSlide(element);
+});
+}, 5000);
+
 </script>
 @endsection

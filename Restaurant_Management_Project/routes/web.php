@@ -13,6 +13,7 @@ use App\Http\Controllers\ChefController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\DailyExpenseController;
 use App\Http\Controllers\MonthlyExpenseController;
+use App\Http\Controllers\TaskController;
  
 
 /*
@@ -109,6 +110,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/deleteExpense{id}', [DailyExpenseController::class, 'deleteExpense']);  /// this {id} is comes from resources/views/admin/expense/expenses-list.blade.php 
     Route::get('/monthlyExpense', [MonthlyExpenseController::class,'index'])->name('monthly.expense');
     Route::post('/monthlyPDF', [MonthlyExpenseController::class,'monthlyPDF'])->name('monthly.pdf'); 
+    Route::post('/addTask', [TaskController::class,'addTask'])->name('add.task'); 
+    Route::get('/deleteTask{id}', [TaskController::class,'deleteTask'])->name('delete.task'); /// this  {id} is comes from resources/views/restaurant/admin/dashboard.blade.php
 
 });
 
