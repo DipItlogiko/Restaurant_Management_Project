@@ -11,6 +11,7 @@ use App\Models\Food;
 use App\Models\TableReservation;
 use App\Models\Chef;
 use App\Models\Task;
+use App\Models\Message;
 
 class RedirectUsersController extends Controller
 {
@@ -66,14 +67,19 @@ class RedirectUsersController extends Controller
         //--For Admin Dashboard To Do List--//
         $tasks = Task::cursor();              //// akhane amader database ar tasks table theke all datake fatch korechi lazy collection ar cursor() method diye
 
+        //--For Admin Dashboard Messages--//
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
 
         ///========= Redirect Admin and User into their Dashboard =========/// 
 
-        if ($userType == '1') /// userType jodi 1 hoy mane jodi oi user ta admin hoy tahole oi admin ai view a chole jabe
+        if($userType == '1') /// userType jodi 1 hoy mane jodi oi user ta admin hoy tahole oi admin ai view a chole jabe
         {
-            return view('restaurant.admin.dashboard',['authUser'=>$authUser , 'usersCount' =>$usersCount , 'foodsCount' => $foodsCount , 'reservationsCount' => $reservationsCount , 'chefsCount' => $chefsCount , 'receivedCash' => $receivedCash , 'pendingCash' => $pendingCash , 'processingCash' => $processingCash , 'years' => $years , 'yearlySales' => $yearlySales , 'maximumSellingAmount' => $maximumSellingAmount , 'orders' => $orders , 'tasks' => $tasks ]);
+            return view('restaurant.admin.dashboard',['authUser'=>$authUser , 'usersCount' =>$usersCount , 'foodsCount' => $foodsCount , 'reservationsCount' => $reservationsCount , 'chefsCount' => $chefsCount , 'receivedCash' => $receivedCash , 'pendingCash' => $pendingCash , 'processingCash' => $processingCash , 'years' => $years , 'yearlySales' => $yearlySales , 'maximumSellingAmount' => $maximumSellingAmount , 'orders' => $orders , 'tasks' => $tasks , 'messages' => $messages ]);
+        
         }
-
         else  /// userType jodi 1 na hoy tahole oi user ai view ar moddhe chole jabe 
         {
             $user_id = Auth::id(); //// akhane ami authenticated user ar id ta peye jabo Auth::id() ar maddhome....Authenticated user mane hocche jei user signUp and signIn kore amader application ar moddhe enter koreche oi user ke bojhai..

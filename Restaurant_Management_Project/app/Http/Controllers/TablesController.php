@@ -144,6 +144,12 @@ class TablesController extends Controller
     ///====== User/customer will be able to book a table ====///
     public function bookTable(Request $request)
     {
+        //--if Admin submit book table form from home page admin will be redirect to home page because Admin won't be able to book table from home page---//
+        if(Auth::user()->user_type == '1')
+        {
+            return redirect('/')->with('error' , 'Admin won\'t be able to book table from home page');
+        } 
+
        //--form data validation--//
        $request->validate([
         'name' => ['required','string'],
@@ -155,6 +161,8 @@ class TablesController extends Controller
         'tableName' => ['required','string'],
         'message' => ['regex:/^[A-Za-z\s\.,\-]+$/'],
        ]);
+
+        
 
        //--store form data into the database table--//
        $tableReservations = new TableReservation;

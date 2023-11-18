@@ -283,6 +283,15 @@
               </ul>
             </div>
           </li>
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('customser.messages') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-message-text text-success"></i>                                              
+              </span>              
+              <span class="menu-title">Customer Messages</span>
+            </a>
+          </li>
            
         </ul>
       </nav>

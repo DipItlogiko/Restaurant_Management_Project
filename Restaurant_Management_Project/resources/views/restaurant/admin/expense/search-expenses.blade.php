@@ -17,7 +17,7 @@
                     <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
-                        <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go To Dashboard</a>
+                        <a href="{{ route('expenses.list') }}" class="btn btn-outline-warning">Go Back</a>
                         <p class="card-text"><small class="text-muted">McDonald's</small></p>
                     </div>
                 </div>  

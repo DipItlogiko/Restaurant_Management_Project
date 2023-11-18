@@ -211,65 +211,29 @@
         <div class="card-body">
           <div class="d-flex flex-row justify-content-between">
             <h4 class="card-title text-customize">Messages</h4>
-            <p class="text-muted mb-1 small">View all</p>
+            <a href="{{ route('customser.messages') }}" class="text-muted mb-1 small" style="text-decoration: none"><p>View all</p></a>
           </div>
           <div class="preview-list">
-            <div class="preview-item border-bottom">
-              <div class="preview-thumbnail">
-                <img src="admin/assets/images/faces/face6.jpg" alt="image" class="rounded-circle" />
-              </div>
-              <div class="preview-item-content d-flex flex-grow">
-                <div class="flex-grow">
-                  <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                    <h6 class="preview-subject">Leonard</h6>
-                    <p class="text-muted text-small">5 minutes ago</p>
-                  </div>
-                  <p class="text-muted">Food was good.</p>
+
+            @foreach($messages as $message)
+
+              <div class="preview-item border-bottom">
+                <div class="preview-thumbnail">
+                  <img src="Users_images/{{ $message->image }}" alt="image" class="rounded-circle" />
                 </div>
-              </div>
-            </div>
-            <div class="preview-item border-bottom">
-              <div class="preview-thumbnail">
-                <img src="admin/assets/images/faces/face8.jpg" alt="image" class="rounded-circle" />
-              </div>
-              <div class="preview-item-content d-flex flex-grow">
-                <div class="flex-grow">
-                  <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                    <h6 class="preview-subject">Luella Mills</h6>
-                    <p class="text-muted text-small">10 Minutes Ago</p>
+                <div class="preview-item-content d-flex flex-grow">
+                  <div class="flex-grow">
+                    <div class="d-flex d-md-block d-xl-flex justify-content-between">
+                      <h6 class="preview-subject">{{ $message->name }}</h6>
+                      <p class="text-muted text-small">{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</p>  <!--\Carbon\Carbon::parse($message->created_at)->diffForHumans() it will generate 10 min ago 5 min ago this functionality from our $message->created_at before using it i have installed Laravel-10 package nesbot/carbon-------->
+                    </div>
+                    <p class="text-muted">{{ $message->message }}</p>
                   </div>
-                  <p class="text-muted">Well, wonderful.</p>
                 </div>
-              </div>
-            </div>
-            <div class="preview-item border-bottom">
-              <div class="preview-thumbnail">
-                <img src="admin/assets/images/faces/face9.jpg" alt="image" class="rounded-circle" />
-              </div>
-              <div class="preview-item-content d-flex flex-grow">
-                <div class="flex-grow">
-                  <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                    <h6 class="preview-subject">Ethel Kelly</h6>
-                    <p class="text-muted text-small">2 Hours Ago</p>
-                  </div>
-                  <p class="text-muted">Food was bad</p>
-                </div>
-              </div>
-            </div>
-            <div class="preview-item border-bottom">
-              <div class="preview-thumbnail">
-                <img src="admin/assets/images/faces/face11.jpg" alt="image" class="rounded-circle" />
-              </div>
-              <div class="preview-item-content d-flex flex-grow">
-                <div class="flex-grow">
-                  <div class="d-flex d-md-block d-xl-flex justify-content-between">
-                    <h6 class="preview-subject">Herman May</h6>
-                    <p class="text-muted text-small">4 Hours Ago</p>
-                  </div>
-                  <p class="text-muted">i enjoied the food</p>
-                </div>
-              </div>
-            </div>
+              </div> 
+
+            @endforeach                  
+             
           </div>
         </div>
       </div>

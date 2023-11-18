@@ -14,6 +14,7 @@ use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\DailyExpenseController;
 use App\Http\Controllers\MonthlyExpenseController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\MessageController;
  
 
 /*
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/orderHistory', [OrderController::class, 'orderHistory'])->name('order.history');
     Route::post('/bookTable' , [TablesController::class, 'bookTable'])->name('book.table');
     Route::get('/tableReservationsHistory', [TablesController::class, 'tableReservations'])->name('table.reservations');
+    Route::post('/sandMessage', [MessageController::class, 'sandMessage'])->name('sand.message');
 
 
     ////====================================== Admin ================================////    
@@ -112,7 +114,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/monthlyPDF', [MonthlyExpenseController::class,'monthlyPDF'])->name('monthly.pdf'); 
     Route::post('/addTask', [TaskController::class,'addTask'])->name('add.task'); 
     Route::get('/deleteTask{id}', [TaskController::class,'deleteTask'])->name('delete.task'); /// this  {id} is comes from resources/views/restaurant/admin/dashboard.blade.php
-
+    Route::get('/customerMessages', [MessageController::class , 'customerMessages'])->name('customser.messages');
+    Route::get('/searchMessage', [SearchController::class, 'searchMessage'])->name('search.message');
+    Route::get('/deleteMessage{id}' , [MessageController::class,'deleteMessage']); /// this {id} is comes from resources/views/restaurant/admin/message/all-message.blade.php and search-messages.blade.php
 });
 
 

@@ -2,7 +2,7 @@
 <section id="book-a-table" class="book-a-table">
     <div class="container"> 
 
-      @if($authUser && $authUser->user_type = '0') <!--akhane ami akta condition diyechi je amader HomeController theke home.blade.php file ar moddhe jei authUser name variable ta ashche oi variable ar moddhe jodi data thake tahole if condition ar moddhe code gulo execute hobe mane kono user jodi Authentication complete kore mane signup and signin kore amader application ar moddhe ashe and oi authUser ba authenticated user ar user_type jodi '0' hoy mane oi user ta jodi general user hoy tahole oi user table book korte parbe kintu kono Admin aikhan theke table book korte parbe na karon amader Admin ar user_type ta hobe '1' tai ...&& aita mane hocche and jodi 2 pasher sorto mile taholei if ar moddher condition ta execute hobe ta chara hobe na && ai and ar kaj hocche or 2 pasher sorto na mille oo if ar moddher code read kore na and execute ooo kore na ----->
+      @if($authUser && $authUser->user_type == '0') <!--akhane ami akta condition diyechi je amader HomeController theke home.blade.php file ar moddhe jei authUser name variable ta ashche oi variable ar moddhe jodi data thake tahole if condition ar moddhe code gulo execute hobe mane kono user jodi Authentication complete kore mane signup and signin kore amader application ar moddhe ashe and oi authUser ba authenticated user ar user_type jodi '0' hoy mane oi user ta jodi general user hoy tahole oi user table book korte parbe kintu kono Admin aikhan theke table book korte parbe na karon amader Admin ar user_type ta hobe '1' tai ...&& aita mane hocche and jodi 2 pasher sorto mile taholei if ar moddher condition ta execute hobe ta chara hobe na && ai and ar kaj hocche or 2 pasher sorto na mille oo if ar moddher code read kore na and execute ooo kore na----->
         <div class="section-title">
           <h2>Book a <span>Table</span></h2>
           <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
@@ -20,21 +20,42 @@
                 <input type="email" class="form-control" name="email" value="{{ old('email',$authUser->email) }}"  placeholder="Your Email" readonly>
                 <label for="email">Email</label>
               </div>
-              <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+              
+              <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">               
                 <input type="text" class="form-control" name="phone" value="{{ old('phone',$authUser->number) }}" placeholder="Your Phone" required>
                 <label for="phone">Phon</label>
+                <span class="text-danger">
+                  @error('phone')
+                       {{ $message }}
+                  @enderror
+                </span>
               </div>
-              <div class="col-lg-4 col-md-6 form-group mt-3">
+              <div class="col-lg-4 col-md-6 form-group mt-3">               
                 <input type="time" name="timeFrom" class="form-control" required>
                 <label for="timeFrom">Time(from)</label>
+                <span class="text-danger">
+                  @error('timeFrom')
+                      {{ $message }}
+                  @enderror
+                </span>
               </div>
-              <div class="col-lg-4 col-md-6 form-group mt-3">
+              <div class="col-lg-4 col-md-6 form-group mt-3">               
                 <input type="time" class="form-control" name="timeTo" required>
                 <label for="timeTo">Time(to)</label>
+                <span class="text-danger">
+                  @error('timeTo')
+                      {{ $message }}
+                  @enderror
+                </span>
               </div>
-              <div class="col-lg-4 col-md-6 form-group mt-3">
+              <div class="col-lg-4 col-md-6 form-group mt-3">                
                 <input type="text" class="form-control" name="nop" placeholder="# of people" required>
                 <label for="name">Number Of People</label>
+                <span class="text-danger">
+                  @error('nop')
+                      {{ $message }}
+                  @enderror
+                </span>
               </div>
 
              <div class="col-lg-4 col-md-6 form-group mt-3">
@@ -49,8 +70,13 @@
              </div>
               
             </div>
-            <div class="form-group mt-3">
-              <textarea class="form-control" name="message" rows="5" placeholder="Message">{{ old('message') }}</textarea>           
+            <div class="form-group mt-3">              
+              <textarea class="form-control" name="message" rows="5" placeholder="Message">{{ old('message') }}</textarea>    
+              <span class="text-danger">
+                @error('message')
+                    {{ $message }}
+                @enderror
+              </span>       
             </div>        
             <div class="text-center"><button type="submit">Send Message</button></div>
           </div>
@@ -66,32 +92,32 @@
           <div class="php-email-form">
             <div class="row">
               <div class="col-lg-4 col-md-6 form-group">
-                <input type="text" name="name" class="form-control" placeholder="Your Name">
-                <label for="name">Name</label>
+                <input type="text"  class="form-control" placeholder="Your Name" required>
+                <label>Name</label>
               </div>
               <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                <input type="email" class="form-control" name="email"  placeholder="Your Email">
-                <label for="email">Email</label>
+                <input type="email" class="form-control"   placeholder="Your Email" required>
+                <label>Email</label>
               </div>
               <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                <input type="text" class="form-control" name="phone" placeholder="Your Phone">
-                <label for="phone">Phon</label>
+                <input type="text" class="form-control"  placeholder="Your Phone" required>
+                <label>Phon</label>
               </div>
               <div class="col-lg-4 col-md-6 form-group mt-3">
-                <input type="time" name="timeFrom" class="form-control">
-                <label for="timeFrom">Time(from)</label>
+                <input type="time"  class="form-control" required>
+                <label>Time(from)</label>
               </div>
               <div class="col-lg-4 col-md-6 form-group mt-3">
-                <input type="time" class="form-control" name="timeTo">
-                <label for="timeTo">Time(to)</label>
+                <input type="time" class="form-control"  required>
+                <label>Time(to)</label>
               </div>
               <div class="col-lg-4 col-md-6 form-group mt-3">
-                <input type="text" class="form-control" name="nop" placeholder="# of people">
-                <label for="name">Number Of People</label>
+                <input type="text" class="form-control"  placeholder="# of people" required>
+                <label>Number Of People</label>
               </div>
             </div>
             <div class="form-group mt-3">
-              <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>           
+              <textarea class="form-control"  rows="5" placeholder="Message" required></textarea>           
             </div>        
             <div class="text-center"><button type="submit">Send Message</button></div>
           </div>

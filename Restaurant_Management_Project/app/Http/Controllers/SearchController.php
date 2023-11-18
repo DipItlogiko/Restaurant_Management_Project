@@ -161,9 +161,35 @@ class SearchController extends Controller
         ->cursor();
 
 
-        return view('restaurant.admin.expense.expenses-list', ['authUser' => $authUser,'expenses' => $expenses]);
+        return view('restaurant.admin.expense.search-expenses', ['authUser' => $authUser,'expenses' => $expenses]);
     }
 
+    ///=============== Admin will be able to Search a Specific customer message ==============///
+    public function searchMessage(Request $request)
+    {         
+        //--form data validation--//
+        $request->validate([
+            'search' => ['required'],
+        ]);
+
+        $authUser = Auth::user();
+
+        
+        //--convert date format for searching--//
+        $searchDate = date("Y-m-d", strtotime($request->search));    ///// amader $request->search mane $request ar moddhe theke je search key ta ashbe oi key ar value ta string aakare ashbe tai ami amader $request->search ar moddhe theke jei value ta pabo oitake timestrap aaa convart korar jonno ai strtotime() method ar moddhe rekhechi ai method ar kaj hocche amader string take timestrap aa convart kora and oi date take Y-m-d te convart kora jemon ami search ar moddhe jodi d-m-Y ai format aa search kori tahole oi format ta akhan theke convart hoye jabe Y-m-d ai format aaa karon amader database ar moddhe created_at column ar moddhe date ta Y-m-d ai format aa ache to jokhon ami amader serach bar theke d-m-Y ai format aa search korbo tokhon kono data ashbe na ai problem take solve korar jonno amra aikhan theke date ar format take convart kore nicchi...ai Y-m-d format aaaa
+
+        //--search queary--//
+        $messages = User::join('messages', 'users.id', '=' , 'messages.user_id')
+        ->where('name' , 'Like' , '%'.$request->search.'%')   
+        ->orWhere('email' , 'Like' , '%'.$request->search.'%')
+        ->orWhere('message' , 'Like' , '%'.$request->search.'%')
+        ->orWhere('messages.created_at', 'Like', '%'.$request->search.'%')   ///// jodi kew created_at column ar kono date ar kono number ta dei ba kono sonkha dei tahole oooo amader search ar result show korbe.....dhoren amader database ar ai table ar moddhe created_at column ar moddhe akta date ache 2023-11-14 akhon kew jodi amader search bar ar moddhe 2023 ba 11 ba 14 jai eee likhuk na keno  amader search ar akta result dekhabe..
+        ->orWhere(DB::raw('DATE_FORMAT(messages.created_at, "%Y-%m-%d")'), $searchDate)      /////jodi kew amader search bar ar moddhe 14-11-2023(d-m-Y) ai format diye ooo search kore tahole aikhan theke oita handel hobe and oi date ar data ta dekhabe       
+        ->cursor();
+
+
+        return view('restaurant.admin.message.search-messages', ['authUser'=> $authUser, 'messages' => $messages]);
+    }
 
     
 }
