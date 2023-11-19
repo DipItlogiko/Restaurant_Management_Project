@@ -57,8 +57,12 @@ class ProfileController extends Controller
     {
          
         $authUser = Auth::user();
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
 
-        return view('restaurant.admin.profile.edit', ['authUser' => $authUser]);
+        return view('restaurant.admin.profile.edit', ['authUser' => $authUser, 'messages' => $messages]);
     }
 
     /**
@@ -100,15 +104,24 @@ class ProfileController extends Controller
     public function adminPasswordEdit(){
 
         $authUser = Auth::user();
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
 
-        return view('restaurant.admin.profile.update-password',['authUser' => $authUser]);
+        return view('restaurant.admin.profile.update-password',['authUser' => $authUser ,'messages' => $messages]);
     }
 
 
     public function adminAdvanceSettings()
     {
         $authUser = Auth::user();
-        return view('restaurant.admin.profile.advance-setting',['authUser' => $authUser]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+
+        return view('restaurant.admin.profile.advance-setting',['authUser' => $authUser , 'messages' => $messages ]);
     }
 
     /**

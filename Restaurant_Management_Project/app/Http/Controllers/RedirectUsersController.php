@@ -12,6 +12,7 @@ use App\Models\TableReservation;
 use App\Models\Chef;
 use App\Models\Task;
 use App\Models\Message;
+use App\Models\AdminNotify;
 
 class RedirectUsersController extends Controller
 {
@@ -73,11 +74,14 @@ class RedirectUsersController extends Controller
         ->take(4)
         ->cursor();
 
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
         ///========= Redirect Admin and User into their Dashboard =========/// 
 
         if($userType == '1') /// userType jodi 1 hoy mane jodi oi user ta admin hoy tahole oi admin ai view a chole jabe
         {
-            return view('restaurant.admin.dashboard',['authUser'=>$authUser , 'usersCount' =>$usersCount , 'foodsCount' => $foodsCount , 'reservationsCount' => $reservationsCount , 'chefsCount' => $chefsCount , 'receivedCash' => $receivedCash , 'pendingCash' => $pendingCash , 'processingCash' => $processingCash , 'years' => $years , 'yearlySales' => $yearlySales , 'maximumSellingAmount' => $maximumSellingAmount , 'orders' => $orders , 'tasks' => $tasks , 'messages' => $messages ]);
+            return view('restaurant.admin.dashboard',['authUser'=>$authUser , 'usersCount' =>$usersCount , 'foodsCount' => $foodsCount , 'reservationsCount' => $reservationsCount , 'chefsCount' => $chefsCount , 'receivedCash' => $receivedCash , 'pendingCash' => $pendingCash , 'processingCash' => $processingCash , 'years' => $years , 'yearlySales' => $yearlySales , 'maximumSellingAmount' => $maximumSellingAmount , 'orders' => $orders , 'tasks' => $tasks , 'messages' => $messages , 'notifications' => $notifications]);
         
         }
         else  /// userType jodi 1 na hoy tahole oi user ai view ar moddhe chole jabe 

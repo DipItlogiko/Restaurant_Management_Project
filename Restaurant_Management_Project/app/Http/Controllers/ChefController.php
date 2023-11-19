@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\Rule;
 use App\Models\Chef;
+use App\Models\User;
 
 class ChefController extends Controller
 {
@@ -14,7 +15,14 @@ class ChefController extends Controller
     public function addChef()
     {
         $authUser = Auth::user();
-        return view('restaurant.admin.chef.create-chef' , ['authUser' => $authUser]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.chef.create-chef' , ['authUser' => $authUser , 'messages' => $messages ,'notifications' => $notifications]);
     }
 
 
@@ -69,7 +77,14 @@ class ChefController extends Controller
     {
         $authUser = Auth::user();
         $chefs = Chef::cursor();
-        return view('restaurant.admin.chef.all-chefs' ,['authUser' => $authUser , 'chefs' => $chefs]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.chef.all-chefs' ,['authUser' => $authUser , 'chefs' => $chefs , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
 
@@ -78,8 +93,14 @@ class ChefController extends Controller
     {
         $chef = Chef::find($id);
         $authUser = Auth::user();
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
 
-        return view('restaurant.admin.chef.edit-chef',['chef' => $chef , 'authUser' => $authUser]);
+        return view('restaurant.admin.chef.edit-chef',['chef' => $chef , 'authUser' => $authUser, 'messages' => $messages , 'notifications' => $notifications]);
 
     }
 

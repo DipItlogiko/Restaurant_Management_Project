@@ -8,6 +8,7 @@ use App\Models\Food;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\User;
+use App\Events\AdminNotification;
 
 class OrderController extends Controller
 {
@@ -118,10 +119,13 @@ class OrderController extends Controller
             
             $ordersTable->save();
         }
+        //--here i have added an event which is located at app/Events/AdminNotifications.php..when ever a user will order admin will be notified(i make this event and listenter by artisan command and i also register this event and listener into app/providers/EventServiceProvider.php)---//
+        $data =['payment_method'=> $request->payment_method , 'user_id'=> Auth::id()];
+        event(new AdminNotification($data));
 
         return redirect()->route('show.cart')->with('status', 'Order Confirm Successfully');
     }
-
+    
     ///===== Admin will be able to see all orders information with Edit and Delete buttons =====///
     public function allOrders()
     { 
@@ -132,7 +136,14 @@ class OrderController extends Controller
         $TotalOrderPlaced = $ordersTable->where('order_status', '=', 'placed')->count();
         $OrderOnTheWay = $ordersTable->where('order_status', '=', 'on the way')->count();
 
-        return view('restaurant.admin.show-all-orders',['authUser' => $authUser , 'ordersTable' => $ordersTable , 'totalOrder' => $totalOrder , 'TotalOrderInProcess' => $TotalOrderInProcess , 'TotalOrderPlaced' => $TotalOrderPlaced , 'OrderOnTheWay' => $OrderOnTheWay]);  
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.show-all-orders',['authUser' => $authUser , 'ordersTable' => $ordersTable , 'totalOrder' => $totalOrder , 'TotalOrderInProcess' => $TotalOrderInProcess , 'TotalOrderPlaced' => $TotalOrderPlaced , 'OrderOnTheWay' => $OrderOnTheWay , 'messages' => $messages , 'notifications' => $notifications]);  
     }
 
 
@@ -141,9 +152,14 @@ class OrderController extends Controller
     { 
         $authUser = Auth::user();  
         $specificOrder = Order::find($id);
-         
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor(); 
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
                  
-        return view('restaurant.admin.edit-orders',['authUser' => $authUser , 'specificOrder' => $specificOrder]);  
+        return view('restaurant.admin.edit-orders',['authUser' => $authUser , 'specificOrder' => $specificOrder , 'messages' => $messages , 'notifications' => $notifications]);  
     }  
 
     ///===== Admin will be able to update order information and order status and save the data into the database table ====///

@@ -318,86 +318,74 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                   <h6 class="p-3 mb-0">Messages</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="assets/images/faces/face4.jpg" alt="image" class="rounded-circle profile-pic">
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Mark send you a message</p>
-                      <p class="text-muted mb-0"> 1 Minutes ago </p>
-                    </div>
-                  </a>
+                  @foreach($messages as $message)
+
+                    <a href="{{ route('customser.messages') }}" class="dropdown-item preview-item">
+                      <div class="preview-thumbnail">
+                        <img src="Users_images/{{ $message->image }}" alt="image" class="rounded-circle profile-pic">
+                      </div>
+                      <div class="preview-item-content">
+                        <p class="preview-subject ellipsis mb-1"><b class="text-success">{{ $message->name }}</b> send you a message!</p>
+                        <p class="text-muted mb-0"> {{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }} </p> <!--\Carbon\Carbon::parse($message->created_at)->diffForHumans() ai ta amader messages table ar created_at column take 10 min ago 20min ago aivabe dekhabe jar jonno ami akta package use korechi check Readme.md-------->
+                      </div>
+                    </a>     
+
+                  @endforeach            
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="assets/images/faces/face2.jpg" alt="image" class="rounded-circle profile-pic">
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Cregh send you a message</p>
-                      <p class="text-muted mb-0"> 15 Minutes ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="assets/images/faces/face3.jpg" alt="image" class="rounded-circle profile-pic">
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Profile picture updated</p>
-                      <p class="text-muted mb-0"> 18 Minutes ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">4 new messages</p>
+                  <a href="{{ route('customser.messages') }}" style="text-decoration: none"><p class="p-3 mb-0 text-center text-light">All Messages</p></a>
                 </div>
               </li>
-              <li class="nav-item dropdown border-left">
-                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-                  <i class="mdi mdi-bell"></i>
-                  <span class="count bg-danger"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                  <h6 class="p-3 mb-0">Notifications</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-calendar text-success"></i>
-                      </div>
+              @if($notifications == '[]')
+                  
+                  <li class="nav-item dropdown border-left">
+                    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                      <i class="mdi mdi-bell"></i>
+                      <span class="count bg-danger"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                      <h6 class="p-3 mb-0">Notifications</h6>
+                      <div class="dropdown-divider"></div>
+                      <p class="text-muted preview-subject p-3 text-center">Empty!!!</p>
+                      <div class="dropdown-divider"></div>           
+                      
+                      <a href="{{ route('all.notification') }}" class="text-light" style="text-decoration: none;"><p class="p-3 mb-0 text-center">See all notifications</p></a>
                     </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Event today</p>
-                      <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p>
-                    </div>
+                  </li>
+
+              @else                 
+                <li class="nav-item dropdown border-left">
+                  <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                    <i class="mdi mdi-bell"></i>
+                    <span class="count bg-success"></span>
                   </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-settings text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Settings</p>
-                      <p class="text-muted ellipsis mb-0"> Update dashboard </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-link-variant text-warning"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Launch Admin</p>
-                      <p class="text-muted ellipsis mb-0"> New admin wow! </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">See all notifications</p>
-                </div>
-              </li>
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                    <h6 class="p-3 mb-0">Notifications</h6>
+                    <div class="dropdown-divider"></div>
+                    @foreach ($notifications as $item)
+                      <a class="dropdown-item preview-item">
+                        <div class="preview-thumbnail">
+                          <img src="Users_images/{{ $item->image }}" alt="image" class="rounded-circle profile-pic">
+                        </div>                     
+                        <div class="preview-item-content">
+                          <p class="preview-subject mb-1 text-success">{{ $item->name }}</p>
+                          @if ($item->booked_table !== null)
+                            <p class="ellipsis mb-0 text-light">{{ $item->booked_table }} Table Is Booked!!!</p>
+                            <p class="text-muted mb-0"> {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }} </p> <!--\Carbon\Carbon::parse($message->created_at)->diffForHumans() ai ta amader messages table ar created_at column take 10 min ago 20min ago aivabe dekhabe jar jonno ami akta package use korechi check Readme.md-------->
+                          @else
+                            <p class="ellipsis mb-0 text-light">Place A New Order!!!</p>
+                            <p class="text-muted mb-0"> {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }} </p> <!--\Carbon\Carbon::parse($message->created_at)->diffForHumans() ai ta amader messages table ar created_at column take 10 min ago 20min ago aivabe dekhabe jar jonno ami akta package use korechi check Readme.md-------->
+                          @endif
+                          
+                        </div>
+                      </a>
+                      <div class="dropdown-divider"></div>
+                    @endforeach 
+                     
+                    <a href="{{ route('all.notification') }}" class="text-light" style="text-decoration: none;"><p class="p-3 mb-0 text-center">See all notifications</p></a>
+                  </div>
+                </li>
+              @endif
+
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown">
                   <div class="navbar-profile">

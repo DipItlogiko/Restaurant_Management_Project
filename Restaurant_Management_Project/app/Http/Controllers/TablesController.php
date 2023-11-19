@@ -8,6 +8,8 @@ use App\Models\Table;
 use App\Models\TableReservation;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\User;
+use App\Events\AdminNotification; 
 
 class TablesController extends Controller
 {
@@ -15,7 +17,14 @@ class TablesController extends Controller
     public function createTable()
     {
         $authUser = Auth::user();
-        return view('restaurant.admin.table.create-table', ['authUser' => $authUser]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.table.create-table', ['authUser' => $authUser, 'messages' => $messages , 'notifications' => $notifications]);
     }
 
     ///====== Admin will be able to store table name and capacity into the database table =====///
@@ -43,7 +52,14 @@ class TablesController extends Controller
     {
         $authUser = Auth::user();
         $tables = Table::withTrashed()->cursor();  //// akhane amader Table Model ta amader database ar jei table take represent kore jemon aikhane amader Table Model ta database ar tables table take represent korche oi table ar theke ami sob data fatch korechi lazy collection ar cursor() method diye get() method ba all() method ar theke cursor() method ta use kora valo karon cursor() method amader database theke sob datake aaane amader laravel application ar memory storage space ar moddhe akbare load kore dei na jar fole amader laravel ar memory storage space ta overflow hoye jawar chanch thake na..kintu jodi amra get() ba all() method ta use kori database ar table theke data fatch korar jonno tahole amader oi table ar moddhe jodi lakh lakh data thake tahole oi lakh lakh data amader laravel application ar moddhe akbare load hoye jabe and amader laravel application ar memory storage space overflow hoye giye amader application ta crass korbe and akta error dekhabe je memory storage overflow..tai good practice hocche get() ba all() method use na kore lazy collection ar cursor() method ta use kora valo database theke data fatch korar somoy...and amra fatch korechi withTruash() method ta use korechi karon ami laravel ar softdelete freture ta use korchi ai Table Model ar sathe.and ami ai book table ar bepar ta softdelete freture diye handel korchi...kokhon amader ai Table Model theke kichu delete hobe ba jokhon kew order korbe tokhon oi data take ba table take ami delete korbo mane softdelete korbo mane oi datata amader application theke chole jabe kintu database ar table theke jabe na jokhon amader tables table theke kono data softdelete hobe tokhon to amader datata amader application theke chole jabe amader tables table ar moddhe jei table gulo ache oi table ta oo chole jabe jokhon softdelete hobe softdelete howar pore ooo jeno amader tables table ar moddhe koita table ache oi sob koita table jeno amader aikhane show kore tai ami aikhane data fatch korar somoy SoftDelete freature ar akta method withTrushed() method ta use korechi ai withTrushed() method ar kaj hocche amader database ar table ar moddhe jei datagulo delete hoyeche and jei datagulo delete hoy ni sob data show korbe....and ami jodi onlyTrushed() method use kortam tahole amader oi table theke shudhu delete howa data gulo dekhato..
-        return view('restaurant.admin.table.all-tables', ['authUser' => $authUser , 'tables' => $tables]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+        
+        return view('restaurant.admin.table.all-tables', ['authUser' => $authUser , 'tables' => $tables , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
     ///====== Admin will be able to edit tables information =======///
@@ -51,8 +67,14 @@ class TablesController extends Controller
     {
         $tables = Table::withTrashed()->find($id);
         $authUser = Auth::user();
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
          
-        return view('restaurant.admin.table.edit-table', ['authUser' => $authUser, 'tables' => $tables]);
+        return view('restaurant.admin.table.edit-table', ['authUser' => $authUser, 'tables' => $tables , 'messages' => $messages , 'notifications'=> $notifications]);
     }
 
     ///====== Admin Updated table info will store here =======///
@@ -91,7 +113,14 @@ class TablesController extends Controller
     {
         $authUser = Auth::user();
         $tables = Table::where('deleted_at', NULL)->cursor(); //// akhane ami amader Table Model mane tables nam a database a jei table ta ache oi table theke where diye check korechi amader tables nam aa je database ar table ache oi table ar deleted_at column ar value jeikhane null ba '' ache oi data guloke aikhane fatch kore niye ashbe          
-        return view('restaurant.admin.table.table-reservation' , ['authUser' => $authUser , 'tables' => $tables]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+       
+        return view('restaurant.admin.table.table-reservation' , ['authUser' => $authUser , 'tables' => $tables , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
 
@@ -136,8 +165,14 @@ class TablesController extends Controller
     {
        $authUser = Auth::user(); 
        $bookedTables = TableReservation::join('tables', 'table_reservations.table_name', '=' , 'tables.name' )->select('table_reservations.id as reservation_id', 'table_reservations.*', 'tables.*')->cursor();  //// akhane ami TableReservation Model ta jei database ar table ke represent korche oi table ar sathe ami tables table ke join kore diyechi akhane tables nam ar table ta beshi power pabe karon ami oi table ke join ar moddhe likhechi tai...table_name aita hocche amar  table_reservations table ar column ami ai column ar sathe amader tables table ar name column ar sathe join kore diyechi...and aikhane ami (table_reservations.id as reservation_id', 'table_reservations.*', 'tables.*) select ar moddhe bole diyechi amader ai table 2take join korar pore table_reservations table ar id take reservation_id ai nam aaa dhorbe and (table_reservations.*)  table_reservations table theke sob data anbe ai * astrick simbol mane hocche all..and amader users table theke oo sob datake anbe 
-
-       return view('restaurant.admin.table.all-reserved-table',['authUser' => $authUser  , 'bookedTables' => $bookedTables]);
+       $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+       
+       return view('restaurant.admin.table.all-reserved-table',['authUser' => $authUser  , 'bookedTables' => $bookedTables , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
 
@@ -160,10 +195,13 @@ class TablesController extends Controller
         'nop' => ['required','regex:/^[0-9]+$/','max:2'],
         'tableName' => ['required','string'],
         'message' => ['regex:/^[A-Za-z\s\.,\-]+$/'],
-       ]);
-
-        
-
+       ]); 
+       
+       
+       //--here i have added an event which is located at app/Events/AdminNotifications.php..when ever a user will book table admin will be notified(i make this event and listenter by artisan command and i also register this event and listener into app/providers/EventServiceProvider.php)---//
+       $data =['bookedTableName'=> $request->tableName , 'user_id'=> Auth::id()];
+       event(new AdminNotification($data));
+    
        //--store form data into the database table--//
        $tableReservations = new TableReservation;
 
@@ -181,8 +219,7 @@ class TablesController extends Controller
 
        //--book table logic here--//
        $specificTable = Table::where('name', $request->tableName); //// akhane ami amader Table Model ta database ar jei table take represent kore jemon aikhane amader Table model ta database ar tables nam aa akta table ke represent kore oi database ar tables nam ar table theke ami where diye find korechi amader oi table ar name column theke check korchi je amader request theke jei table ar nam ta ashche oi name diye check korbe amader oi table ar name column ar moddhe and oi data take niye ashbe  
-       $specificTable->delete();
-
+       $specificTable->delete();       
 
        return redirect()->back()->with('success' , 'Table Booked Successfully!!!');    ////redirect()->back() mane hocche amader jei page theke ai post request ta asheche oi page ar moddhe abar back korbe oporer kaj gulo korar pore....jemon aikhane amader post request ta ashche resources/views/restaurant/includes/BookTable.blade.php and ai BookTable.blade.php ke amra home.blade.php ar moddhe include korechi
     }

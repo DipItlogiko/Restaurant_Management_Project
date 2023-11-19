@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Models\Food;
+use App\Models\User;
 
 class FoodController extends Controller
 {
@@ -13,7 +14,14 @@ class FoodController extends Controller
     public function createFood()
     {
         $authUser = Auth::user();
-        return view('restaurant.admin.create-food' , ['authUser' => $authUser]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.create-food' , ['authUser' => $authUser , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
 
@@ -42,9 +50,7 @@ class FoodController extends Controller
             'price' => $request->price,
             'description' => $request->description,         
             
-        ]);
-
-        event(new Registered($food));
+        ]);        
             
 
         if ($request->food_type == 'fastfood') {
@@ -62,7 +68,15 @@ class FoodController extends Controller
     {
         $authUser = Auth::user();
         $Foods = Food::cursor();
-        return view('restaurant.admin.show-foods',['authUser' => $authUser , 'Foods' => $Foods]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+        
+
+        return view('restaurant.admin.show-foods',['authUser' => $authUser , 'Foods' => $Foods , 'messages' => $messages ,'notifications' => $notifications]);
     }
     
     ///===== Admin will be able to edit a specific food =====///
@@ -70,7 +84,14 @@ class FoodController extends Controller
     {
         $authUser = Auth::user();
         $food = Food::find($id); ///// amader route/web.php theke jei id ta ashche oi id take amra amader Food Model mane Food Model ta amader database ar jei table take represent kore oi table theke amra amader route theke asha id take find korchi and oi id ar data take amader database ar table theke aaane ba fatch kore $food variable ar moddhe store kore dicchi...
-        return view('restaurant.admin.food-edit',['authUser' => $authUser , 'food' => $food]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.food-edit',['authUser' => $authUser , 'food' => $food ,'messages' => $messages , 'notifications' => $notifications]);
     }
     
     ///===== Admin will be able to store specific updated food data into the database =====///

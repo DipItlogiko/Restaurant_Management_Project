@@ -7,7 +7,7 @@
 
 @section('body')
     <div class="m-5">
-        @if ($messages == '[]')
+        @if ($allMessages == '[]')
 
             <div class="row text-center">
                 <div class="col-lg-3"></div>             
@@ -85,12 +85,13 @@
                                 <th scope="col" class="profile-edit" style="font-size: 1.3rem">Email</th>
                                 <th scope="col" class="profile-edit" style="font-size: 1.3rem">Message</th>                          
                                 <th scope="col" class="profile-edit" style="font-size: 1.3rem">Send At</th>                          
+                                <th scope="col" class="profile-edit" style="font-size: 1.3rem"></th>                          
                                 <th scope="col" class="profile-edit" style="font-size: 1.3rem">Action</th>                        
                                 
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($messages as $message)
+                            @foreach($allMessages as $message)
                                 <tr>
                                     <td>
                                         <img src="Users_images/{{ $message->image }}" alt="">
@@ -99,7 +100,9 @@
                                     <td>{{ $message->name }}</td>   
                                     <td>{{ $message->email }}</td>                                        
                                     <td>{{ $message->message }}</td>                                                                                                       
-                                    <td>{{ $message->created_at }}</td>                                                                                                       
+                                    <td>{{ $message->created_at }}</td>  
+                                    <td>{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</td> <!--akhane amader created at column ar value ta 10 min ago 5 min ago eemon dekhabe jar jonno amra laravel ar akta package install korechi go to Readme.md file-------->
+
                                     <td>                                        
                                         <button class="btn btn-danger delete-message-button" data-message-id="{{ $message->id }}">Delete</button>
                                     </td>                                        

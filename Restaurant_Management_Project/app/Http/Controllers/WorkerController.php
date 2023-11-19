@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File; 
 use App\Models\Worker;
+use App\Models\User;
 
 class WorkerController extends Controller
 {
@@ -13,7 +14,14 @@ class WorkerController extends Controller
     public function addWorker()
     {
         $authUser = Auth::user();
-        return view('restaurant.admin.worker.add-worker' , ['authUser' => $authUser]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.worker.add-worker' , ['authUser' => $authUser , 'messages' => $messages ,'notifications' => $notifications]);
     }
 
     ///======== Admin will be able to store worker into the database table ======///
@@ -59,7 +67,14 @@ class WorkerController extends Controller
     {
         $authUser = Auth::user();
         $workers = Worker::cursor(); ////akhane amader Worker Model ta jemon database ar workers table take represent kore ai database ar oi table theke ami sob datake aikhane fatch kore niye ashchi lazy collection ar cursor() method ar maddhome
-        return view('restaurant.admin.worker.all-workers' , ['authUser' => $authUser , 'workers' => $workers]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.worker.all-workers' , ['authUser' => $authUser , 'workers' => $workers , 'messages' => $messages ,'notifications' => $notifications]);
     }
 
     ///======= Admin will be able to edit a specific worker information =======///
@@ -68,8 +83,14 @@ class WorkerController extends Controller
         $specificWorker = Worker::find($id);
 
         $authUser = Auth::user();
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
 
-        return view('restaurant.admin.worker.edit-worker', ['authUser' => $authUser,'specificWorker' => $specificWorker]);
+        return view('restaurant.admin.worker.edit-worker', ['authUser' => $authUser,'specificWorker' => $specificWorker , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
     ///======= Admin will be able to store updated workers information into the database table =======///

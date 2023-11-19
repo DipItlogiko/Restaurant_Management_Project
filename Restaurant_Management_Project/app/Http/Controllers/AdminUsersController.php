@@ -17,7 +17,14 @@ class AdminUsersController extends Controller
     {
         $authUser = Auth::user();
         $users= User::cursor(); ////akhane ami amar User Model theke data guloke fatch korechi ami aikhane dataguloke fatche korar jonno get() ba all() method take use kori ni karon amra jani jokhon amader ai User Model jei table take represent korche oi table ar moddhe jodi lakh lakh data thake and amra jodi oi table ar sob data take fatche korar jonno get() ba all() method use kori tahole oi table ar lakh lakh data amader laravel application ar moddhe akbare load hobe and jokhon amader laravel ar memory storage space ar limite ke cross kore jabe tokhon amader laravel application ta crass korbe and akta error dekhabe je amader memory storage space ta overflow hoye geche...ai problem ta solve korar jonno amra lazy collection ar cursor() method ta use korbo jokhon amra amader model ar sathe cursor() method ta use korbo amader kono table ar data fatch korar jonno tokhon amader database ar oi table aaa jodi lakh lakh data  oooo thake tahole oi data gulo amader laravel application ar moddhe akbare load hobe na...
-        return view('restaurant.admin.show-users',['authUser' => $authUser ,'users' => $users]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+        
+        return view('restaurant.admin.show-users',['authUser' => $authUser ,'users' => $users , 'messages' => $messages ,'notifications' => $notifications]);
     }
    ///==== Admin will be able to show single user information ====///
     public function showUser($id)
@@ -25,13 +32,27 @@ class AdminUsersController extends Controller
          
         $authUser = Auth::user(); ///// ai Auth::user() ba authenticated user ar datata ami $authUser variable ar moddhe store kore amader view file ar moddhe pass kore diyechi karon amader view file ar moddhe je navbar ta ache oikhane amader authenticated user ar image ,name ai gulor proyojon hobe tai amra ami authUser ar information gulo akhan theke amader view file ar moddhe pass korec diyechi
         $user = User::find($id);
-        return view('restaurant.admin.show-user',['authUser' => $authUser , 'user' => $user]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.show-user',['authUser' => $authUser , 'user' => $user , 'messages' => $messages , 'notifications' => $notifications]);
     }
    ///==== Admin Create User ====///
     public function createUser()
     {
         $authUser = Auth::user(); 
-        return view('restaurant.admin.create-user' , ['authUser' => $authUser]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+
+        return view('restaurant.admin.create-user' , ['authUser' => $authUser , 'messages' => $messages, 'notifications' => $notifications]);
     }
 
    ///==== Admin Store Users / Store Users By Admin  ====////
@@ -84,7 +105,14 @@ class AdminUsersController extends Controller
     {
         $authUser = Auth::user();
         $user = User::cursor(); //// User Model ar sathe amra cursor() method take call korechi get() ba all() method ke call kori ni..amader User model ta database ar jei table ta ke represent kore oi table theke akta akta kore data chole ashbe amader ai $user variable ar moddhe jodi amra User model ar sathe get() method ba all() method ta use kortam tahole amader database ar oi table theke sob data akbare amader $user variable ar moddhe load hoto jodi amader database ar oi table ar moddhe lakh lakh data thake tahole ta akbare load hobe and amader laravel application ar memory storage space ar limitation cross hoye jabe ba overflow hoye jabe and amader laravel application ta crush korbe tai amra get() ba all() method ta use na kore lazy collection ar cursor() method ta use korbo..ai cursor() method ta amader database  ar tabe theke sob datake akbare load kore na akta akta kore amader database ar table theke data aane ..jemon jokhon prothome akta data ashe tokhon oi data ta hoy current data and pore jokhon kono data ashe tokhon oi data ta hoy current data and aage jei ta current data chilo oitake oooo relese kore dei ..lazy collection ar cursor() method ta muloto ai vabei kaj kore...
-        return view('restaurant.admin.users-delete',['authUser' => $authUser , 'users' => $user]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+        
+        return view('restaurant.admin.users-delete',['authUser' => $authUser , 'users' => $user , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
     ///=== After clicking on Delete button  Admin will be able to delete speceific user  ===///
@@ -109,7 +137,14 @@ class AdminUsersController extends Controller
     {
         $authUser = Auth::user();
         $users = User::onlyTrashed()->cursor(); /// amader User Model ta database ar jei table take represent kore jemon akhane amader User Model ta database ar users table take represent korche ..akhane lazy collection ar cursor() method ta use kora koron hocche amader ai users table ar moddhe jodi lakh lakh deleted user ar data thake tahole oi lakh lakh data amader akbare load hobe jar fole amader laravel applicaion ar memory storage space ar limit cross hoye jabe and overfolw hobe jabe jar fole amader laravel application ta crass korbe..amader laravel application ar memory storage space aaa jeno akbare sob data load na hoy tar jonno amra get() ba all() method ar poriborte cursor() method ta use korechi..ai cursor() method ta amader database ar table theke sob deleted datake akbare load korbe na prothome akta datake anbe jeita hobe currnet data and pore jokhon aabar oonno kono datake anbe tokhon oi datata hobe current data and age jeita current data chilo oitake oo release kore debe..lazy collection ar cursor() method ai vabe kaj kore..akhane ami User Model ar sathe onlyTrashed() method take call korechi ai onlyTrashed() method ta amader users table ar moddhe jei user gulo shudhu delete hoyeche oi user der information gulo shudhu anbe...jodi amai onlyTrashed() method ar poriborte withTrashed() method use kortam amader User Model ar sathe tahobe amader users table theke deleted user der data oooo ashto aabar jei user gulo delete hoy ni oi user der data ooo ashto.
-        return view('restaurant.admin.show-users-trush', ['authUser' => $authUser , 'users' => $users]);
+        $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
+        ->orderBy('messages.created_at', 'desc')
+        ->take(4)
+        ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
+        
+        return view('restaurant.admin.show-users-trush', ['authUser' => $authUser , 'users' => $users , 'messages' => $messages , 'notifications'=> $notifications]);
     }
 
     ///==== Admin will be able to restore soft deleted users ====///
