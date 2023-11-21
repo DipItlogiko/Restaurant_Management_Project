@@ -54,7 +54,7 @@ class MessageController extends Controller
 
         $allMessages = User::join('messages', 'users.id', '=' , 'messages.user_id')
         ->orderBy('messages.created_at', 'desc')      ////// akhane amader messages table ar created_at column ke 'desc' mane descending format aa shajabe mane boro theke choto mane sobar last a jei message ta ashbe oi message ta sobar oopore thakbe mane boro theke choto  
-        ->cursor();  //// akhane ami amader User Model ta database ar jei table take represent kore jemon amader ai User Model ta database ar users name table take represent kore and amader ai users table take amra join kore diyechi messages table ar sathe and jehetu amader messages table ta join ar moddhe ache tai amader ai table ta mane messages table ta beshi power pabe jemon amader users table ar moddhe created_at name akta column ache and messages table ar moddhe oooo created_at name akta column  ache akhon ai join hoyar pore ami jodi kothaw amader created_at column ar value take print kori tahole amra dekhbo amader messages table ar created_at column ar value ta ashche karon join ar moddhe amader messages table ar nam ta ache tai oi messages table ta power beshi pabe...and ai  inner join ta hobe amader users table ar id ar sathe messages table ar user_id ar sathe
+        ->paginate(7);  //// akhane ami amader User Model ta database ar jei table take represent kore jemon amader ai User Model ta database ar users name table take represent kore and amader ai users table take amra join kore diyechi messages table ar sathe and jehetu amader messages table ta join ar moddhe ache tai amader ai table ta mane messages table ta beshi power pabe jemon amader users table ar moddhe created_at nam aa akta column ache and messages table ar moddhe oooo created_at nam aa akta column  ache akhon ai join hoyar pore ami jodi kothaw amader created_at column ar value take print kori tahole amra dekhbo amader messages table ar created_at column ar value ta ashche karon join ar moddhe amader messages table ar nam ta ache tai oi messages table ta power beshi pabe...and ai  inner join ta hobe amader users table ar id ar sathe messages table ar user_id ar sathe....join howar pore amader oi sob datake ami paginate(7) korechi mane oi data theke  amader ak ak ta page ar moddhe 7 ta 7 ta kore data dekhabe karon ami paginate(7) likhechi tai ...jodi amader ai join ta howar pore 10 ta data pai tahole amader akta page ar moddhe 7 ta data dekhabe and onno page ar moddhe 3 ta data dekhabe and ai $allMessages variable ta jei view ar moddhe pass korechi amra niche oi view file ar moddhe giye amder pagination ar degine ta korte hobe tahole amra amader application ar page ar moddhe pagination ar degine ta dekhte pabo  
 
         return view('restaurant.admin.message.all-messages' , ['authUser' => $authUser , 'allMessages' => $allMessages , 'messages' => $messages ,  'notifications' => $notifications]);
     }
@@ -74,7 +74,7 @@ class MessageController extends Controller
     public function allNotifications()
     {
         $authUser = Auth::user();
-        //--For Admin Dashboard Messages--//
+        //--For Admin Dashboard Messages,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)

@@ -5,42 +5,75 @@
 @endsection
 
 @section('body')
-<div class="container">
+<div class="p-5">
 
-    <h2 class="text-left fw-bold h1 mb-2 mx-1 mx-md-4 mt-2  profile-edit" style="font-size: 2.7rem; color: #ffb03b">Users<span class="text-light">Trush</span></h2>
+    @if ($users->isEmpty())    <!--akhane ami bolechi amader $users variable ar value ta jodi null hoy ba empty hoy tahole amader ai if ar moddhe thaka code ta execute hobe----->
 
-         <!--==== Flash Message ====-->
+        <div class="row text-center">
+            <div class="col-lg-3"></div>             
+            
+            <div class="col-lg-5">
+                <div class="card border-0">
+                    <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
+                        <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go To Dashboard</a>
+                        <p class="card-text"><small class="text-muted">McDonald's</small></p>
+                    </div>
+                </div>  
+            </div>
 
-         @if (session('status'))
+            <div class="col-lg-3"></div>
 
-         <!----(i have used bootstrap5 aleart to show our FLASH MESSAGE)---->
-         <!-----(tickmark icon)----->
-         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-             <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-             </symbol>                           
-         </svg>
-             
-             <!--(aleart)-->
-             <div class="auto-close alert alert-success d-flex align-items-center" role="alert" class="mx-auto">
-                 <svg class="bi flex-shrink-0 me-2 text-success" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                 <div>
-                     {{ session('status') }}
-                 </div>
-                 
-                 <button type="button" class="btn-close" style="margin-left: auto"  data-bs-dismiss="alert" aria-label="Close"></button>
-                 
-             </div>
-         @endif
-       
-       <!--==== End Flash Message ====-->
+    @else
 
-<div class="table-responsive mt-4">
-  
-  <table class="table">
-    <thead>
-      <tr>
-         
+            <h2 class="text-left fw-bold h1 mb-2 mx-1 mx-md-4 mt-2  profile-edit" style="font-size: 2.7rem; color: #ffb03b">Users<span class="text-light">Trush</span></h2>
+
+            <!--==== Flash Message ====-->
+
+            @if (session('status'))
+
+            <!----(i have used bootstrap5 aleart to show our FLASH MESSAGE)---->
+            <!-----(tickmark icon)----->
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </symbol>                           
+            </svg>
+                
+                <!--(aleart)-->
+                <div class="auto-close alert alert-success d-flex align-items-center" role="alert" class="mx-auto">
+                    <svg class="bi flex-shrink-0 me-2 text-success" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                    <div>
+                        {{ session('status') }}
+                    </div>
+                    
+                    <button type="button" class="btn-close" style="margin-left: auto"  data-bs-dismiss="alert" aria-label="Close"></button>
+                    
+                </div>
+            @endif
+        
+        <!--==== End Flash Message ====-->
+
+        <!--===== Search bar start =====-->    
+        <div class="search-container">
+            <div class="input-box rounded-pill">
+                <i class="mdi mdi-magnify"></i>
+                <form action="{{ route('search.trush.user') }}" method="get"> <!--search ar jonno amra get method ee use kori--->
+                    <input type="text" class="text-warning" name="search" placeholder="Search here..." required/>
+                    <button class="button border-0"><a type="submit" class="btn btn-outline-warning rounded-pill">Search</a></button>
+                </form>
+                
+            </div>
+        </div>  
+        <!--===== Search bar End =====--> 
+
+        <div class="table-responsive mt-4">
+
+        <table class="table">
+        <thead>
+        <tr>
+            
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Image</th>
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Name</th>
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Email</th>
@@ -49,69 +82,73 @@
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">CreatedAccountAt</th>
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">DeletedAccountAt</th>
         <th scope="col" class="profile-edit" style="font-size: 1.3rem">Action</th>
-      </tr>
-    </thead>
-    <tbody>
+        </tr>
+        </thead>
+        <tbody>
         
         @foreach ($users as $user)
         
         <tr>          
             
-              <td>
+                <td>
                 <img  src="Users_images/{{ $user->image }}"  class="rounded-circle" width="40" height="40" /> <!--akhane Users_images/ ta hocche amader akta directory jei directory ta amara public directory ar moddhe create korechi amader Users ar picture gulo rakhar jonno------->
-              </td>
+                </td>
 
-              <td>{{ $user->name }}</td>
-              <td>{{ $user->email }}</td>
-
-
-              @if ($user->user_type == '1')
-                  <td>Admin</td>
-
-               @else
-                  <td>User</td>
-
-              @endif  
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
 
 
+                @if ($user->user_type == '1')
+                    <td>Admin</td>
+
+                @else
+                    <td>User</td>
+
+                @endif  
 
 
-              @if ($user->email_verified_at == '') <!--akhane ami set kore diyechi jodi amader user ar email_verified_at column ta emty ba faka thake tahole Not Varified dekhabe and jodi amader user ar email_varified_at column ta te kono data thake tahole else aa chole jabe and user ar oi email_varified_at Column ar data ta dekhabe--->
+
+
+                @if ($user->email_verified_at == '') <!--akhane ami set kore diyechi jodi amader user ar email_verified_at column ta emty ba faka thake tahole Not Varified dekhabe and jodi amader user ar email_varified_at column ta te kono data thake tahole else aa chole jabe and user ar oi email_varified_at Column ar data ta dekhabe--->
                     <td>Not Varified</td>
                 
                 @else  
-                   <td>{{ $user->email_verified_at }}</td>  
+                <td>{{  date("d-m-Y h:i A", strtotime($user->email_verified_at)) }}</td>  <!---jehetu amader $user->email_verified_at mane $user-> ar moddhe theke jei email_verified_at column ta ashbe ba datata ashbe oita string aakara ashbe tai oi string take ami aikhane timestrap a convart kore niyechi strtotime() ai method ar maddhome and  d-m-Y akhane 'd' mane hocche day and 'm' mane hocche mash jehetu ami aikhane choto hater m use korechi tai amader mash ar  nam ta number aa dekhabe jemon jodi march hoy tahole 3 dekhabe jodi ami boro hater 'M' ditam tahole amader mash ar nam dekha to jemon jodi mash ar nam march hoto tahole amader March dekhato letter aaa--->
 
-              @endif     
+                @endif     
 
 
-              
-              <td>{{ $user->created_at }}</td>
-              <td>{{ $user->deleted_at }}</td>               
-              
-              <td>        
+                
+                <td>{{ $user->created_at }}</td>
+                <td>{{ $user->deleted_at }}</td>               
+                
+                <td>        
                 <a href="/restoreUser{{$user->id}}" class="btn btn-success">Restore</a><!--akhane jokhon kew amader application ar Restore button a click korbe tokhon oi record ar id ta amra aikhane akta url create kore pass korediyechi /restoreUser{{--$user->id --}} jei row ar ba record ar Restore button a click kora hobe oi record ar id ta amader ai url ar maddhome pass hoye jabe route ar moddehe check routes/web.php ------->
                 <button class="btn btn-danger delete-account-button" data-user-id="{{ $user->id }}">Delete</button><!--akhane jokhon kew amader application ar Delete button a click korbe tokhon oi record ar id ta amra aikhane akta url create kore pass korediyechi /permanentDeleteUser{{--$user->id --}} jei row ar ba record ar Delete button a click kora hobe oi record ar id ta amader ai url ar maddhome pass hoye jabe route ar moddehe check routes/web.php ------->
                 
-              </td>
-          </tr>
+                </td>
+            </tr>
 
-      @endforeach
-       
-    </tbody>
-  </table>
+        @endforeach
+        
+        </tbody>
+        </table>
+        <!--Pagination Design---->
+        <div class="row m-2 pt-3">
+            {{ $users->links('pagination::bootstrap-5') }}
+        </div>
 
-</div>
-<!--======= Delete Confirmation Pop Up Model========-->
+        </div>
+        <!--======= Delete Confirmation Pop Up Model========-->
 
-<div class="modal" id="confirmUserDeletionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+        <div class="modal" id="confirmUserDeletionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title text-warning font" style="font-size: 1.7rem" id="confirmUserDeletionModalLabel ">Confirm Deletion</h5>            
             </div>
             <div class="modal-body">
-               <span class="text-danger">Are you sure you want to delete this user?</span>
+                <span class="text-danger">Are you sure you want to delete this user?</span>
 
                 <div class="text-muted mt-4">
                     Once this account is deleted, all of it's resources and data will be permanently deleted. Please press on Delete button to confirm you would like to permanently delete this account.
@@ -126,9 +163,12 @@
             </div>
         </div>
         </div>
-    </div>
+        </div>
 
-<!--====== END Delete Confirmation Modal ======-->
+        <!--====== END Delete Confirmation Modal ======-->
+
+    @endif
+    
 </div>
 @endsection
 

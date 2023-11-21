@@ -5,8 +5,8 @@
 @endsection
 
 @section('body')
-    <div class="container">
-        @if ($workers == '[]')
+    <div class="p-5">
+        @if ($workers->isEmpty())
 
             <div class="row text-center">
                 <div class="col-lg-3"></div>             
@@ -16,7 +16,7 @@
                         <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
                         <div class="card-body">
                             <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
-                            <a href="{{ route('show.workers') }}" class="btn btn-outline-warning">Go Back</a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go To Dashboard</a>
                             <p class="card-text"><small class="text-muted">McDonald's</small></p>
                         </div>
                     </div>  
@@ -112,6 +112,10 @@
                                 
                             </tbody>
                             </table>
+                            <!----Pagination degine---->
+                            <div class="row m-2 pt-3">
+                                {{ $workers->links('pagination::bootstrap-5') }}
+                            </div>
                         
                         </div>
                     </div>

@@ -15,6 +15,7 @@ class DailyExpenseController extends Controller
     public function dailyExpense()
     {
         $authUser = Auth::user();
+        //--For Admin Dashboard message,which is located into admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -55,7 +56,9 @@ class DailyExpenseController extends Controller
     public function expensesList()
     {
         $authUser = Auth::user();
-        $expenses = Expense::cursor();
+        $expenses = Expense::paginate(7); //// amader Expense Model ta database ar jei table ke represent kore oi table ar moddhe theke amader sob data fatch kore niye ashbe and ami paginate(7) diye bole diyechi amader oi table ar moddhe theke sob datake fatch korar pore amader appliction ar moddhe oi data gulo theke 7 ta 7 ta kore data amader ak ak ta page aa dekhanor jonno.... and amader pagination ar degine dekhanor jonno amra ai $expenses variable take jei view file ar moddhe pass korchi oi view file ar moddhe giye amader pagination ar degine ta korte hobe tahole amra pagination ar degine ta dekhte pabo.... 
+        
+        //--For Admin Dashboard message,which is located into admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)

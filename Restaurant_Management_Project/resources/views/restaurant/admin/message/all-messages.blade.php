@@ -7,7 +7,7 @@
 
 @section('body')
     <div class="m-5">
-        @if ($allMessages == '[]')
+        @if ($allMessages->isEmpty()) 
 
             <div class="row text-center">
                 <div class="col-lg-3"></div>             
@@ -112,6 +112,10 @@
                                 
                             </tbody>
                             </table>
+                            <!--Pagination degine-->
+                            <div class="row m-2 pt-3">
+                                {{ $allMessages->links('pagination::bootstrap-5') }}
+                            </div>
                         
                         </div>
                     </div>

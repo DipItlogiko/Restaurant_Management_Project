@@ -5,9 +5,9 @@
 @endsection
 
 @section('body')
-<div class="p-3">
+<div class="p-5">
     
-    @if($expenses == '[]')
+    @if($expenses->isEmpty())
         
         <div class="row text-center">
             <div class="col-lg-3"></div>             
@@ -108,6 +108,10 @@
                                 
                             </tbody>
                             </table>
+                            <!----Pagination degine---->
+                            <div class="row m-2 pt-3">
+                                {{ $expenses->appends(request()->query())->links('pagination::bootstrap-5')}}  <!----akhane amader pagination degine ar sathe appends(request()->query()) aita add korar karon hocche amader resources/views/restaurant/admin/expense/expenses-list.blade.php ar moddhe jei search bar ta ache oi search bar ar moddhe kew jodi eemon kono kichu diye search dei ja amader expenses-list.blade.php file ar moddhe 7 barer beshi ache tahole amader oi data theke 7 ta 7 ta kore data ak ak page aa dekhabe karon amader ai search ar theke jokhon datata ashche amader searchController.php theke oikhane ami paginate(7) bole diyechi jar mane hocche amader search queary korar pore jei koita data pabe oi data guloke ak ak page ar moddhe 7 ta kore dekhabe..and niche jei pagination ar number gulo thakbe oi number gulote press korle kaj korbe and jodi amra appends(request()->query()) aita na likhi tahole amader search bar moddhe jei data diye search kora hobe oi data ta amader SearchController.php ar moddhe giye paginage hoye amader ai page ar moddhe chole ashbe and database pagination ar degine ta oo dekhabe kintu jokhon ami pagination ar number ar moddhe click korbo tokhon amader click korar por kaj hobe na jodi aita na likhi to aita lekhar r akta karon hocche amader resources/views/restaurant/admin/worker/all-workers.blade.php ar moddhe amader pagination kora ache and oikhane akta search bar ache oi search bar ar moddhe kono value diye search korle oi value ta jodi amader oonek bar thake tahole search korar pore amader oi data ta aabar pagination ar sathe show korbe tai--->
+                            </div>
                         
                         </div>
                     </div>

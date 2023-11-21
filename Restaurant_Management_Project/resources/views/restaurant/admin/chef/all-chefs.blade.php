@@ -8,7 +8,7 @@
 @section('body')
 <div class="p-3">
     
-    @if($chefs == '[]')
+    @if($chefs->isEmpty())  <!----akhane ami check korechi amader $chefs variable jeita amader ChefController.php theke ashche oi $chefs variable ta jodi empty hoy ba oi variable ar moddhe jodi kono data na thake tahole amader ai if ar moddhe thaka code ta execute hobe--> 
         
         <div class="row text-center">
             <div class="col-lg-3"></div>             
@@ -18,7 +18,7 @@
                     <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
-                        <a href="{{ route('show.all.chefs') }}" class="btn btn-outline-warning">Go Back</a>
+                        <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go To Dashboard</a>
                         <p class="card-text"><small class="text-muted">McDonald's</small></p>
                     </div>
                 </div>  
@@ -116,7 +116,13 @@
                                                     
                                 
                             </tbody>
+
+                            
                             </table>
+                            <!--pagination ar digine ta aikhane dekhabe--------->
+                            <div class="row m-2 pt-3">
+                                {{ $chefs->links('pagination::bootstrap-5') }}
+                            </div>
                         
                         </div>
                     </div>

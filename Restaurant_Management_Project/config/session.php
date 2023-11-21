@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 120), ///// akhane 120 mane 120 minutes amader session ar lifetime hocche 120 minutes mane 2 hours 2 hour pore amader session ar sob data remove hoye jabe.....
+    'lifetime' => env('SESSION_LIFETIME', 120), ///// akhane 120 mane 120 minutes amader session ar lifetime hocche 120 minutes mane 2 hours 2 hour pore amader session ar sob data remove hoye jabe.....and jei user ta amader application ar moddhe login kora thakbe oi user ta oo login korar 2 hour por amader application theke autometically logout hoye jabe karon amader session ar moddhe oi login user ar data ta thakbe and session jehetu amader ai khane 120 min mane 2 hour pore remove hoye jabe tai amader oi user ar data ta ooo oi session theke delete hoye jabe and oi user ta logout hoye jabe  
 
     'expire_on_close' => false, //// akhane expaire on close mane bojhachhe jokhon amader browser ta close hoye jabe tokhon ee amader session ar data ta remove hoye jabe jodi amra ai khake true kore dei tahole ...jokhon amra kono bank ar website develop korbo tokhon amra ai option ta true kore debo
 

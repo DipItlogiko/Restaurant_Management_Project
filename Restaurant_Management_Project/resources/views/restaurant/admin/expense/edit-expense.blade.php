@@ -45,8 +45,8 @@
                                     {{ $message }}
                                 @enderror
                             </span>
-                            <input type="text" name="description" value="{{ old('description', $specificExpense->description) }}" id="form3Example4c" class="form-control text-warning" required/>
-                            <label class="form-label" for="form3Example4c">Position</label>
+                            <textarea type="text" name="description"   id="form3Example4c" class="form-control text-warning" required> {{ old('description', $specificExpense->description) }} </textarea>
+                            <label class="form-label" for="form3Example4c">Description</label>
                         </div>
                         </div>  
 

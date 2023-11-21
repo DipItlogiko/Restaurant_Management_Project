@@ -14,6 +14,7 @@ class WorkerController extends Controller
     public function addWorker()
     {
         $authUser = Auth::user();
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -66,7 +67,8 @@ class WorkerController extends Controller
     public function showWorkers()
     {
         $authUser = Auth::user();
-        $workers = Worker::cursor(); ////akhane amader Worker Model ta jemon database ar workers table take represent kore ai database ar oi table theke ami sob datake aikhane fatch kore niye ashchi lazy collection ar cursor() method ar maddhome
+        $workers = Worker::paginate(7); ////akhane amader Worker Model ta jemon database ar workers table take represent kore oi database ar oi table theke ami sob datake aikhane fatch kore niye ashchi and paginate(7) ar maddhome bole diyechi amader workers table theke all data fatch korar pore amader application ar ak ak ta page ar moddhe 7 ta kore data dekhabe jodi amader oi table ar moddhe mot 10 ta data thake tahole amader application ar moddhe 1st page ar moddhe 7 ta data dekhabe and second page ar moddhe 3 ta data dekhabe..and amader ai paginate korar pore amra jemon ai dataguloke $workers variable ar moddhe store korchi and ai $workers variable ar value guloke amra jei khane print korbo oikhane mane oi page ar moddhe amader paginagion ar degine ta korte hobe...jemon niche amader akta view page ar moddhe amra ai $workers variable take pass kore diyechi and oi view file ar moddhe amra pagination ar degine ta korbo
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -83,6 +85,7 @@ class WorkerController extends Controller
         $specificWorker = Worker::find($id);
 
         $authUser = Auth::user();
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)

@@ -16,7 +16,9 @@ class AdminUsersController extends Controller
     public function showUsers()
     {
         $authUser = Auth::user();
-        $users= User::cursor(); ////akhane ami amar User Model theke data guloke fatch korechi ami aikhane dataguloke fatche korar jonno get() ba all() method take use kori ni karon amra jani jokhon amader ai User Model jei table take represent korche oi table ar moddhe jodi lakh lakh data thake and amra jodi oi table ar sob data take fatche korar jonno get() ba all() method use kori tahole oi table ar lakh lakh data amader laravel application ar moddhe akbare load hobe and jokhon amader laravel ar memory storage space ar limite ke cross kore jabe tokhon amader laravel application ta crass korbe and akta error dekhabe je amader memory storage space ta overflow hoye geche...ai problem ta solve korar jonno amra lazy collection ar cursor() method ta use korbo jokhon amra amader model ar sathe cursor() method ta use korbo amader kono table ar data fatch korar jonno tokhon amader database ar oi table aaa jodi lakh lakh data  oooo thake tahole oi data gulo amader laravel application ar moddhe akbare load hobe na...
+        $users= User::paginate(7); ////akhane ami amar User Model theke data guloke fatch korechi and paginate(7) diye ami bole diyechi amader oi users table ar moddhe theke joto data ache oi data guloke 7 ta 7 ta kore ak ak page ar moddhe dekhabe jodi amar ai table ar moddhe 12 ta data thake tahole prothom page aa 7 ta data dekhabe and tar porer page  aaa 5 ta data dekhabe...
+        
+        //--For Admin Dashboard message,which is located into a admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -32,6 +34,7 @@ class AdminUsersController extends Controller
          
         $authUser = Auth::user(); ///// ai Auth::user() ba authenticated user ar datata ami $authUser variable ar moddhe store kore amader view file ar moddhe pass kore diyechi karon amader view file ar moddhe je navbar ta ache oikhane amader authenticated user ar image ,name ai gulor proyojon hobe tai amra ami authUser ar information gulo akhan theke amader view file ar moddhe pass korec diyechi
         $user = User::find($id);
+        //--For Admin Dashboard message,which is located into a admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -45,6 +48,7 @@ class AdminUsersController extends Controller
     public function createUser()
     {
         $authUser = Auth::user(); 
+        //--For Admin Dashboard message,which is located into a admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -104,7 +108,9 @@ class AdminUsersController extends Controller
     public function usersDelete()
     {
         $authUser = Auth::user();
-        $user = User::cursor(); //// User Model ar sathe amra cursor() method take call korechi get() ba all() method ke call kori ni..amader User model ta database ar jei table ta ke represent kore oi table theke akta akta kore data chole ashbe amader ai $user variable ar moddhe jodi amra User model ar sathe get() method ba all() method ta use kortam tahole amader database ar oi table theke sob data akbare amader $user variable ar moddhe load hoto jodi amader database ar oi table ar moddhe lakh lakh data thake tahole ta akbare load hobe and amader laravel application ar memory storage space ar limitation cross hoye jabe ba overflow hoye jabe and amader laravel application ta crush korbe tai amra get() ba all() method ta use na kore lazy collection ar cursor() method ta use korbo..ai cursor() method ta amader database  ar tabe theke sob datake akbare load kore na akta akta kore amader database ar table theke data aane ..jemon jokhon prothome akta data ashe tokhon oi data ta hoy current data and pore jokhon kono data ashe tokhon oi data ta hoy current data and aage jei ta current data chilo oitake oooo relese kore dei ..lazy collection ar cursor() method ta muloto ai vabei kaj kore...
+        $user= User::paginate(7); ////akhane ami amar User Model theke data guloke fatch korechi and paginate(7) diye ami bole diyechi amader oi users table ar moddhe theke joto data ache oi data guloke 7 ta 7 ta kore ak ak page ar moddhe dekhabe jodi amar ai table ar moddhe 12 ta data thake tahole prothom page aa 7 ta data dekhabe and tar porer page  aaa 5 ta data dekhabe...
+        
+        //--For Admin Dashboard message,which is located into a admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -136,7 +142,9 @@ class AdminUsersController extends Controller
     public function usersTrush()
     {
         $authUser = Auth::user();
-        $users = User::onlyTrashed()->cursor(); /// amader User Model ta database ar jei table take represent kore jemon akhane amader User Model ta database ar users table take represent korche ..akhane lazy collection ar cursor() method ta use kora koron hocche amader ai users table ar moddhe jodi lakh lakh deleted user ar data thake tahole oi lakh lakh data amader akbare load hobe jar fole amader laravel applicaion ar memory storage space ar limit cross hoye jabe and overfolw hobe jabe jar fole amader laravel application ta crass korbe..amader laravel application ar memory storage space aaa jeno akbare sob data load na hoy tar jonno amra get() ba all() method ar poriborte cursor() method ta use korechi..ai cursor() method ta amader database ar table theke sob deleted datake akbare load korbe na prothome akta datake anbe jeita hobe currnet data and pore jokhon aabar oonno kono datake anbe tokhon oi datata hobe current data and age jeita current data chilo oitake oo release kore debe..lazy collection ar cursor() method ai vabe kaj kore..akhane ami User Model ar sathe onlyTrashed() method take call korechi ai onlyTrashed() method ta amader users table ar moddhe jei user gulo shudhu delete hoyeche oi user der information gulo shudhu anbe...jodi amai onlyTrashed() method ar poriborte withTrashed() method use kortam amader User Model ar sathe tahobe amader users table theke deleted user der data oooo ashto aabar jei user gulo delete hoy ni oi user der data ooo ashto.
+        $users = User::onlyTrashed()->paginate(7); /// amader User Model ta database ar jei table take represent kore jemon akhane amader User Model ta database ar users table take represent korche ..akhane lazy collection ar cursor() method ta use kora koron hocche amader ai users table ar moddhe jodi lakh lakh deleted user ar data thake tahole oi lakh lakh data amader akbare load hobe jar fole amader laravel applicaion ar memory storage space ar limit cross hoye jabe and overfolw hobe jabe jar fole amader laravel application ta crass korbe..amader laravel application ar memory storage space aaa jeno akbare sob data load na hoy tar jonno amra get() ba all() method ar poriborte cursor() method ta use korechi..ai cursor() method ta amader database ar table theke sob deleted datake akbare load korbe na prothome akta datake anbe jeita hobe currnet data and pore jokhon aabar oonno kono datake anbe tokhon oi datata hobe current data and age jeita current data chilo oitake oo release kore debe..lazy collection ar cursor() method ai vabe kaj kore..akhane ami User Model ar sathe onlyTrashed() method take call korechi ai onlyTrashed() method ta amader users table ar moddhe jei user gulo shudhu delete hoyeche oi user der information gulo shudhu anbe...jodi amai onlyTrashed() method ar poriborte withTrashed() method use kortam amader User Model ar sathe tahobe amader users table theke deleted user der data oooo ashto aabar jei user gulo delete hoy ni oi user der data ooo ashto.
+       
+        //--For Admin Dashboard Message,which is located into admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)

@@ -119,7 +119,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/deleteMessage{id}' , [MessageController::class,'deleteMessage']); /// this {id} is comes from resources/views/restaurant/admin/message/all-message.blade.php and search-messages.blade.php
     Route::get('/allNotifications', [MessageController::class, 'allNotifications'])->name('all.notification');
     Route::get('/deleteNotification{id}' , [MessageController::class,'deleteNotification']); /// this {id} is comes from resources/views/restaurant/admin/all-notification.blade.php
-    Route::get('/deleteAllNotification' , [MessageController::class, 'deleteAllNotification'])->name('delete.All.Notification'); 
+    Route::get('/deleteAllNotification' , [MessageController::class, 'deleteAllNotification'])->name('delete.All.Notification');
+    Route::get('/searchUser' , [SearchController::class, 'searchUser'])->name('search.user'); 
+    Route::get('/searchUserForDelete' , [SearchController::class, 'searchUserForDelete'])->name('search.for.delete.user');
+    Route::get('/searchTrushUser' , [SearchController::class, 'searchTrushUser'])->name('search.trush.user');
+    Route::get('/searchFood' , [SearchController::class, 'searchFood'])->name('search.food');
 
 });
 

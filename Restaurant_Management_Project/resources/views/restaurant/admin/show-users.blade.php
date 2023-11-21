@@ -9,7 +9,18 @@
 <div class="container">
 
     <h2 class="text-left fw-bold h1 mb-2 mx-1 mx-md-4 mt-2  profile-edit" style="font-size: 2.7rem">All<span style="color: #ffb03b">Users</span></h2>
-
+    <!--===== Search bar start =====-->    
+     <div class="search-container">
+      <div class="input-box rounded-pill">
+          <i class="mdi mdi-magnify"></i>
+          <form action="{{ route('search.user') }}" method="get"> <!--search ar jonno amra get method ee use kori--->
+              <input type="text" class="text-warning" name="search" placeholder="Search here..." required/>
+              <button class="button border-0"><a type="submit" class="btn btn-outline-warning rounded-pill">Search</a></button>
+          </form>
+          
+      </div>
+     </div>  
+  <!--===== Search bar End =====-->   
 
 <div class="table-responsive mt-4">
   
@@ -56,7 +67,7 @@
                     <td>Not Varified</td>
                 
                 @else  
-                   <td>{{ $user->email_verified_at }}</td>  
+                    <td>{{  date("d-m-Y h:i A", strtotime($user->email_verified_at)) }}</td>  <!---jehetu amader $user->email_verified_at mane $user-> ar moddhe theke jei email_verified_at column ta ashbe ba datata ashbe oita string aakara ashbe tai oi string take ami aikhane timestrap a convart kore niyechi strtotime() ai method ar maddhome and  d-m-Y akhane 'd' mane hocche day and 'm' mane hocche mash jehetu ami aikhane choto hater m use korechi tai amader mash ar  nam ta number aa dekhabe jemon jodi march hoy tahole 3 dekhabe jodi ami boro hater 'M' ditam tahole amader mash ar nam dekha to jemon jodi mash ar nam march hoto tahole amader March dekhato letter aaa--->
 
               @endif     
 
@@ -75,6 +86,10 @@
        
     </tbody>
   </table>
+  <!-----Pagination degine------>
+  <div class="row m-2 pt-3">
+    {{ $users->links('pagination::bootstrap-5') }}
+  </div>
 
 </div>
 </div>

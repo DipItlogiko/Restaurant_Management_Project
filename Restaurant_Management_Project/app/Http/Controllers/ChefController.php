@@ -15,6 +15,7 @@ class ChefController extends Controller
     public function addChef()
     {
         $authUser = Auth::user();
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -76,7 +77,8 @@ class ChefController extends Controller
     public function allChefs()
     {
         $authUser = Auth::user();
-        $chefs = Chef::cursor();
+        $chefs = Chef::paginate(7); //// akhana amader Chefs modle ta databaser ar jei table take represente kore jemon chefs table ke represent kore amader ai model ta oi table ar moddhe theke amader ai paginate() method ar moddhe jei number ta diye debo oi number onujayi amader  database ar oi table theke oi koita kore data eene ak ak ta page aa show korbe  jemon ami akhane paginate(ar moddhe 7 diyechi mane amader protita page ar moddhe 7 ta kore data dekhabe))
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -93,6 +95,7 @@ class ChefController extends Controller
     {
         $chef = Chef::find($id);
         $authUser = Auth::user();
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)

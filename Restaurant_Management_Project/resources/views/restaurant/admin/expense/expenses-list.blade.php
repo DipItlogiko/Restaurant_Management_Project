@@ -5,9 +5,9 @@
 @endsection
 
 @section('body')
-<div class="p-3">
+<div class="p-5">
     
-    @if($expenses == '[]')
+    @if($expenses->isEmpty())
         
         <div class="row text-center">
             <div class="col-lg-3"></div>             
@@ -108,6 +108,10 @@
                                 
                             </tbody>
                             </table>
+                            <!----Pagination degine----->
+                            <div class="row m-2 pt-3">
+                                {{ $expenses->links('pagination::bootstrap-5') }}
+                            </div>
                         
                         </div>
                     </div>

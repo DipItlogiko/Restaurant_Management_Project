@@ -14,6 +14,7 @@ class FoodController extends Controller
     public function createFood()
     {
         $authUser = Auth::user();
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -67,7 +68,8 @@ class FoodController extends Controller
     public function showFoods()
     {
         $authUser = Auth::user();
-        $Foods = Food::cursor();
+        $Foods = Food::paginate('7');  //// akhane ami paginate() method diye bole diyechi amader foods table theke jokon data ashbe tokhon oi table ar moddhe jodi oonek data thake tahole amader oi table ar moddhe theke shudhu 10 ta data kore show korbe amader website ar proti page ar moddhe
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
@@ -84,6 +86,7 @@ class FoodController extends Controller
     {
         $authUser = Auth::user();
         $food = Food::find($id); ///// amader route/web.php theke jei id ta ashche oi id take amra amader Food Model mane Food Model ta amader database ar jei table take represent kore oi table theke amra amader route theke asha id take find korchi and oi id ar data take amader database ar table theke aaane ba fatch kore $food variable ar moddhe store kore dicchi...
+        //--For Admin Dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
