@@ -139,7 +139,16 @@
               </span>
               <span class="menu-title">Reservations</span>
             </a>
-          </li>          
+          </li>        
+          
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('all.messages') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-email text-light"></i>
+              </span>
+              <span class="menu-title">Message</span>
+            </a>
+          </li>         
            
         </ul>
       </nav>

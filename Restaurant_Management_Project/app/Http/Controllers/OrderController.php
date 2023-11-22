@@ -199,7 +199,7 @@ class OrderController extends Controller
        $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
        $orderCount = Order::where('user_id', $authUser->id)->count(); 
 
-       $data = Order::where('user_id', $authUser->id)->cursor();
+       $data = Order::where('user_id', $authUser->id)->orderBy('created_at' , 'desc')->cursor();
 
        return view('restaurant.user.order-history',['authUser' => $authUser , 'count' => $count, 'orderCount' => $orderCount , 'data' => $data]);
     }

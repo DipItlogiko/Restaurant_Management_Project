@@ -1,15 +1,15 @@
 @extends('restaurant.user.layouts.master')
 
 @section('title')
-    order-history
+    all-messages
 @endsection
 
 
 @section('body')
-<div class="container my-5">   
+<div class="p-5">   
     
 
-    <h1 class="mb-4 fw-bolder text-warning font">Order History</h1>
+    <h1 class="mb-4 fw-bolder text-warning font">All Messages</h1>
     <!--===== Search bar start =====-->    
     <div class="search-container">
         <div class="input-box rounded-pill">
@@ -55,53 +55,33 @@
             <div class="card mb-3 border-0">
                 <div class="table-responsive mt-4" style="width: 100%">
 
-                    <table class="table">
+                    <table class="table"> 
                     <thead>
                         <tr>
                         
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Image</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Food Name</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Price</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Quantity</th>                          
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Total Price</th>                          
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Payment</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Status</th>
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Ordered At</th>                         
-                        <th scope="col" class="profile-edit" style="font-size: 1.3rem">Delivered At</th>                         
+                            <th scope="col" class="profile-edit" style="font-size: 1.3rem">From</th>
+                            <th scope="col" class="profile-edit" style="font-size: 1.3rem">To</th>
+                            <th scope="col" class="profile-edit" style="font-size: 1.3rem">Message</th>
+                            <th scope="col" class="profile-edit" style="font-size: 1.3rem">Sent</th>                          
+                            <th scope="col" class="profile-edit" style="font-size: 1.3rem"></th>                        
+                            <th scope="col" class="profile-edit" style="font-size: 1.3rem">Action</th>                        
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach($data as $data)
-                        <tr>
-                            <td>
-                                <img src="Food_images/{{ $data->food_image }}" alt="">
-                            </td> 
+                        @foreach($specificUserAllMessages as $data)
+                            <tr>                        
 
-                            <td>{{ $data->food_name }}</td>   
-                            <td>${{ $data->price }}</td>                                        
-                            <td>{{ $data->quantity }}</td>                                        
-                            <td>${{ $data->price  *  $data->quantity }}</td>                                        
-                            <td>{{ $data->payment}}</td> 
-                            
-                            @if($data->order_status == 'processing')
-                              <td>Your Order Is Under Processing</td> 
-                            @elseif($data->order_status == 'placed') 
-                              <td>Your Food is Delivered</td>
-                            @else
-                               <td>Your Food Is On The Way</td>   
-                            @endif 
-
-                            <td>{{ $data->created_at }}</td>   
-                            
-                            @if($data->order_status == 'placed')
-                              <td>{{ $data->updated_at }}</td>
-                            @else
-                              <td> - </td>  
-                            @endif  
-                              
+                                <td>{{ $authUser->name }}</td>   
+                                <td>Admin</td>                                        
+                                <td>{{ $data->message }}</td>                                        
+                                <td>{{ $data->created_at }}</td>                                        
+                                <td>{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</td>   <!--\Carbon\Carbon::parse($message->created_at)->diffForHumans() ai ta amader messages table ar created_at column take 10 min ago 20min ago aivabe dekhabe jar jonno ami akta package use korechi check Readme.md-------->
+                                <td>
+                                    <a href="{{ route('edit.message',$data->id) }}" class="btn btn-primary">Edit</a>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </td>                                                            
                                                                     
-                                                                   
-                        </tr>
+                            </tr>
 
                         @endforeach
                                             
@@ -139,8 +119,7 @@
             </div>
         </div>
 
-    <!--====== END Remove Confirmation Pop Up Modal ======-->  
-
+    <!--====== END Remove Confirmation Pop Up Modal ======--> 
 
 
 </div>

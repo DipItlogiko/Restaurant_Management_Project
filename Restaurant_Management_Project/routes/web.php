@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/bookTable' , [TablesController::class, 'bookTable'])->name('book.table');
     Route::get('/tableReservationsHistory', [TablesController::class, 'tableReservations'])->name('table.reservations');
     Route::post('/sandMessage', [MessageController::class, 'sandMessage'])->name('sand.message');
+    Route::get('/allMessages', [MessageController::class, 'allMessages'])->name('all.messages');
+    Route::get('/editMessage{id}', [MessageController::class, 'editMessage'])->name('edit.message'); /// this {id} is comes from resources/views/restaurant/user/message/all-messages.blade.php
 
 
     ////====================================== Admin ================================////    

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Message;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Cart;
 use App\Models\AdminNotify;
 
 class MessageController extends Controller
@@ -104,5 +106,28 @@ class MessageController extends Controller
         AdminNotify::truncate(); //// akhane amader AdminNotify Model ta database ar jei table take represent kore jemon amader ai AdminNotify Model ta database ar admin_notifies ai table take represent kore and oi table theke ami sob delete kore dicchi ai truncate() method ar maddhome truncate() method ar maddhome database ar table ar moddhe thaka data delete korle amra akta shubidha pai jemon amader oi table ar data delete howar sathe sathe amader oi table aabar reset hoye jai mane oi table ar moddhe jodi amra aabar kono data insert kori tahole amader id ta aabar 1 theke shuru hobe .... 
         
         return redirect()->back();
+    }
+
+
+    ///========== User will be able to see his own all messages with edit and delete button =============///
+    public function allMessages()
+    {
+        $authUser = Auth::user();
+        $orderCount = Order::where('user_id', $authUser->id)->count(); 
+        $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
+        $specificUserAllMessages = Message::where('user_id', $authUser->id)->orderBy('created_at' , 'desc')->cursor();
+
+        return view('restaurant.user.message.all-messages' , ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserAllMessages' => $specificUserAllMessages]);
+    }
+
+    ///========== User will be able to edit his own messages ========///
+    public function editMessage($id)
+    {
+        $specificMessage = Message::find($id);
+        $authUser = Auth::user();
+        $orderCount = Order::where('user_id', $authUser->id)->count(); 
+        $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
+        
+        return view('restaurant.user.message.edit-message' , ['authUser' => $authUser ,'specificMessage' => $specificMessage , 'orderCount' => $orderCount , 'count' => $count]);
     }
 }
