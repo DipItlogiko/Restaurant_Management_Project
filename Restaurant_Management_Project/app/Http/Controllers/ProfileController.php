@@ -57,12 +57,16 @@ class ProfileController extends Controller
     {
          
         $authUser = Auth::user();
+
+        //--for admin dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
         ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
 
-        return view('restaurant.admin.profile.edit', ['authUser' => $authUser, 'messages' => $messages]);
+        return view('restaurant.admin.profile.edit', ['authUser' => $authUser, 'messages' => $messages , 'notifications' => $notifications]);
     }
 
     /**
@@ -104,24 +108,30 @@ class ProfileController extends Controller
     public function adminPasswordEdit(){
 
         $authUser = Auth::user();
+        //--for admin dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
         ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
 
-        return view('restaurant.admin.profile.update-password',['authUser' => $authUser ,'messages' => $messages]);
+        return view('restaurant.admin.profile.update-password',['authUser' => $authUser ,'messages' => $messages , 'notifications' => $notifications]);
     }
 
 
     public function adminAdvanceSettings()
     {
         $authUser = Auth::user();
+        //--for admin dashboard message,which is located into the admin dashboard navbar--//
         $messages = User::join('messages', 'users.id', '=', 'messages.user_id')        
         ->orderBy('messages.created_at', 'desc')
         ->take(4)
         ->cursor();
+        //--For Admin Dashboard Notifications--//
+        $notifications = User::join('admin_notifies' , 'users.id', '=', 'admin_notifies.user_id')->orderBy('admin_notifies.created_at','desc')->take(4)->cursor();  ///akhane ami amader User model ta database ar jei table take represent kore jemon aikhane amader User model ta database ar users table take represent kore and ami amader users table ar sathe amader database ar r akta table jar nam admin_notifies ai 2ta table ke aksathe inner join korechi ..and amader ai inner join ta hobe users table ar users id ar sathe admin_notifies table ar user_id ar sathe
 
-        return view('restaurant.admin.profile.advance-setting',['authUser' => $authUser , 'messages' => $messages ]);
+        return view('restaurant.admin.profile.advance-setting',['authUser' => $authUser , 'messages' => $messages , 'notifications' => $notifications]);
     }
 
     /**

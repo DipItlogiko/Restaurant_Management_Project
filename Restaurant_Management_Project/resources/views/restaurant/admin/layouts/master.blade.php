@@ -362,7 +362,7 @@
                     <h6 class="p-3 mb-0">Notifications</h6>
                     <div class="dropdown-divider"></div>
                     @foreach ($notifications as $item)
-                      <a class="dropdown-item preview-item">
+                      <a href="{{ route('all.notification') }}" class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
                           <img src="Users_images/{{ $item->image }}" alt="image" class="rounded-circle profile-pic">
                         </div>                     
