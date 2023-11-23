@@ -1,36 +1,35 @@
 @extends('restaurant.user.layouts.master')
 
 @section('title')
-    all-messages
+    search-messages
 @endsection
 
 
-@section('body')    
+@section('body')
+<div class="p-5">   
+    
 
-   @if ($specificUserAllMessages->isEmpty())
-        <div class="p-5">
-            <div class="row text-center">
-                <div class="col-lg-3"></div>             
-    
-                <div class="col-lg-5">
-                    <div class="card border-0">
-                        <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
-                        <div class="card-body">
-                            <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
-                            <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go To Dashboard</a>
-                            <p class="card-text"><small class="text-muted">McDonald's</small></p>
-                        </div>
-                    </div>  
-                </div>
-    
-                <div class="col-lg-3"></div>                     
-                            
+    @if ($specificUserAllMessages->isEmpty())
+
+        <div class="row text-center">
+            <div class="col-lg-3"></div>             
+            
+            <div class="col-lg-5">
+                <div class="card border-0">
+                    <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
+                        <a href="{{ route('all.messages') }}" class="btn btn-outline-warning">Go Back</a>
+                        <p class="card-text"><small class="text-muted">McDonald's</small></p>
+                    </div>
+                </div>  
             </div>
-        </div>
-   @else    
- 
 
-<div class="container mt-3">
+            <div class="col-lg-3"></div>
+        </div>
+
+    @else    
+       
         <h1 class="mb-4 fw-bolder text-warning font">All Messages</h1>
         <!--===== Search bar start =====-->    
         <div class="search-container">
@@ -70,12 +69,12 @@
         @endif
 
         <!--==== End Flash Message ====-->
-            
+        
 
         <div class="row">
             <div class="col-lg-12 col-sm-12">
                 <div class="card mb-3 border-0">
-                    <div class="table-responsive mt-4 " style="width: 100%">
+                    <div class="table-responsive mt-4" style="width: 100%">
 
                         <table class="table"> 
                         <thead>
@@ -110,9 +109,9 @@
                             
                         </tbody>
                         </table>
-                        <!----Pagination degine--->
+                        <!---Pagination degine---->
                         <div class="row m-2 pt-3">
-                            {{ $specificUserAllMessages->links('pagination::bootstrap-5') }}
+                            {{ $specificUserAllMessages->appends(request()->query())->links('pagination::bootstrap-5') }}
                         </div>
                     
                     </div>
@@ -133,7 +132,7 @@
                     <span class="text-danger">Are you sure you want to delete this message?</span>
 
                         <div class="text-muted mt-4">
-                            Please press on Delete button to confirm you would like to permanently delete this Message from your Message records. 
+                        Please press on Delete button to confirm you would like to permanently delete this Message from your Message records. 
                         </div>
                     </div>
                     
@@ -147,7 +146,7 @@
 
         <!--====== END Remove Confirmation Pop Up Modal ======--> 
 
-   @endif
+    @endif
 
 
 </div>

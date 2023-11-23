@@ -7,7 +7,7 @@
 @section('body')
 <div class="p-5">
     
-    @if($specificUserReservations == '[]')
+    @if($specificUserReservations->isEmpty())
         
         <div class="row text-center">
             <div class="col-lg-3"></div>             
@@ -17,7 +17,7 @@
                     <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
-                        <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go Back</a>
+                        <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go To Dashboard</a>
                         <p class="card-text"><small class="text-muted">McDonald's</small></p>
                     </div>
                 </div>  
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-lg-12 col-sm-12">
                     <div class="card mb-3 border-0">
-                        <div class="table-responsive mt-4">
+                        <div class="table-responsive mt-md-5 pt-md-5">
 
                             <table class="table">
                             <thead>
@@ -79,36 +79,15 @@
                                 
                             </tbody>
                             </table>
+                            <!---Pagination degine---->
+                            <div class="row m-2 pt-3">
+                                {{ $specificUserReservations->links('pagination::bootstrap-5') }}
+                            </div>
                         
                         </div>
                     </div>
                 </div>             
-            </div>             
-
-            <!--======= Delete Confirmation Pop Up Modal ========-->
-
-            <div class="modal" id="confirmBookedTableDeletionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title text-warning font" style="font-size: 1.7rem" id="confirmUserDeletionModalLabel ">Delete Confirmation</h5>            
-                        </div>
-                        <div class="modal-body">
-                        <span class="text-danger">Are you sure you want to Delete this reservation from your table reservation record?</span>
-
-                            <div class="text-muted mt-4">
-                                Once this reservation is Deleted, all of it's resources and data will be permanently delete.Before deleting this please make sure you have clicked on free button for free your table.Please press on Delete button to confirm you would like to permanently Delete this reservation from your table reservation records. 
-                            </div>
-                        </div>
-                        
-                        <div class="modal-footer">
-                        <button id="cancelButton" type="button" class="btn btn-outline-light rounded-pill" data-dismiss="modal">Cancel</button>
-                        <a  class="btn btn-outline-danger rounded-pill">Delete</a>
-                        </div>
-                    </div>
-                    </div>
-                </div>    
-                <!--====== END Delete Confirmation Pop Up Modal ======--> 
+            </div>              
     
     @endif      
 </div> 

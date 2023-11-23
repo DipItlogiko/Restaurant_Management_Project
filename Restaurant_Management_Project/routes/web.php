@@ -52,7 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/sandMessage', [MessageController::class, 'sandMessage'])->name('sand.message');
     Route::get('/allMessages', [MessageController::class, 'allMessages'])->name('all.messages');
     Route::get('/editMessage{id}', [MessageController::class, 'editMessage'])->name('edit.message'); /// this {id} is comes from resources/views/restaurant/user/message/all-messages.blade.php
-
+    Route::patch('/updateMessage{id}', [MessageController::class, 'updateMessage'])->name('message.edit');  //this {id} is comes from resources/views/restaurant/user/message/edit-message.blade.php
+    Route::get('/messageDelete{id}', [MessageController::class, 'messageDelete']); //this {id} is comes from resources/views/restaurant/user/message/all-messages.blade.php
+    Route::get('/messageSearch', [SearchController::class, 'searchUserMessage'])->name('message.search');
+    Route::get('/searchOrder', [SearchController::class, 'searchOrder'])->name('search.order');
 
     ////====================================== Admin ================================////    
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
@@ -130,6 +133,11 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+// fallback route(ai fallback route ar kaj hocche amader application ar moddhe jodi kono user emon kono route likhe browser ar moddhe diye browse kore ja amader ai routes/web.php ar moddhe nei tokhon ai fallback route ar moddhe ai jei page ta define kore debo oi page ta user ar shamne show korbe)
+Route::fallback(function () {
+   return view('restaurant.fallback.error');
+});
  
 
 require __DIR__.'/auth.php'; ///// akhane amra amader routes ar moddhe jei auth.php file ta ache oi file take ami aikhane require kore niyechi karon amra amader oonek page ar moddhe routes/auth.php ar moddhe jei route ache oi route guloke add korechi...and jodi amra amader ai routes/auth.php ai web.php ar moddhe require na kori tahole amader page ar moddhe jei jei jaigai amara auth.php file ar route gulo use korechi oi route gulo khuje pabe na and error dekhabe...amara jokhon kono page ar moddhe amader route ar nam dei tokhon amader oi route gulo amader routes/web.php theke oi guloke khoje

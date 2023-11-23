@@ -86,8 +86,8 @@
                     @if ($user->email_verified_at == '') <!--akhane ami set kore diyechi jodi amader user ar email_verified_at column ta emty ba faka thake tahole Not Varified dekhabe and jodi amader user ar email_varified_at column ta te kono data thake tahole else aa chole jabe and user ar oi email_varified_at Column ar data ta dekhabe--->
                             <td>Not Varified</td>
                         
-                        @else  
-                        <td>{{ $user->email_verified_at }}</td>  
+                    @else  
+                        <td>{{  date("d-m-Y h:i A", strtotime($user->email_verified_at)) }}</td>
 
                     @endif     
 

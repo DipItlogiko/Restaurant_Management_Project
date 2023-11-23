@@ -201,7 +201,8 @@
 @section('custom_js')
 
 <script>
-
+ ///============ This script is for Aleart auto close ==========///
+ 
     // Get all elements with class "auto-close"
     const autoCloseElements = document.querySelectorAll(".auto-close");
 

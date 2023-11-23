@@ -113,7 +113,7 @@
                     <td>Not Varified</td>
                 
                 @else  
-                    <td>{{ $user->email_verified_at }}</td>  
+                    <td>{{  date("d-m-Y h:i A", strtotime($user->email_verified_at)) }}</td>  
 
                 @endif     
 

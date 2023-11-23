@@ -18,7 +18,7 @@
                     <h2 class="text-center fw-bold h1 mb-2 mx-1 mx-md-4 mt-2 mt-md-5 pt-md-5 text-light font">Edit<span style="color: #ffb03b">Message</span></h2> 
                 
 
-                 <form  method="POST" action="#" class=" mx-md-4" enctype="multipart/form-data">
+                 <form  method="POST" action="{{ route('message.edit',$specificMessage->id) }}" class=" mx-md-4" enctype="multipart/form-data">
                     @csrf
                     @method('patch') <!-------amra jokhon kono datake update korbo tokhon amra ai patch method ta use korbo ai patch method ta use korle laravel autometically bujhe jai je amader ai data ta update korte hobe tai amra kono data update korar jonno patch method ta use korbo--->
   

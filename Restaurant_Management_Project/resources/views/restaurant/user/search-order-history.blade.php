@@ -1,7 +1,7 @@
 @extends('restaurant.user.layouts.master')
 
 @section('title')
-    order-history
+    search-order
 @endsection
 
 
@@ -18,7 +18,7 @@
                     <img src="admin/images/nodata-found.png" alt="Image" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title font text-warning h2">No Data Found!!!</h5>
-                        <a href="{{ route('dashboard') }}" class="btn btn-outline-warning">Go To Dashboard</a>
+                        <a href="{{ route('order.history') }}" class="btn btn-outline-warning">Go Back</a>
                         <p class="card-text"><small class="text-muted">McDonald's</small></p>
                     </div>
                 </div>  
@@ -131,13 +131,13 @@
                         </table>
                         <!---Pagination degine--->
                         <div class="row m-2 pt-3">
-                            {{ $data->links('pagination::bootstrap-5') }}
+                            {{ $data->appends(request()->query())->links('pagination::bootstrap-5') }}
                         </div>
                     
                     </div>
                 </div>
             </div>             
-        </div>         
+        </div>       
 
     @endif
 

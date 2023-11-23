@@ -115,7 +115,7 @@ class MessageController extends Controller
         $authUser = Auth::user();
         $orderCount = Order::where('user_id', $authUser->id)->count(); 
         $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
-        $specificUserAllMessages = Message::where('user_id', $authUser->id)->orderBy('created_at' , 'desc')->cursor();
+        $specificUserAllMessages = Message::where('user_id', $authUser->id)->orderBy('created_at' , 'desc')->paginate(7);
 
         return view('restaurant.user.message.all-messages' , ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserAllMessages' => $specificUserAllMessages]);
     }
@@ -129,5 +129,33 @@ class MessageController extends Controller
         $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
         
         return view('restaurant.user.message.edit-message' , ['authUser' => $authUser ,'specificMessage' => $specificMessage , 'orderCount' => $orderCount , 'count' => $count]);
+    }
+
+    ///========= User will be able to update their own messages into the database table =======///
+    public function updateMessage(Request $request , $id)
+    {
+        //--form data validation--//
+        $request->validate([
+            'message' => ['required','string'],
+        ]);
+
+        $specificMessage = Message::find($id);
+
+        //--update specific message data into the database table--//
+        $specificMessage->message = $request->message;
+
+        $specificMessage->save();
+
+        return redirect()->route('all.messages')->with('status', 'Message Updated Successfully!!!');
+    }
+
+    ///========= User will be able to delete their own messages from the database table =======///
+    public function messageDelete($id)
+    {
+        $spechificMessage = Message::find($id);
+
+        $spechificMessage->delete();
+
+        return redirect()->back()->with('status' , 'Message Deleted Successfully!!!');
     }
 }

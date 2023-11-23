@@ -51,7 +51,7 @@
     
                 <div class="col-3">
                   <div class="icon icon-box-success">
-                    <a href="{{ route('admin.show.users') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a>
+                    <a href="{{ route('order.history') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a>
                   </div>
                 </div>
                
@@ -75,7 +75,7 @@
     
                 <div class="col-3">
                   <div class="icon icon-box-success">
-                    <a href="{{ route('admin.show.foods') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a>
+                    <a href="{{ url('/#menu') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a> <!--amader ai icon ar opore click korle amader / url a niye jabe and oi page ar menu section ar moddhe chole jabe tai ami #menu amader routes/web.php ar moddhe / ai route ta define kora ache--->
                   </div>
                 </div>
     
@@ -99,7 +99,7 @@
     
                 <div class="col-3">
                   <div class="icon icon-box-success">
-                    <a href="{{ route('admin.show.all.reserved.table') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a>
+                    <a href="{{ route('table.reservations') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a>
                   </div>
                 </div>
     
@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-3">
                   <div class="icon icon-box-success">
-                    <a href="{{ route('show.all.chefs') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a>
+                    <a href="{{ route('all.messages') }}" style="color: #00d25b"><span class="mdi mdi-arrow-top-right icon-item"></span></a>
                   </div>
                 </div>
               <h6 class="text-muted font-weight-normal text-customize">Messages Sent</h6>
