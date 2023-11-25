@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use App\Models\Food;
 use App\Models\User;
-
+use App\Events\FoodAddedEvent;
+ 
 class FoodController extends Controller
 {
     ///==== Admin Will be able to create food ====///
@@ -32,11 +33,17 @@ class FoodController extends Controller
         //--Form Data Validation--//
         $request->validate([
             'name' => ['required', 'regex:/^[A-Za-z\s]+$/'],
-            'image' => ['required', 'image' ,'mimes:jpg,jpeg,png'],
+            'image' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:1024'], // 1024 kilobytes = 1 megabytes(MB)
             'food_type' => ['required', 'string'],
             'price' => ['required', 'numeric','min:2'],
             'description' => ['required', 'regex:/^[A-Za-z\s\.,\-]+$/' ,'max:200'],
-        ]);     
+        ]);    
+        
+        ///--When admin will store a new food this below Event will fire and listener will listen this event..this event and listener is for user notification...
+        $foodName = $request->name;
+        $userIds = User::pluck('id'); // Get all user IDs..here we will get all user id from users table and pluck() method will return an associative array of all users id...associative array mens the array which format is key and value like 0 => dip ,1 => anik, 
+        $authAdminId = Auth::id();   /// akhane auth user id mane hocche amader Admin ar id karon amader application ar moddhe admin chara kew food create korte parbe na and store oo korte parbe na tai jokhon kono admin authentication complete kore amader ai food create page ar moddhe ashebe tokhon oi admin ar id ta amra Auth::id() ar maddhome peye jabo
+        event(new FoodAddedEvent($foodName, $userIds,$authAdminId));
         
         //// Upload image
         $imageName = time().'.'.$request->image->extension(); //// akhane amader $request ar moddhe je image ta ashbe jokhon kew amader form ar moddhe kono image diye submit korbe tokhon amaer oi image ta amader ai $request  ar moddhe chole ashbe and aikhane ami amader $requset ar moddhe je image take pabo oi image ar extension ke niyechi extension() function ar maddhome and oi image ar akta nam create korechi amra aikhane jemon $request ar moddhe theke asha amader image ar nam ta akhane ami convart kore diyechi jemon ai image ar nam hobe  ptothom aa time ta pore akta . tarpore amader image file ar extension ta hobe form ar moddhe jei image ta pathabe oi image ar extension take ami use korechi amader image ar nam ta create korar jonno.....

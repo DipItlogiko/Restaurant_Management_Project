@@ -76,9 +76,12 @@ class OrderController extends Controller
         foreach ($specificUserCarts as $cartItem) {
             $sumOfPrice += $cartItem->price * $cartItem->quantity;   ///// $sumOfPrice = $sumOfPrice + $cartItem->price * $cartItem->quantity; aitake amra $sumOfPrice += $cartItem->price * $cartItem->quantity; aivave likhechi short curt aaa...
         }
-        $sumOfItems = $specificUserCarts->count('title');         
+        $sumOfItems = $specificUserCarts->count('title');    
         
-        return view('restaurant.user.show-cart' , ['authUser' => $authUser, 'count' => $count , 'data' => $specificUserCarts , 'sumOfQuantity' => $sumOfQuantity , 'sumOfPrice' => $sumOfPrice, 'sumOfItems' => $sumOfItems , 'orderCount' => $orderCount]);
+        //--For user dashboard notification, which is located into the user dashboard navbar--//
+        $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
+        
+        return view('restaurant.user.show-cart' , ['authUser' => $authUser, 'count' => $count , 'data' => $specificUserCarts , 'sumOfQuantity' => $sumOfQuantity , 'sumOfPrice' => $sumOfPrice, 'sumOfItems' => $sumOfItems , 'orderCount' => $orderCount , 'specificUserNotifications' => $specificUserNotifications]);
     }
 
     ///====== User will be able to remove their carts from carts ======///

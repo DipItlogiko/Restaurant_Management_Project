@@ -335,7 +335,7 @@
                   <a href="{{ route('customser.messages') }}" style="text-decoration: none"><p class="p-3 mb-0 text-center text-light">All Messages</p></a>
                 </div>
               </li>
-              @if($notifications == '[]')
+              @if($notifications->isEmpty())
                   
                   <li class="nav-item dropdown border-left">
                     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">

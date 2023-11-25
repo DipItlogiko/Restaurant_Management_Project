@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\AdminNotify;
+use App\Models\Food;
+use App\Models\UserNotify;
 
 class MessageController extends Controller
 {
@@ -157,5 +159,38 @@ class MessageController extends Controller
         $spechificMessage->delete();
 
         return redirect()->back()->with('status' , 'Message Deleted Successfully!!!');
+    }
+
+    ///========= User will be able to see his own all notifications with clear and allclear buttons ========///
+    public function allNotification()
+    {
+        $authUser = Auth::user();
+        $allNotifications = Food::join('user_notifies' , 'food.title' , '=' , 'user_notifies.food_name',)->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc') ->cursor();
+        $orderCount = Order::where('user_id', $authUser->id)->count(); 
+        $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
+        $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
+        
+        return view('restaurant.user.all-notifications' , ['authUser' => $authUser, 'allNotifications' => $allNotifications, 'orderCount' => $orderCount , 'specificUserNotifications' => $specificUserNotifications, 'count' => $count]);
+    } 
+
+    ///======= User will be able to clear his own specific notifications from notification records =======///
+    public function userNotificationDelete($id)
+    {
+        $specificUserSpecificNotification = UserNotify::find($id);
+        
+        $specificUserSpecificNotification->delete();
+
+        return redirect()->back()->with('status', 'Notification Cleared Successfully!!!'); //// akhane return redirect()->back() mane hocche amader ai request  ta jei page theke asheche oporer kaj gulo hoye jawar pore amader oi page ar moddhe aabar back korbe and sathe akta message ooo niye jabe jei message take ami with ar moddhe pass korechi 'status' key ar moddh amader oi page ar moddhe akta flash message show korar jonno bootstrap ar Aleart use korechi to oporer ai kaj gulo hoye jawar pore amader amader ai request ta jei page  theke ashechilo oi page ar moodhe aabar back korbe jemon amader ai request ta ashche resources/views/restaurant/user/all-notifications.blade.php
+        
+    }
+
+    ///======== User will be able to clear his own all notifications from notification records ============///
+    public function clearAllNotifications()
+    {
+        $authUser = Auth::user();
+
+        $specificUserAllNotifications = UserNotify::where('user_id', $authUser->id)->delete();
+        
+        return redirect()->back();
     }
 }

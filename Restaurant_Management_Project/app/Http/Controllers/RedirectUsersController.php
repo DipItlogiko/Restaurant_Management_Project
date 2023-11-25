@@ -13,6 +13,7 @@ use App\Models\Chef;
 use App\Models\Task;
 use App\Models\Message;
 use App\Models\AdminNotify;
+use App\Models\UserNotify;
 
 class RedirectUsersController extends Controller
 {
@@ -131,8 +132,9 @@ class RedirectUsersController extends Controller
             
             $specificUserOrders = Order::where('user_id', $user_id)->orderBy('created_at', 'desc')->take(4)->cursor();   ///akhane ami amader Order Model ta database ar jei table take reppesent kore jemon orders table oi table table ar user_id column ar theke amader $user_id mane amader authenticated user ar id mane jei user ta signUp and signIn kore amader application ar moddhe asheche oi user ke bojhai oi user ar id diye amader orders table ar user_id column ta check korbe and jei koita data pabe oi data guloke desending format aa sajabe and ai descending format ta hobe oi datagulor created_at column ar opore vitti kore...descending mane hocche boro theke choto descending ar short form hocche 'desc' and accending ar mane hocche choto theke boro and ai accending ar short form hocche 'asc' ....desceinding format aa sajanor pore amader oikhan teke prothom 4 ta data nebe tai mai take(4) likhechi and oi 4 ta datake ami fatch korechi amader lazy collection ar cursor() method ar maddhome 
             $specificUserMessages = Message::where('user_id', $user_id)->orderBy('created_at' , 'desc')->take(4)->cursor();
+            $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $user_id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
             
-            return view('restaurant.user.dashboard',['authUser'=>$authUser , 'count' => $count , 'orderCount' => $orderCount , 'availableFoodCount' => $availableFoodCount , 'specificUserReservationsCount' => $specificUserReservationsCount , 'specificUserMessagesCount' => $specificUserMessagesCount , 'paidCash' => $paidCash , 'payableCash' => $payableCash ,'years'=>$years , 'yearlyPurchases' => $yearlyPurchases , 'maximumPurchasingAmount' => $maximumPurchasingAmount , 'specificUserOrders' => $specificUserOrders , 'specificUserMessages' => $specificUserMessages]);
+            return view('restaurant.user.dashboard',['authUser'=>$authUser , 'count' => $count , 'orderCount' => $orderCount , 'availableFoodCount' => $availableFoodCount , 'specificUserReservationsCount' => $specificUserReservationsCount , 'specificUserMessagesCount' => $specificUserMessagesCount , 'paidCash' => $paidCash , 'payableCash' => $payableCash ,'years'=>$years , 'yearlyPurchases' => $yearlyPurchases , 'maximumPurchasingAmount' => $maximumPurchasingAmount , 'specificUserOrders' => $specificUserOrders , 'specificUserMessages' => $specificUserMessages , 'specificUserNotifications' => $specificUserNotifications ]);
         }
         
     }

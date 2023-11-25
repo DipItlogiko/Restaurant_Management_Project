@@ -146,7 +146,7 @@ return [
     'string' => 'The :attribute field must be a string.',
     'timezone' => 'The :attribute field must be a valid timezone.',
     'unique' => 'The :attribute has already been taken.',
-    'uploaded' => 'The :attribute failed to upload.',
+    'uploaded' => 'The :attribute failed to upload.Image size must be less than 1MB',
     'uppercase' => 'The :attribute field must be uppercase.',
     'url' => 'The :attribute field must be a valid URL.',
     'ulid' => 'The :attribute field must be a valid ULID.',

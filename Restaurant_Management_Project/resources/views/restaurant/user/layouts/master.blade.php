@@ -166,48 +166,56 @@
              
             <ul class="navbar-nav navbar-nav-right">
                
+              @if ($specificUserNotifications->isEmpty())
+
+                <li class="nav-item dropdown border-left">
+                  <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-bell"></i>
+                    <span class="count bg-danger"></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                    <h6 class="p-3 mb-0">Notificatons</h6>
+                    <div class="dropdown-divider"></div>               
+                       
+                                           
+                    <p class="text-muted preview-subject p-3 text-center">Empty!!!</p>         
+                   
+                    
+                  </div>
+                </li>
+
+              @else 
               
-              <li class="nav-item dropdown border-left">
-                <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="mdi mdi-email"></i>
-                  <span class="count bg-success"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                  <h6 class="p-3 mb-0">Messages</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="assets/images/faces/face4.jpg" alt="image" class="rounded-circle profile-pic">
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Mark send you a message</p>
-                      <p class="text-muted mb-0"> 1 Minutes ago </p>
-                    </div>
+                <li class="nav-item dropdown border-left">
+                  <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-bell"></i>
+                    <span class="count bg-success"></span>
                   </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="assets/images/faces/face2.jpg" alt="image" class="rounded-circle profile-pic">
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Cregh send you a message</p>
-                      <p class="text-muted mb-0"> 15 Minutes ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="assets/images/faces/face3.jpg" alt="image" class="rounded-circle profile-pic">
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject ellipsis mb-1">Profile picture updated</p>
-                      <p class="text-muted mb-0"> 18 Minutes ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <p class="p-3 mb-0 text-center">4 new messages</p>
-                </div>
-              </li>
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                    <h6 class="p-3 mb-0">Notificatons</h6>
+                    <div class="dropdown-divider"></div>
+
+                    @foreach ($specificUserNotifications as $notification)
+                      <a href="{{ route('all.notifications') }}" class="dropdown-item preview-item">
+                        <div class="preview-thumbnail">
+                          <img src="Users_images/{{ $notification->image }}" alt="image" class="rounded-circle profile-pic">
+                        </div>
+                        <div class="preview-item-content">
+                          <p class="preview-subject ellipsis mb-1">New Food Has Arrived!!!</p>
+                          <p class="text-muted mb-0">Admin</p>
+                          <p class="text-muted mb-0"> {{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }} </p> <!--\Carbon\Carbon::parse($notification->created_at)->diffForHumans() ai ta amader messages table ar created_at column take 10 min ago 20min ago aivabe dekhabe jar jonno ami akta package use korechi check Readme.md-------->
+                        </div>
+                      </a>
+                      <div class="dropdown-divider"></div>
+                    @endforeach           
+
+                    
+                    <a href="{{ route('all.notifications') }}" class="text-light" style="text-decoration: none;"><p class="p-3 mb-0 text-center">All Notificatons</p></a>
+                  </div>
+                </li>
+
+              @endif
+              
         
                 @if ( $count > "0")  <!--akhane ami if ar moddhe moddhe bole diyechi jodi $count ar value 0 ar theke boro hoy tahole amader nicher code ta execute hobe jei code tuku ami amader if ar moddhe likhe diyechi mane amader cart icon ar opore green light dekhabe and amader ai $count variable ta ashche RedirectUsersController.php ar index() method theke---->
                   <li class="nav-item dropdown">

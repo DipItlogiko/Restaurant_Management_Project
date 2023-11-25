@@ -56,6 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/messageDelete{id}', [MessageController::class, 'messageDelete']); //this {id} is comes from resources/views/restaurant/user/message/all-messages.blade.php
     Route::get('/messageSearch', [SearchController::class, 'searchUserMessage'])->name('message.search');
     Route::get('/searchOrder', [SearchController::class, 'searchOrder'])->name('search.order');
+    Route::get('/allNotification' , [MessageController::class, 'allNotification'])->name('all.notifications');
+    Route::get('/userNotificationDelete{id}', [MessageController::class, 'userNotificationDelete']); //this {id} is comes from resources/views/restaurant/user/all-notifications.blade.php
+    Route::get('/clearAllNotifications', [MessageController::class, 'clearAllNotifications'])->name('clear.all.notifications');
+
 
     ////====================================== Admin ================================////    
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
@@ -122,7 +126,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/customerMessages', [MessageController::class , 'customerMessages'])->name('customser.messages');
     Route::get('/searchMessage', [SearchController::class, 'searchMessage'])->name('search.message');
     Route::get('/deleteMessage{id}' , [MessageController::class,'deleteMessage']); /// this {id} is comes from resources/views/restaurant/admin/message/all-message.blade.php and search-messages.blade.php
-    Route::get('/allNotifications', [MessageController::class, 'allNotifications'])->name('all.notification');
+    Route::get('/llNotifications', [MessageController::class, 'allNotifications'])->name('all.notification');
     Route::get('/deleteNotification{id}' , [MessageController::class,'deleteNotification']); /// this {id} is comes from resources/views/restaurant/admin/all-notification.blade.php
     Route::get('/deleteAllNotification' , [MessageController::class, 'deleteAllNotification'])->name('delete.All.Notification');
     Route::get('/searchUser' , [SearchController::class, 'searchUser'])->name('search.user'); 

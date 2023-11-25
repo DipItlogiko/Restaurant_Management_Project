@@ -22,8 +22,11 @@ class ProfileController extends Controller
         $authUser = Auth::user();
         $count = Cart::where('user_id',$authUser->id)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
         $orderCount = Order::where('user_id', $authUser->id)->count();
+        //--For user dashboard notification, which is located into the user dashboard navbar--//
+        $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
+        
 
-        return view('restaurant.user.profile.edit', ['authUser' => $authUser, 'orderCount' => $orderCount , 'count' => $count]);
+        return view('restaurant.user.profile.edit', ['authUser' => $authUser, 'orderCount' => $orderCount , 'count' => $count , 'specificUserNotifications' => $specificUserNotifications]);
     }
 
     /**
@@ -34,8 +37,10 @@ class ProfileController extends Controller
         $authUser = Auth::user();
         $count = Cart::where('user_id',$authUser->id)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
         $orderCount = Order::where('user_id', $authUser->id)->count();
+        //--For user dashboard notification, which is located into the user dashboard navbar--//
+        $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
 
-        return view('restaurant.user.profile.update-password', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count]);
+        return view('restaurant.user.profile.update-password', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserNotifications' => $specificUserNotifications]);
     }
 
     /**
@@ -46,8 +51,10 @@ class ProfileController extends Controller
         $authUser = Auth::user();
         $count = Cart::where('user_id',$authUser->id)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
         $orderCount = Order::where('user_id', $authUser->id)->count();
+        //--For user dashboard notification, which is located into the user dashboard navbar--//
+        $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
 
-        return view('restaurant.user.profile.advance-setting', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count]);
+        return view('restaurant.user.profile.advance-setting', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserNotifications' => $specificUserNotifications]);
     }    
 
     /**
