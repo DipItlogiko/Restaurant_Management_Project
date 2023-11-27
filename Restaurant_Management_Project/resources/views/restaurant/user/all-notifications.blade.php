@@ -104,6 +104,10 @@
                             
                         </tbody>
                         </table>
+                        <!--pagination degine-->
+                        <div class="row m-2 pt-3">
+                            {{ $allNotifications->links('pagination::bootstrap-5') }}
+                        </div>
                     
                     </div>
                 </div>

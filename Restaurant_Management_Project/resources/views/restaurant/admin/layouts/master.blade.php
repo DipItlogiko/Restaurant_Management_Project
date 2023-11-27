@@ -269,7 +269,7 @@
               <ul class="nav flex-column sub-menu">
 
                 <li class="nav-item"> <a class="nav-link" href="{{ route('daily.expense') }}">
-                    <i class="mdi mdi-pen text-success p-1"></i>
+                    <i class="mdi mdi-pen text-info p-1"></i>
                     Add </a></li> 
 
                 <li class="nav-item"> <a class="nav-link" href="{{ route('expenses.list') }}">
@@ -277,8 +277,12 @@
                     List </a></li>
 
                 <li class="nav-item"> <a class="nav-link" href="{{ route('monthly.expense') }}">
-                  <i class="mdi mdi-calendar-text text-info p-1"></i>
+                  <i class="mdi mdi-calendar-text text-danger p-1"></i>
                   Monthly Expense </a></li>
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('monthly.income') }}">
+                  <i class="mdi mdi-calendar-text text-success p-1"></i>
+                  Monthly Income </a></li>  
 
               </ul>
             </div>

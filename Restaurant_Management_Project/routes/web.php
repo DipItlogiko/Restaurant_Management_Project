@@ -15,6 +15,7 @@ use App\Http\Controllers\DailyExpenseController;
 use App\Http\Controllers\MonthlyExpenseController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MonthlyIncomeController;
  
 
 /*
@@ -33,9 +34,9 @@ Route::get('/',[Homecontroller::class,'index']);
 ////======= Authentication ar pore amader oi authenticated user ta ai route aa aashe hit korbe karon amara amader app/providers/RouteServiceProvider ar moddhe ai route take define kore diyechi==========////
 Route::get('/redirectUsers',[RedirectUsersController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');  ///// verified hoccche amader akta middleware ai middleware ar kaj hocche amader user ar email ta varify ki na ta check kore jodi user ar email varify thake tahole oi user ai route aa dhukte parbe jodi user ar email varify na thake tahole take aage email varify korte hobe tar pore she ai route aa dhukte parbe
 
-
-Route::middleware('auth')->group(function () {
-    ////====================================== User ================================////
+////====================================== User ================================////
+Route::middleware(['auth' , 'can:isUser'])->group(function () {                      /// amader can middleware ta app/Http/kernel.php ar moddhe bydefault vabe thake..ai can middleware ar kaj hocche authorization check kora jemon ai khane amader isUser authorization take check korbe amader can middleware ta ..and ai isUser authentication ta amara app/providers/AuthServiceProvider.php ar boot method ar moddhe define kore diyechi
+  
     Route::get('/profileEdit', [ProfileController::class, 'edit'])->name('profile.edit'); 
     Route::patch('/profileUpdate', [ProfileController::class, 'update'])->name('profile.update'); ///ai route ta amader User and Admin 2 jon ee use korte parbe
     Route::get('/resetPassword', [ProfileController::class, 'userPasswordEdit'])->name('user.password.edit'); 
@@ -59,9 +60,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/allNotification' , [MessageController::class, 'allNotification'])->name('all.notifications');
     Route::get('/userNotificationDelete{id}', [MessageController::class, 'userNotificationDelete']); //this {id} is comes from resources/views/restaurant/user/all-notifications.blade.php
     Route::get('/clearAllNotifications', [MessageController::class, 'clearAllNotifications'])->name('clear.all.notifications');
+});
 
 
-    ////====================================== Admin ================================////    
+ ////====================================== Admin ================================////
+Route::middleware(['auth' ,'can:isAdmin'])->group(function () {      /// amader can middleware ta app/Http/kernel.php ar moddhe bydefault vabe thake..ai can middleware ar kaj hocche authorization check kora jemon ai khane amader isAdmin authorization take check korbe amader can middleware ta ..and ai isAdmin authentication ta amara app/providers/AuthServiceProvider.php ar boot method ar moddhe define kore diyechi
+
+       
     Route::get('/adminProfile', [ProfileController::class, 'adminEdit'])->name('admin.edit');
     Route::get('/adminPassword', [ProfileController::class, 'adminPasswordEdit'])->name('password.edit');
     Route::get('/adminAdvanceSettings', [ProfileController::class, 'adminAdvanceSettings'])->name('admin.advance.settings');
@@ -133,6 +138,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/searchUserForDelete' , [SearchController::class, 'searchUserForDelete'])->name('search.for.delete.user');
     Route::get('/searchTrushUser' , [SearchController::class, 'searchTrushUser'])->name('search.trush.user');
     Route::get('/searchFood' , [SearchController::class, 'searchFood'])->name('search.food');
+    Route::get('/monthlyIncome' , [MonthlyIncomeController::class, 'monthlyIncome'])->name('monthly.income');
+    Route::post('/monthlyIncomePDF', [MonthlyIncomeController::class,'monthlyIncomePDF'])->name('monthly.income.pdf'); 
 
 });
 
@@ -145,3 +152,4 @@ Route::fallback(function () {
  
 
 require __DIR__.'/auth.php'; ///// akhane amra amader routes ar moddhe jei auth.php file ta ache oi file take ami aikhane require kore niyechi karon amra amader oonek page ar moddhe routes/auth.php ar moddhe jei route ache oi route guloke add korechi...and jodi amra amader ai routes/auth.php ai web.php ar moddhe require na kori tahole amader page ar moddhe jei jei jaigai amara auth.php file ar route gulo use korechi oi route gulo khuje pabe na and error dekhabe...amara jokhon kono page ar moddhe amader route ar nam dei tokhon amader oi route gulo amader routes/web.php theke oi guloke khoje
+ 

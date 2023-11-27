@@ -118,8 +118,10 @@ class MessageController extends Controller
         $orderCount = Order::where('user_id', $authUser->id)->count(); 
         $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
         $specificUserAllMessages = Message::where('user_id', $authUser->id)->orderBy('created_at' , 'desc')->paginate(7);
+        //--For user dashboard notification, which is located into the user dashboard navbar--//
+       $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
 
-        return view('restaurant.user.message.all-messages' , ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserAllMessages' => $specificUserAllMessages]);
+        return view('restaurant.user.message.all-messages' , ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserAllMessages' => $specificUserAllMessages , 'specificUserNotifications' => $specificUserNotifications]);
     }
 
     ///========== User will be able to edit his own messages ========///
@@ -129,8 +131,11 @@ class MessageController extends Controller
         $authUser = Auth::user();
         $orderCount = Order::where('user_id', $authUser->id)->count(); 
         $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
+        //--For user dashboard notification, which is located into the user dashboard navbar--//
+        $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
         
-        return view('restaurant.user.message.edit-message' , ['authUser' => $authUser ,'specificMessage' => $specificMessage , 'orderCount' => $orderCount , 'count' => $count]);
+        
+       return view('restaurant.user.message.edit-message' , ['authUser' => $authUser ,'specificMessage' => $specificMessage , 'orderCount' => $orderCount , 'count' => $count, 'specificUserNotifications' => $specificUserNotifications]);
     }
 
     ///========= User will be able to update their own messages into the database table =======///
@@ -165,7 +170,7 @@ class MessageController extends Controller
     public function allNotification()
     {
         $authUser = Auth::user();
-        $allNotifications = Food::join('user_notifies' , 'food.title' , '=' , 'user_notifies.food_name',)->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc') ->cursor();
+        $allNotifications = Food::join('user_notifies' , 'food.title' , '=' , 'user_notifies.food_name',)->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->paginate(8);
         $orderCount = Order::where('user_id', $authUser->id)->count(); 
         $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
         $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 

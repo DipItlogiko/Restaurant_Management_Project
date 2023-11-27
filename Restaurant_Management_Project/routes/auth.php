@@ -20,7 +20,7 @@ Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:5,1');  //// akhane amader app/Http/kernel.php ar moddhe throttle nam aaa jei middleware ta bydefault vabe thake oi middleware take ami akhane use korechi amader ai throttle middleware tar kaj hocche rate limite kora mane amader akta route aa minute aaa ba ghontai koita request ashte parbe ta amra ai throttle middleware ar moddhe define kore dite pari..jemon ami akhane 'throttle:5,1' diye bole diyechi amader ai route ar moddhe 5 ta request ashte parbe 1 minute ar moddhe jodi 1 minute ar moddhe 6 ta request ashe tahole akta error dekhabe je too many attempts
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');

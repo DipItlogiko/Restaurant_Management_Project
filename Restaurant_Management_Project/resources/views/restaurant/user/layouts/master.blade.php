@@ -130,25 +130,53 @@
               </a>
             </li>
             
-          @endif
-
+          @endif            
+          
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('table.reservations') }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#reservations" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-table-edit"></i>
               </span>
               <span class="menu-title">Reservations</span>
+              <i class="menu-arrow"></i>
             </a>
-          </li>        
+            <div class="collapse" id="reservations">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item"> <a class="nav-link" href="{{ url('/#book-a-table') }}">
+                    <i class="mdi mdi-border-color text-success p-1"></i>
+                    Make </a></li> 
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('table.reservations') }}">
+                    <i class="mdi mdi-view-list text-primary p-1"></i>
+                    All Reservations </a></li>
+
+              </ul>
+            </div>
+          </li>           
           
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('all.messages') }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#message" aria-expanded="false" aria-controls="auth">
               <span class="menu-icon">
                 <i class="mdi mdi-email text-light"></i>
               </span>
               <span class="menu-title">Message</span>
+              <i class="menu-arrow"></i>
             </a>
-          </li>         
+            <div class="collapse" id="message">
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item"> <a class="nav-link" href="{{ url('/#contact') }}">
+                    <i class="mdi mdi-border-color text-info p-1"></i>
+                    Make </a></li> 
+
+                <li class="nav-item"> <a class="nav-link" href="{{ route('all.messages') }}">
+                    <i class="mdi mdi-view-list text-success p-1"></i>
+                    All Messages </a></li>
+
+              </ul>
+            </div>
+          </li>
            
         </ul>
       </nav>

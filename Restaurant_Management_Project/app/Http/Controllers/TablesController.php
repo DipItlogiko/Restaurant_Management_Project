@@ -231,9 +231,11 @@ class TablesController extends Controller
         $orderCount = Order::where('user_id', $authUser->id)->count(); 
         $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
         $specificUserReservations = TableReservation::join('tables', 'table_reservations.table_name', '=' , 'tables.name' )->where('table_reservations.user_id',$authUser->id)->paginate(7);  //// akhane ami TableReservation Model ta jei database ar table ke represent korche oi table ar sathe ami tables table ke join kore diyechi akhane tables nam ar table ta beshi power pabe karon ami oi table ke join ar moddhe likhechi tai...table_name aita hocche amar  table_reservations table ar column ami ai column ar sathe amader tables table ar name column ar sathe join kore diyechi... ami ->where('table_reservations.user_id',$authUser->id) aita diye bolechi je amader table_reservations nam aaa jei table ta ache database ar moddhe oi table ar user_id column ar moddhe amader $authUser->id authenticated user ar id koto bar ache oita check kobe and joto bar thakbe oi datagulo lazy collection ar cursor() method ta amader eene debe database ar table theke
+       //--For user dashboard notification, which is located into the user dashboard navbar--//
+       $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
 
 
-        return view('restaurant.user.show-booked-tables', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserReservations' => $specificUserReservations]);
+        return view('restaurant.user.show-booked-tables', ['authUser' => $authUser , 'orderCount' => $orderCount , 'count' => $count , 'specificUserReservations' => $specificUserReservations , 'specificUserNotifications' => $specificUserNotifications]);
     }
     
     ///========= Admin will be able to free aa booked table ======///

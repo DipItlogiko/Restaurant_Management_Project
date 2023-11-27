@@ -18,7 +18,8 @@ class OrderController extends Controller
         $authUser = Auth::user();
         $specificFood = Food::find($id);
         $orderCount = Order::where('user_id', $authUser->id)->count();    ////// akhane ami Order Model ta database ar jei table take represent kore jemon aikhane amader Order Model ta amader database ar orders table take represent kore and ami orders table ar theke check korechi where diye mane orders table ar jeikhane user_id name column ache oi column theke check korbe amader Authenticated user ar id koto bar ache oi orders table ar user_id column ar moddhe and joto bar thakbe ta count kore amader $orderCount ar moddhe store kore debe
-        
+        //--For user dashboard notification, which is located into the user dashboard navbar--//
+        $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor(); 
 
         $user_id = Auth::id(); //// akhane ami authenticated user ar id ta peye jabo Auth::id() ar maddhome....Authenticated user mane hocche jei user signUp and signIn kore amader application ar moddhe enter koreche oi user ke bojhai..
         $count = Cart::where('user_id',$user_id)->count(); /// akhane amader laravel application ar Cart Model ta database ar jei table take represent kore oi table theke ami where ar maddhome check korchi oi table ar user_id field ar moddhe amader Authenticated user ar id koi bar ache oi ta count korchi count() function diye...count hocche akta aggregiate function amra jani aggregiate function mot 5 ta.
@@ -26,7 +27,7 @@ class OrderController extends Controller
         if ($authUser->user_type == '0'){ //// jodi amader Authenticated user ar user_type jodi 0 hoy mane jei user ta siguUp and logIn kore amader application ar moddhe ashbe oi user ar user_type ta jodi 0 hoy tahole shudhu oi user ta amader ai if ar moddhe ja bola ache ta korte parbe
 
             if(Auth::id()){ ///// akhane ami if ar moddhe Auth::id() diye bole diyechi je jodi Auth:id() pai mane kono Authenticated user ar id pai mane je user signUp ba signIn kore amader application ar moddhe ashbe oi user ar id ta jodi pai taholei oi Authenticated user ke amader cart page ar moddhe  jete parbe...mane authentication chara kew amader cart page ar moddhe jete parbe na..
-                return view('restaurant.user.food-cart',['authUser' => $authUser , 'specificFood' => $specificFood , 'count' => $count , 'orderCount' => $orderCount]);
+                return view('restaurant.user.food-cart',['authUser' => $authUser , 'specificFood' => $specificFood , 'count' => $count , 'orderCount' => $orderCount , 'specificUserNotifications' => $specificUserNotifications]);
             }else{  ///// jodi kono user Authenticated na thake mane signUp ba signIn kore na ashe tahole amader oi user take aikhane login page dekhabe
                 return redirect()->route('login');
             }
@@ -202,8 +203,11 @@ class OrderController extends Controller
        $count = Cart::where('user_id', $authUser->id )->count(); //// akhane amader Cart model ta amader database ar jei table take represent kore jemon aikhane Cart model ta amader database ar carts table take represent kore akhane carts table theke ami where ar moddhe bolechi carts table ar user_id column ar moddhe $authUser->id mane authenticated user ar id kotobar ache oita aikhane count() korechi 
        $orderCount = Order::where('user_id', $authUser->id)->count(); 
 
+       //--For user dashboard notification, which is located into the user dashboard navbar--//
+       $specificUserNotifications = User::join('user_notifies' , 'users.id' ,'=', 'user_notifies.admin_id')->where('user_id', $authUser->id)->orderBy('user_notifies.created_at' , 'desc')->take(4)->cursor();
+
        $data = Order::where('user_id', $authUser->id)->orderBy('created_at' , 'desc')->paginate(7);
 
-       return view('restaurant.user.order-history',['authUser' => $authUser , 'count' => $count, 'orderCount' => $orderCount , 'data' => $data]);
+       return view('restaurant.user.order-history',['authUser' => $authUser , 'count' => $count, 'orderCount' => $orderCount , 'data' => $data , 'specificUserNotifications' => $specificUserNotifications]);
     }
 }

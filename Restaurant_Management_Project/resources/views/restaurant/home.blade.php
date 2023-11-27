@@ -18,7 +18,7 @@
         </svg>
             
             <!--(aleart)-->
-            <div class="auto-close alert alert-success d-flex align-items-center" role="alert">
+            <div class="auto-close alert alert-success d-flex align-items-center" role="alert" style="z-index: 5000;">
                 <svg class="bi flex-shrink-0 me-2 text-success" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                 <div>
                     {{ session('success') }}
@@ -53,6 +53,7 @@
 
  <!--==== End Danger Flash Message ====-->
 @endsection
+
 
 @section('top_bar')
     @include('restaurant.includes.TopBar')
